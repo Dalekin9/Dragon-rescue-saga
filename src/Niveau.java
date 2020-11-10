@@ -1,4 +1,5 @@
 public class Niveau {
+    
     private Grille grid;
     public int id;
     public String name;
