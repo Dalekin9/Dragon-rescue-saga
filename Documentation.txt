@@ -1,0 +1,16 @@
+Environnement du jeu :
+
+Niveaux et progression du joueur
+accueil
+regles
+demos
+
+Plateau-Joueur
+
+methodes dans plateau
+joueur humain et robot
+
+Idées bonus envisageables
+
+supprimer coup
+aide si difficulté
