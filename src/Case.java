@@ -2,7 +2,7 @@ public class Case {
     
     private int is;
 
-    public Case(char est){
+    public Case(int est){
         is = est;
     }
     
@@ -14,9 +14,21 @@ public class Case {
         is = a;
     }
     
-    //0 = jaune
-    //1 = violet
-    //2 = bleu
-    //3 = vert
+    public void supprimer(){
+        is = -10;
+    }
+    
+    public void remplacer(Case a){
+        is = a.is;
+        a.is = -10;
+        
+    }
+    
+    //-1 = neutre
+    //0 = animal
+    //1 = jaune
+    //2 = violet
+    //3 = bleu
+    //4 = vert
     
 }
