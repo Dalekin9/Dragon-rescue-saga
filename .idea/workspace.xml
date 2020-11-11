@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Case.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Case.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Grille.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Grille.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TO DO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TO DO.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +10,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="ADAM Pauline &lt;pauline92@hotmail.fr&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1k7IyjHWHQnY0u94PZu0AQmo7oZ" />
@@ -59,39 +61,47 @@
       <option name="project" value="LOCAL" />
       <updated>1605045538976</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implémentation d'un systeme de point lors de la suppression, et d'un systeme de vérification d'un coup valide (plus d'un bloc à supprimer)">
+      <created>1605127249072</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1605127249072</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Reparation de betises" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reparation de betises" />
+    <MESSAGE value="Implémentation d'un systeme de point lors de la suppression, et d'un systeme de vérification d'un coup valide (plus d'un bloc à supprimer)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implémentation d'un systeme de point lors de la suppression, et d'un systeme de vérification d'un coup valide (plus d'un bloc à supprimer)" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="423" y="0" key="CommitChangelistDialog2" timestamp="1605045535885">
+    <state x="423" y="0" key="CommitChangelistDialog2" timestamp="1605127246385">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="423" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1605045535885" />
-    <state width="1493" height="356" key="GridCell.Tab.0.bottom" timestamp="1605125941374">
+    <state x="423" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1605127246385" />
+    <state width="1493" height="615" key="GridCell.Tab.0.bottom" timestamp="1605127058350">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605125941374" />
-    <state width="1493" height="356" key="GridCell.Tab.0.center" timestamp="1605125941374">
+    <state width="1493" height="615" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605127058350" />
+    <state width="1493" height="615" key="GridCell.Tab.0.center" timestamp="1605127058350">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605125941374" />
-    <state width="1493" height="356" key="GridCell.Tab.0.left" timestamp="1605125941374">
+    <state width="1493" height="615" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605127058350" />
+    <state width="1493" height="615" key="GridCell.Tab.0.left" timestamp="1605127058350">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605125941374" />
-    <state width="1493" height="356" key="GridCell.Tab.0.right" timestamp="1605125941374">
+    <state width="1493" height="615" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605127058350" />
+    <state width="1493" height="615" key="GridCell.Tab.0.right" timestamp="1605127058350">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="356" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605125941374" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1605045557686">
+    <state width="1493" height="615" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605127058350" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1605127267590">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1605045557686" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1605127267590" />
     <state x="315" y="148" width="905" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1605047118054">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
