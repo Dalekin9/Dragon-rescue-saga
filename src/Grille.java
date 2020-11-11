@@ -9,18 +9,18 @@ public class Grille {
     }
     
     public void remplirAnimaux(int x, int y){
-        gril[x][y] = new Case(0);
+        gril[x][y] = new Case('a');
     }
     
     public void remplirFixe(int x, int y){
-        gril[x][y] = new Case(-1);
+        gril[x][y] = new Case('n');
     }
     
     public void remplirBlocs(){
         for(int i=0;i<gril.length;i++){
             for(int j = 0; j<gril[i].length;j++) {
                 Random rand = new Random();
-                gril[i][j] = new Case(rand.nextInt(4)+1);
+                gril[i][j] = new Case((char)((rand.nextInt(4)+1)+'0'));
             }
         }
     }
@@ -37,7 +37,7 @@ public class Grille {
     public boolean remplie(){
         for (int i=0;i<gril.length;i++){
             for (int j=0;j<gril[i].length;j++){
-                if (gril[i][j].getIs() == -10){
+                if (gril[i][j].getIs() == 's'){
                     return false;
                 }
             }
@@ -47,7 +47,7 @@ public class Grille {
     
     public void supprimer(int x, int y){
         int res = gril[x][y].getIs();
-        gril[x][y].setIs(-10);
+        gril[x][y].setIs('s');
         if (x-1 > -1 && gril[x-1][y].getIs() == res){
             supprimer(x-1,y);
         }
@@ -66,10 +66,10 @@ public class Grille {
         while(!remplie()){
             for (int i=0;i<gril.length;i++){
                 for (int j=0;j<gril[i].length;j++){
-                    if (gril[i][j].getIs() == -10){
+                    if (gril[i][j].getIs() == 's'){
                         if (i-1 < 0){
                             Random rand = new Random();
-                            gril[i][j].setIs(rand.nextInt(4)+1);
+                            gril[i][j].setIs((char)((rand.nextInt(4)+1)+'0'));
                         } else {
                             gril[i][j].remplacer(gril[i - 1][j]);
                         }

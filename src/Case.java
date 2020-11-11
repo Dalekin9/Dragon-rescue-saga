@@ -1,31 +1,32 @@
 public class Case {
     
-    private int is;
+    private char is;
 
-    public Case(int est){
+    public Case(char est){
         is = est;
     }
     
-    public int getIs(){
+    public char getIs(){
         return is;
     }
     
-    public void setIs(int a){
+    public void setIs(char a){
         is = a;
     }
     
     public void supprimer(){
-        is = -10;
+        is = 's';
     }
     
     public void remplacer(Case a){
         is = a.is;
-        a.is = -10;
+        a.is = 's';
         
     }
-    
-    //-1 = neutre
-    //0 = animal
+
+    //'s' = Supprimé
+    //'n' = neutre
+    //'a' = animal
     //1 = jaune
     //2 = violet
     //3 = bleu
