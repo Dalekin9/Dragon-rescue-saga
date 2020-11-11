@@ -79,4 +79,36 @@ public class Grille {
         }
     }
     
+    public int ontEteSupprime(){
+        int compt = 0;
+        for (int i=0;i<gril.length;i++){
+            for (int j=0;j<gril[i].length;j++){
+                if (gril[i][j].getIs() == 's'){
+                    compt++;
+                }
+            }
+        }
+        return compt;
+    }
+    
+    public int points(){
+        int compt = this.ontEteSupprime();
+        return compt*compt*10;
+    }
+    
+    public boolean coupValide(int x,int y){
+        int res = gril[x][y].getIs();
+        if (x-1 > -1 && gril[x-1][y].getIs() == res){
+            return true;
+        } else if (x+1 < gril.length && gril[x+1][y].getIs() == res){
+            return true;
+        } else if (y-1 > -1 && gril[x][y-1].getIs() == res){
+            return true;
+        } else if (y+1 < gril.length && gril[x][y+1].getIs() == res){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }

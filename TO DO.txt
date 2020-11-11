@@ -16,3 +16,5 @@ Finish :
 Repartir les couleurs en numeros, et les objets egalement
 Supprimer les cases adjacentes ayant le meme numeros
 remplacer les cases supprimées par celle du dessus
+Systeme de point
+Verifier si coup valide ou pas

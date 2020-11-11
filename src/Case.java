@@ -10,17 +10,17 @@ public class Case {
         return is;
     }
     
-    public void setIs(char a){
-        is = a;
+    public void setIs(char c){
+        is = c;
     }
     
     public void supprimer(){
         is = 's';
     }
     
-    public void remplacer(Case a){
-        is = a.is;
-        a.is = 's';
+    public void remplacer(Case c){
+        is = c.is;
+        c.is = 's';
         
     }
 
