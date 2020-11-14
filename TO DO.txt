@@ -8,6 +8,11 @@ TO DO :
 Level qui contient -> attribut grille, int level
 (Reflechir a une sauvegarde des données)
 Interface graphique
+augmenter point qnd animaux en bas et les supp puis remplacer bloc
+crrer classe objets
+coup spéciaux quand ligne/bloc supp
+(combien d'animaux present ds la grille)
+(animal sauve)
 
 Doing :
 
