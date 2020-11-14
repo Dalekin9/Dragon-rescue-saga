@@ -10,6 +10,7 @@ public class Grille implements Serializable {
     }
     
     //on suppose les coordonnées x et y toujours corrects
+    //rempli le tableau avec les animaux
     public void poserAnimaux(int[][] tab){
         for (int i = 0;i<tab.length;i++){
             gril[tab[i][0]][tab[i][1]] = new Case('a');
@@ -17,12 +18,22 @@ public class Grille implements Serializable {
     }
     
     //on suppose les coordonnées x et y toujours corrects
+    //rempli le tableau de bloc fixe
     public void poserFixe(int[][] tab){
         for (int i = 0;i<tab.length;i++){
             gril[tab[i][0]][tab[i][1]] = new Case('n');
         }
     }
     
+    //on suppose les coordonnées x et y toujours corrects
+    //rempli le tableau d'endroit vide
+    public void poserVide(int[][] tab){
+        for (int i = 0;i<tab.length;i++){
+            gril[tab[i][0]][tab[i][1]] = new Case('v');
+        }
+    }
+    
+    //rempli le tableau de bloc de couleur
     public void remplirBlocs(){
         for(int i=0;i<gril.length;i++){
             for(int j = 0; j<gril[i].length;j++) {

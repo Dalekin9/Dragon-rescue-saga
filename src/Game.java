@@ -3,8 +3,8 @@ import java.io.*;
 public class Game {
     
     public static void main(String[] args){
-        final Niveau level1 = new Niveau(new Grille(new Case[8][8]),1,2,0,0,new int[][]{{6,2},{2,2}},null);
-        final Niveau level2 = new Niveau(new Grille(new Case[8][8]),2,3,0,500,new int[][]{{6,2},{2,2}},null);
+        Niveau level1 = new Niveau(new Grille(new Case[8][8]),1,2,0,0,new int[][]{{6,2},{2,2}},null, null);
+        Niveau level2 = new Niveau(new Grille(new Case[8][8]),2,3,0,500,new int[][]{{6,2},{2,2}},null, null);
         ObjectOutputStream oos = null;
     
         try {
