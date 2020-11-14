@@ -1,4 +1,6 @@
-public class Case {
+import java.io.Serializable;
+
+public class Case implements Serializable {
     
     private char is;
 

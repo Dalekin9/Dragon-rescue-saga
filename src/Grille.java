@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Random;
 
-public class Grille {
+public class Grille implements Serializable {
     
     Case[][] gril;
 

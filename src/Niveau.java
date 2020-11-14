@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Niveau implements java.io.Serializable {
+public class Niveau implements Serializable {
     
     protected Grille grid;
     public int id;
@@ -21,8 +21,12 @@ public class Niveau implements java.io.Serializable {
         nb_point_min = point;
         best_score = new int[]{0, 0, 0, 0, 0};
         acces = false;
-        grid.poserAnimaux(anim);
-        grid.poserFixe(neutre);
+        if (anim != null) {
+            grid.poserAnimaux(anim);
+        }
+        if (neutre != null) {
+            grid.poserFixe(neutre);
+        }
         pos_animal = anim;
         pos_neutre = neutre;
     }

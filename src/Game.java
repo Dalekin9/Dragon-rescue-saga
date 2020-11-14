@@ -3,13 +3,15 @@ import java.io.*;
 public class Game {
     
     public static void main(String[] args){
-        final Niveau level1= new Niveau(new Grille(new Case[4][5]),1,3,15,5000,new int[][]{{1,2}},new int[][]{{2,4}});
+        final Niveau level1 = new Niveau(new Grille(new Case[8][8]),1,2,0,0,new int[][]{{6,2},{2,2}},null);
+        final Niveau level2 = new Niveau(new Grille(new Case[8][8]),2,3,0,500,new int[][]{{6,2},{2,2}},null);
         ObjectOutputStream oos = null;
     
         try {
-            final FileOutputStream fichier = new FileOutputStream("levels.ser");
+            final FileOutputStream fichier = new FileOutputStream("level.ser");
             oos = new ObjectOutputStream(fichier);
             oos.writeObject(level1);
+            oos.writeObject(level2);
             oos.flush();
         } catch (final java.io.IOException e) {
             e.printStackTrace();
