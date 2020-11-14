@@ -1,6 +1,6 @@
-public class Niveau1 extends Niveau {
+/*public class Niveau1 {
     
-    public Niveau1() {
+    /*public Niveau1() {
         super(new Grille(new Case[8][8]), 1, 2, 0, 0);
         this.grid = creer_grille();
     }
@@ -12,4 +12,4 @@ public class Niveau1 extends Niveau {
         return fin;
     }
     
-}
+}*/

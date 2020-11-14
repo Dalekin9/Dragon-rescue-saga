@@ -3,9 +3,6 @@ public class Game {
     public static void main(String[] args){
         Case[][] cas = new Case[6][8];
         int a = 1;
-        Niveau level1 = new Niveau1();
-        level1.afficher();
-        level1.grid.afficher();
         //aa.System.out.print();
         /*Niveau one = new Niveau(new Grille(new Case[6][8]),1);
         a.remplirBlocs();

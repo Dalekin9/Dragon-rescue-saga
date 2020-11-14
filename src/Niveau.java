@@ -1,4 +1,6 @@
-public class Niveau {
+import java.io.Serializable;
+
+public class Niveau implements Serializable {
     
     protected Grille grid;
     public int id;
@@ -7,15 +9,22 @@ public class Niveau {
     protected int nb_point_min;
     protected int[] best_score;
     protected boolean acces;
+    protected int[][] pos_animal;
+    protected int[][] pos_neutre;
 
-    public Niveau(Grille grille, int numero, int animaux, int coup, int point){
+    public Niveau(Grille grille, int numero, int animaux, int coup, int point, int[][] anim, int[][] neutre){
         grid = grille;
+        grid.remplirBlocs();
         id = numero;
         nb_animaux = animaux;
         nb_coup_min = coup;
         nb_point_min = point;
         best_score = new int[]{0, 0, 0, 0, 0};
         acces = false;
+        grid.poserAnimaux(anim);
+        grid.poserFixe(neutre);
+        pos_animal = anim;
+        pos_neutre = neutre;
     }
     
     public void afficher(){
@@ -41,6 +50,5 @@ public class Niveau {
             }
         }
     }
-    
     
 }
