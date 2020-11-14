@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Niveau implements Serializable {
+public class Niveau implements java.io.Serializable {
     
     protected Grille grid;
     public int id;
