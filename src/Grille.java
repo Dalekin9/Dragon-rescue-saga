@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Random;
 
-public class Grille {
+public class Grille implements Serializable {
     
     Case[][] gril;
 
@@ -8,12 +9,18 @@ public class Grille {
         gril = grid;
     }
     
-    public void remplirAnimaux(int x, int y){
-        gril[x][y] = new Case('a');
+    //on suppose les coordonnées x et y toujours corrects
+    public void poserAnimaux(int[][] tab){
+        for (int i = 0;i<tab.length;i++){
+            gril[tab[i][0]][tab[i][1]] = new Case('a');
+        }
     }
     
-    public void remplirFixe(int x, int y){
-        gril[x][y] = new Case('n');
+    //on suppose les coordonnées x et y toujours corrects
+    public void poserFixe(int[][] tab){
+        for (int i = 0;i<tab.length;i++){
+            gril[tab[i][0]][tab[i][1]] = new Case('n');
+        }
     }
     
     public void remplirBlocs(){
