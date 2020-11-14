@@ -2,6 +2,8 @@ Priorité :
 
 Creer une partie en mode texte (donc lecture dans la console des coordonnées avec mess d'erreur etc)
 Reflechir au nombre de lvl dans le jeu
+decaler les blocs a droite/gauche
+modifier les x/y (inverser) dans le code
 
 TO DO :
 
@@ -12,7 +14,7 @@ augmenter point qnd animaux en bas et les supp puis remplacer bloc
 crrer classe objets
 coup spéciaux quand ligne/bloc supp
 (combien d'animaux present ds la grille)
-(animal sauve)
+(animal sauve) + 1 000 points
 
 Doing :
 
