@@ -4,21 +4,24 @@ import java.util.Random;
 public class Grille implements Serializable {
     
     Case[][] gril;
+    private final int haut,longu;
 
     public Grille(Case[][] grid){
         gril = grid;
+        haut = gril.length;
+        longu = gril[0].length;
     }
     
-    //on suppose les coordonnées x et y toujours corrects
-    //rempli le tableau avec les animaux
+    //On suppose les coordonnées x et y sont toujours correctes
+    //Rempli le tableau avec les animaux
     public void poserAnimaux(int[][] tab){
         for (int i = 0;i<tab.length;i++){
             gril[tab[i][0]][tab[i][1]] = new Case('a');
         }
     }
     
-    //on suppose les coordonnées x et y toujours corrects
-    //rempli le tableau de bloc fixe
+    //On suppose les coordonnées x et y sont toujours correctes
+    //Rempli le tableau de blocs fixes
     public void poserFixe(int[][] tab){
         for (int i = 0;i<tab.length;i++){
             gril[tab[i][0]][tab[i][1]] = new Case('n');
@@ -33,7 +36,7 @@ public class Grille implements Serializable {
         }
     }
     
-    //rempli le tableau de bloc de couleur
+    //rempli le tableau de blocs de couleur
     public void remplirBlocs(){
         for(int i=0;i<gril.length;i++){
             for(int j = 0; j<gril[i].length;j++) {
@@ -52,7 +55,7 @@ public class Grille implements Serializable {
         System.out.println();
     }
     
-    public boolean remplie(){
+    public boolean estRemplie(){
         for (int i=0;i<gril.length;i++){
             for (int j=0;j<gril[i].length;j++){
                 if (gril[i][j].getIs() == 's'){
@@ -64,8 +67,8 @@ public class Grille implements Serializable {
     }
     
     public void supprimer(int x, int y){
-        int res = gril[x][y].getIs();
-        gril[x][y].setIs('s');
+        int res = gril[y][x].getIs();
+        gril[y][x].setIs('s');
         if (x-1 > -1 && gril[x-1][y].getIs() == res){
             supprimer(x-1,y);
         }
@@ -81,7 +84,7 @@ public class Grille implements Serializable {
     }
     
     public void remplacer(){
-        while(!remplie()){
+        while(!estRemplie()){
             for (int i=0;i<gril.length;i++){
                 for (int j=0;j<gril[i].length;j++){
                     if (gril[i][j].getIs() == 's'){
@@ -128,5 +131,12 @@ public class Grille implements Serializable {
             return false;
         }
     }
-    
+
+    public int getHaut() {
+        return haut;
+    }
+
+    public int getLongu() {
+        return longu;
+    }
 }
