@@ -2,18 +2,38 @@ import java.io.*;
 
 public class Game {
     
-    public static void main(String[] args){
-        Niveau level1 = new Niveau(new Grille(new Case[8][8]),1,2,0,0,new int[][]{{6,2},{2,2}},null, null);
-        Niveau level2 = new Niveau(new Grille(new Case[8][8]),2,3,0,500,new int[][]{{6,2},{2,2}},null, null);
-        ObjectOutputStream oos = null;
+    public static Niveau[] init(){
+        Niveau[] tab = new Niveau[2];
+        tab[0] = new Niveau(new Grille(new Case[8][8]),1,2,0,0,new int[][]{{6,2},{2,2}},null, null);
+        tab[1] = new Niveau(new Grille(new Case[8][8]),2,3,30,500,new int[][]{{6,2},{2,2}},null, null);
+        return tab;
+    }
     
+    
+    public static void main(String[] args){
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+        Niveau[] levels = init();
         try {
-            final FileOutputStream fichier = new FileOutputStream("level.ser");
-            oos = new ObjectOutputStream(fichier);
-            oos.writeObject(level1);
-            oos.writeObject(level2);
+            FileOutputStream fos = new FileOutputStream("level.ser");
+            oos = new ObjectOutputStream(fos);
+            FileInputStream fis = new FileInputStream("level.ser");
+            ois = new ObjectInputStream(fis);
+            //écriture des niveaux sur le fichier level.ser
+            for (Niveau level : levels) {
+                oos.writeObject(level);
+            }
             oos.flush();
-        } catch (final java.io.IOException e) {
+            //lecture des niveaux sur le fichier level.ser
+            while (fis.available() > 0) {
+                Niveau lvl = (Niveau) ois.readObject ();
+                System.out.println("Niveau : ");
+                System.out.println("id : " + lvl.id);
+                System.out.println("acces : " + lvl.isAcces());
+                System.out.println("animaux : " + lvl.getNb_animaux());
+                System.out.println("coup : " + lvl.getNb_coup_min());;
+            }
+        } catch (final IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             try {
