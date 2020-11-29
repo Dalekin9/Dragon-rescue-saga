@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Grille implements Serializable {
@@ -39,6 +41,59 @@ public class Grille implements Serializable {
             for(int j = 0; j<gril[i].length;j++) {
                 Random rand = new Random();
                 gril[i][j] = new Case((char)((rand.nextInt(4)+1)+'0'));
+            }
+        }
+    }
+    
+    public int chiffre_aleatoire(int longueur){
+        Random rand = new Random();
+        return rand.nextInt(longueur);
+    }
+    
+    public ArrayList<Character> liste(){
+        ArrayList<Character> chiffre = new ArrayList<Character>();
+        chiffre.add('J'); chiffre.add('O'); chiffre.add('R'); chiffre.add('B'); chiffre.add('V');
+        return chiffre;
+    }
+    
+    //rempli si le Niveau est le 1er (car démo)
+    public void remplir_Niveau_1(){
+        ArrayList<Character> chiffre = this.liste();
+        for (int i=0;i<5;i++){
+            int pos = this.chiffre_aleatoire(chiffre.size());
+            if (i==0){
+                gril[1][2] = gril[1][3] = gril[1][4] = gril[3][0] = gril[3][1] = gril[4][0] = gril[4][1] = gril[5][3] = gril[6][3] = gril[5][6] = gril[6][6]= new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            } else if (i == 1){
+                gril[1][5] = gril[1][6] = gril[2][5] = gril[2][6] = gril[5][1] = gril[5][2] = gril[6][1]  = gril[6][2]= new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            } else if (i== 2){
+                gril[2][2] = gril[2][3] = gril[2][4] = gril[3][2] = gril[3][3] = gril[3][4] = gril[4][2] = gril[4][3] = gril[4][4] = new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            } else if (i== 3){
+                gril[1][0] = gril[1][1] = gril[2][0] = gril[2][1] = gril[5][0] = gril[6][0] = gril[5][4] = gril[5][5] = gril[6][4] = gril[6][5] = new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            } else {
+                gril[3][5] = gril[3][6] = gril[4][5] = gril[4][6] = new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            }
+        }
+    }
+    
+    //rempli si le Niveau est le 2eme (car démo)
+    public void remplir_Niveau_2(){
+        ArrayList<Character> chiffre = this.liste();
+        for (int i=0;i<3;i++){
+            int pos = this.chiffre_aleatoire(chiffre.size());
+            if (i==0){
+                gril[0][1] = gril[0][3] = gril[1][1] = gril[1][3] = gril[4][1] = gril[4][3] = gril[5][1] = gril[5][3] = gril[6][0] = gril[6][4] = gril[7][0] = gril[7][4]= new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            } else if (i == 1){
+                gril[2][0] = gril[2][4] = gril[3][0] = gril[3][4] = gril[3][2] = gril[4][2] = gril[5][2] = gril[6][2]  = gril[7][2]= new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            } else {
+                gril[2][1] = gril[2][3] = gril[3][1] = gril[3][3] = gril[4][0] = gril[4][4] = gril[5][0] = gril[5][4] = gril[6][1] = gril[6][3] = gril[7][1] = gril[7][3] = new Case(chiffre.get(pos));
+                chiffre.remove(pos);
             }
         }
     }

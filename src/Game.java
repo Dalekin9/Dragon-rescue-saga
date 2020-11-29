@@ -1,11 +1,12 @@
 import java.io.*;
+import java.util.Arrays;
 
 public class Game {
     
     public static Niveau[] init(){
         Niveau[] tab = new Niveau[2];
-        tab[0] = new Niveau(new Grille(new Case[8][8]),1,2,0,0,new int[][]{{6,2},{2,2}},null, null);
-        tab[1] = new Niveau(new Grille(new Case[8][8]),2,3,30,500,new int[][]{{6,2},{2,2}},null, null);
+        tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,0,0,new int[][]{{0,1},{0,5}},null, new int[][]{{0,0},{0,2},{0,3},{0,4},{0,6}});
+        tab[1] = new Niveau(new Grille(new Case[8][5]),2,5,0,0,new int[][]{{0,2},{1,2},{2,2},{1,0},{1,4}},null, new int[][]{{0,0},{0,4}});
         return tab;
     }
     
@@ -27,11 +28,16 @@ public class Game {
             //lecture des niveaux sur le fichier level.ser
             while (fis.available() > 0) {
                 Niveau lvl = (Niveau) ois.readObject ();
+                lvl.setGrid(lvl.remplir_Grille());
                 System.out.println("Niveau : ");
                 System.out.println("id : " + lvl.id);
-                System.out.println("acces : " + lvl.isAcces());
                 System.out.println("animaux : " + lvl.getNb_animaux());
-                System.out.println("coup : " + lvl.getNb_coup_min());;
+                for (int i=0;i<lvl.getGrid().gril.length;i++){
+                    for (int j=0;j<lvl.getGrid().gril[i].length;j++){
+                        System.out.print(lvl.getGrid().gril[i][j].getIs() + " ");
+                    }
+                    System.out.println();
+                }
             }
         } catch (final IOException | ClassNotFoundException e) {
             e.printStackTrace();

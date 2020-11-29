@@ -29,9 +29,12 @@ public class Case implements Serializable {
     //'s' = Supprimé
     //'n' = neutre
     //'a' = animal
-    //1 = jaune
-    //2 = violet
-    //3 = bleu
-    //4 = vert
+    //J = jaune
+    //O = orange
+    //R = rouge
+    //B = bleu
+    //V = violet
+    //Vide = espace
+    //Obstacle = -
     
 }
