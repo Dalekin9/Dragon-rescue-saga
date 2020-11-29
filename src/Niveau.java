@@ -11,24 +11,35 @@ public class Niveau implements Serializable {
     protected boolean acces;
     protected int[][] pos_animal;
     protected int[][] pos_neutre;
+    protected int[][] pos_vide;
 
-    public Niveau(Grille grille, int numero, int animaux, int coup, int point, int[][] anim, int[][] neutre){
+    public Niveau(Grille grille, int numero, int animaux, int coup, int point, int[][] anim, int[][] neutre, int[][] vide){
         grid = grille;
-        grid.remplirBlocs();
+        grid = this.remplirGrilleNiveau();
         id = numero;
         nb_animaux = animaux;
         nb_coup_min = coup;
         nb_point_min = point;
         best_score = new int[]{0, 0, 0, 0, 0};
         acces = false;
-        if (anim != null) {
-            grid.poserAnimaux(anim);
-        }
-        if (neutre != null) {
-            grid.poserFixe(neutre);
-        }
         pos_animal = anim;
         pos_neutre = neutre;
+        pos_vide = vide;
+    }
+    
+    public Grille remplirGrilleNiveau(){
+        Grille fin = this.grid;
+        if (pos_animal != null) {
+            grid.poserAnimaux(pos_animal);
+        }
+        if (pos_neutre != null) {
+            grid.poserFixe(pos_neutre);
+        }
+        if (pos_vide != null){
+            grid.poserVide(pos_vide);
+        }
+        grid.remplirBlocs();
+        return grid;
     }
     
     public void afficher(){
