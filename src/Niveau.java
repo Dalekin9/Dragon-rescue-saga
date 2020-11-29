@@ -113,4 +113,8 @@ public class Niveau implements Serializable {
     public int getNb_coup_min() {
         return nb_coup_min;
     }
+
+    public Grille getGrid() {
+        return grid;
+    }
 }
