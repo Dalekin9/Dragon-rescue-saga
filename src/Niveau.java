@@ -66,4 +66,15 @@ public class Niveau implements Serializable {
         }
     }
     
+    public boolean isAcces() {
+        return acces;
+    }
+    
+    public int getNb_animaux() {
+        return nb_animaux;
+    }
+    
+    public int getNb_coup_min() {
+        return nb_coup_min;
+    }
 }
