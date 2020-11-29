@@ -7,6 +7,7 @@ public class Game {
         Niveau[] tab = new Niveau[2];
         tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,0,0,new int[][]{{0,1},{0,5}},null, new int[][]{{0,0},{0,2},{0,3},{0,4},{0,6}});
         tab[1] = new Niveau(new Grille(new Case[8][5]),2,5,0,0,new int[][]{{0,2},{1,2},{2,2},{1,0},{1,4}},null, new int[][]{{0,0},{0,4}});
+        tab[1] = new Niveau(new Grille(new Case[9][7]),3,3,0,0,new int[][]{{0,2},{0,4},{0,6}},null, new int[][]{{0,0},{0,1},{1,0},{1,1},{2,0},{2,1},{3,0},{3,1},{0,3},{0,5},{7,5},{7,6},{8,5},{8,6}});
         return tab;
     }
     

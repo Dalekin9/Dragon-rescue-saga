@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Grille implements Serializable {
@@ -14,24 +13,24 @@ public class Grille implements Serializable {
     //on suppose les coordonnées x et y toujours corrects
     //rempli le tableau avec les animaux
     public void poserAnimaux(int[][] tab){
-        for (int i = 0;i<tab.length;i++){
-            gril[tab[i][0]][tab[i][1]] = new Case('a');
+        for (int[] ints : tab) {
+            gril[ints[0]][ints[1]] = new Case('a');
         }
     }
     
     //on suppose les coordonnées x et y toujours corrects
     //rempli le tableau de bloc fixe
     public void poserFixe(int[][] tab){
-        for (int i = 0;i<tab.length;i++){
-            gril[tab[i][0]][tab[i][1]] = new Case('n');
+        for (int[] ints : tab) {
+            gril[ints[0]][ints[1]] = new Case('n');
         }
     }
     
     //on suppose les coordonnées x et y toujours corrects
     //rempli le tableau d'endroit vide
     public void poserVide(int[][] tab){
-        for (int i = 0;i<tab.length;i++){
-            gril[tab[i][0]][tab[i][1]] = new Case('v');
+        for (int[] ints : tab) {
+            gril[ints[0]][ints[1]] = new Case('v');
         }
     }
     
@@ -98,19 +97,38 @@ public class Grille implements Serializable {
         }
     }
     
+    //rempli si le Niveau est le 3eme (car démo)
+    public void remplir_Niveau_3(){
+        ArrayList<Character> chiffre = this.liste();
+        for (int i=0;i<3;i++){
+            int pos = this.chiffre_aleatoire(chiffre.size());
+            if (i==0){
+                gril[1][3] = gril[2][3] = gril[3][2] = gril[4][2] = gril[4][0] = gril[6][0] = gril[7][2] = gril[8][2] = gril[7][4] = gril[8][4] = gril[1][5] = gril[2][5] = gril[3][5] = gril[4][5] = new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            } else if (i == 1){
+                gril[1][2] = gril[2][2] = gril[3][4] = gril[4][4] = gril[3][6] = gril[4][6] = gril[5][0] = gril[5][1]  = gril[5][3] = gril[5][5] = gril[6][1] = gril[6][3] = gril[6][5] = gril[7][0] = gril[7][1] = gril[8][0] = gril[8][1] = new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            } else {
+                gril[1][4] = gril[1][6] = gril[2][4] = gril[2][6] = gril[3][3] = gril[4][3] = gril[4][1] = gril[5][2] = gril[6][2] = gril[5][4] = gril[6][4] = gril[5][6] = gril[6][6] = gril[7][3] = gril[8][3] = new Case(chiffre.get(pos));
+                chiffre.remove(pos);
+            }
+        }
+    }
+    
     public void afficher(){
-        for(int i=0;i<gril.length;i++){
-            for(int j=0;j<gril[i].length;j++){
-                System.out.print(gril[i][j].getIs() + " ");
-            }System.out.println();
+        for (Case[] cases : gril) {
+            for (Case aCase : cases) {
+                System.out.print(aCase.getIs() + " ");
+            }
+            System.out.println();
         }
         System.out.println();
     }
     
     public boolean remplie(){
-        for (int i=0;i<gril.length;i++){
-            for (int j=0;j<gril[i].length;j++){
-                if (gril[i][j].getIs() == 's'){
+        for (Case[] cases : gril) {
+            for (Case aCase : cases) {
+                if (aCase.getIs() == 's') {
                     return false;
                 }
             }
@@ -154,9 +172,9 @@ public class Grille implements Serializable {
     
     public int ontEteSupprime(){
         int compt = 0;
-        for (int i=0;i<gril.length;i++){
-            for (int j=0;j<gril[i].length;j++){
-                if (gril[i][j].getIs() == 's'){
+        for (Case[] cases : gril) {
+            for (Case aCase : cases) {
+                if (aCase.getIs() == 's') {
                     compt++;
                 }
             }
