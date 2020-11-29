@@ -44,9 +44,9 @@ public class Niveau implements Serializable {
             grid.remplir_Niveau_1();
         } else if ( id == 2){
             grid.remplir_Niveau_2();
-        } /*else if (id == 3){
-            grid.remplir_Niveau_3;
-        } */else {
+        }else if (id == 3){
+            grid.remplir_Niveau_3();
+        } else {
             grid.remplirBlocs();
         }
     }
