@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Niveau implements Serializable {
     
@@ -8,49 +10,69 @@ public class Niveau implements Serializable {
     protected int nb_coup_min;
     protected int nb_point_min;
     protected int[] best_score;
-    protected int[][] pos_animal;
-    protected int[][] pos_neutre;
-    protected int[][] pos_vide;
+    protected ArrayList<Character> listColor;
 
-    public Niveau(Grille grille, int numero, int animaux, int coup, int point, int[][] anim, int[][] neutre, int[][] vide){
+    public Niveau(Grille grille, int numero, int animaux, int coup, int point){
         grid = grille;
-        //grid = this.remplirGrilleNiveau();
         id = numero;
         nb_animaux = animaux;
         nb_coup_min = coup;
         nb_point_min = point;
         best_score = new int[]{0, 0, 0, 0, 0};
-        pos_animal = anim;
-        pos_neutre = neutre;
-        pos_vide = vide;
     }
     
-    public Grille remplir_Grille(){
-        this.remplissage_par_level();
-        if (pos_animal != null) {
-            grid.poserAnimaux(pos_animal);
-        }
-        if (pos_neutre != null) {
-            grid.poserFixe(pos_neutre);
-        }
-        if (pos_vide != null){
-            grid.poserVide(pos_vide);
-        }
-        return grid;
-    }
-    
-    public void remplissage_par_level(){
+    //remplissage des grilles selon le niveau
+    public void remplir_Grille(){
         if (id == 1){
-            grid.remplir_Niveau_1();
-        } else if ( id == 2){
-            grid.remplir_Niveau_2();
-        }else if (id == 3){
-            grid.remplir_Niveau_3();
-        } else {
-            grid.remplirBlocs();
+            grid.remplir_Niveau_1(this.liste(5));
+        }else if( id == 2){
+            grid.remplir_Niveau_2(this.liste(3));
+        }else if (id == 3) {
+            grid.remplir_Niveau_3(this.liste(3));
+        } else if (id == 4){
+            grid.remplir_Niveau_4(this.liste(3));
+        }else {
+            grid.remplir_Niveau_5(this.liste(3));
         }
     }
     
+    
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //                  liste de couleurs                     -
+    //---------------------------------------------------------
+    
+    
+    public int chiffre_aleatoire(int longueur){
+        Random rand = new Random();
+        return rand.nextInt(longueur);
+    }
+    
+    public ArrayList<Character> listeColor(){
+        ArrayList<Character> chiffre = new ArrayList<Character>();
+        chiffre.add('J'); chiffre.add('O'); chiffre.add('R'); chiffre.add('B'); chiffre.add('V');
+        //size 5
+        return chiffre;
+    }
+    
+    public ArrayList<Character> liste(int longueur){
+        ArrayList<Character> chiffre = listeColor();
+        ArrayList<Character> fin = new ArrayList<Character>();
+        for (int i=0;i<longueur;i++){
+            int compt = chiffre_aleatoire(chiffre.size());
+            fin.add(chiffre.get(compt));
+            chiffre.remove(compt);
+        }
+        return fin;
+    }
+    
+    
+    //---------------------------------------------------------
+    //              --- PARTIE 2 ---                          -
+    //       affichage du niveau et des scores                -
+    //---------------------------------------------------------
+    
+    //affichage des propriétés du niveau en mode texte
     public void afficher(){
         System.out.println("Niveau "+id);
         System.out.println("Objectifs :");
@@ -75,9 +97,11 @@ public class Niveau implements Serializable {
         }
     }
     
-    public void setGrid(Grille grid) {
-        this.grid = grid;
-    }
+    
+    //---------------------------------------------------------
+    //              --- PARTIE 3 ---                          -
+    //      contient les getters (et les setters)             -
+    //---------------------------------------------------------
     
     public Grille getGrid() {
         return grid;
