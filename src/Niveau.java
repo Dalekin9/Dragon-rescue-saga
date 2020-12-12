@@ -51,7 +51,6 @@ public class Niveau implements Serializable {
     public ArrayList<Character> listeColor(){
         ArrayList<Character> chiffre = new ArrayList<Character>();
         chiffre.add('J'); chiffre.add('O'); chiffre.add('R'); chiffre.add('B'); chiffre.add('V');
-        //size 5
         return chiffre;
     }
     
