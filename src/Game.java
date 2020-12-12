@@ -59,9 +59,11 @@ public class Game {
         Grille test = new Grille(cas);
         test.afficher();
         test.supprimer(1,2);
-        while (test.contientColonneVide()){
-            test.decaler();
-        }
         test.afficher();
+        test.decaler();
+        test.afficher();
+        
+        
+        
     }
 }
