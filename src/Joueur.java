@@ -15,16 +15,17 @@ public class Joueur implements java.io.Serializable {
     }
 
     // Recupère les coordonnées de la case qui doit être affectée
-    public char[] recupCoords(){
-        System.out.println("Entrez les coordonnés de la case");
-        String coords = scaRep.next();
-        if(coords.length() == 2){
-            char[] coordChar = new char[2];
-            coordChar[0] = coords.charAt(0);
-            coordChar[1] = coords.charAt(1);
-            return coordChar;
-        }
-        return null;
+    public String[] recupCoords(){
+        System.out.println("Entrez les coordonnés de la case(sous forme NombreLettre)");
+        String coords ;
+        String[] coordStr = new String[2];
+        do{
+            coords = scaRep.next();
+            if(coords.length() != 2)System.out.println("L'entrée n'a pas la bonne taille.Réessayez");
+        }while(coords.length() != 2);
+        coordStr[0] = coords.substring(0,1);
+        coordStr[1] = coords.substring(1,2);
+        return coordStr;
     }
 
 
