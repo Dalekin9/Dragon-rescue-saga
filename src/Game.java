@@ -56,13 +56,13 @@ public class Game {
         }
         cas[0][2] = cas[1][2]=cas[2][2]=cas[3][2]=new Case('O');
         cas[0][3] = cas[1][3]=cas[2][3]=cas[3][3]=new Case('R');
+        cas[3][2] = new Case('a');
         Grille test = new Grille(cas);
         test.afficher();
-        test.supprimer(1,2);
+        test.supprimerAnimalEnBas();
         test.afficher();
-        test.decaler();
+        test.faireDescendre(true);
         test.afficher();
-        
         
         
     }

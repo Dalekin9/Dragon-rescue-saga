@@ -163,16 +163,22 @@ public class Grille implements Serializable {
         return true;
     }
     
-    public void faireDescendre(){
+    public void faireDescendre(boolean animAlea){
         while(!remplie()){
+            ArrayList<Character> liste = new ArrayList<Character>();
+            liste.add('J'); liste.add('O'); liste.add('R'); liste.add('B'); liste.add('V');
+            if (animAlea){
+                liste.add('a');
+            }
             for (int i=0;i<gril.length;i++){
                 for (int j=0;j<gril[i].length;j++){
                     if (gril[i][j].getIs() == 's'){
                         if (i-1 < 0){
-                            Random rand = new Random();
-                            gril[i][j].setIs((char)((rand.nextInt(4)+1)+'0'));
+                            int pos = (int) (Math.random()*liste.size());
+                            gril[i][j] = new Case(liste.get(pos));
                         } else {
-                            gril[i][j].remplacer(gril[i - 1][j]);
+                            gril[i][j] = new Case(gril[i - 1][j].getIs());
+                            gril[i-1][j] = new Case('s');
                         }
                     }
                 }
