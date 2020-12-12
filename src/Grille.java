@@ -75,6 +75,23 @@ public class Grille implements Serializable {
         }
     }
     
+    public boolean animalEnBas(){
+        for (int i=0;i<gril[0].length;i++){
+            if (gril[gril.length-1][i].getIs() == 'a'){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void supprimerAnimalEnBas(){
+        for (int i=0;i<gril[0].length;i++){
+            if (gril[gril.length-1][i].getIs() == 'a'){
+                gril[gril.length-1][i].setIs('s');
+            }
+        }
+    }
+    
     //--------------------------------------------------------
     
     public boolean contientColonneVide() {
@@ -103,7 +120,7 @@ public class Grille implements Serializable {
         return -1;
     }
     
-    public void decaler(){
+    public void decale(){
         int pos = getColonneVide();
         if (pos == gril[0].length-1){
             for (int i=0;i<gril.length;i++){
@@ -124,6 +141,12 @@ public class Grille implements Serializable {
     
                 }
             }
+        }
+    }
+    
+    public void decaler(){
+        while (this.contientColonneVide()){
+            this.decale();
         }
     }
     
@@ -192,7 +215,6 @@ public class Grille implements Serializable {
             gril[0][0] = gril[0][2] = gril[0][3] = gril[0][4] = gril[0][6] = new Case(' ');
         }
     }
-    
     
     public void remplir_Niveau_2(ArrayList<Character> liste){
         for (int i=0;i<3;i++){

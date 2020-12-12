@@ -1,16 +1,14 @@
 Priorité :
 
 Creer une partie en mode texte (donc lecture dans la console des coordonnées avec mess d'erreur etc)
-Reflechir au nombre de lvl dans le jeu
-decaler les blocs a droite/gauche
+
+
 
 TO DO :
 
 Interface graphique
-augmenter point qnd animaux en bas et les supp puis remplacer bloc
 creer classe objets
 coup spéciaux quand ligne/bloc supp
-(animal sauve) + 1 000 points
 mode infini
 mode chrono
 aide pour un joueur lors d'une partie
@@ -23,6 +21,7 @@ Doing :
 
 
 Finish :
+augmenter point qnd animaux en bas et les supp puis remplacer bloc
 (Reflechir a une sauvegarde des données)
 Level qui contient -> attribut grille, int level
 Repartir les couleurs en numeros, et les objets egalement
@@ -30,3 +29,6 @@ Supprimer les cases adjacentes ayant le meme numeros
 remplacer les cases supprimées par celle du dessus
 Systeme de point
 Verifier si coup valide ou pas
+decaler les blocs a droite/gauche
+Reflechir au nombre de lvl dans le jeu
+(animal sauve) + 1 000 points
