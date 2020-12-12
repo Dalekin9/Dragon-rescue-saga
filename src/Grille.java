@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,15 +41,21 @@ public class Grille implements Serializable {
         }
     }
     
-    public boolean remplie(){
+    public int points(){
+        int compt = this.ontEteSupprime();
+        return compt*compt*10;
+    }
+    
+    public int ontEteSupprime(){
+        int compt = 0;
         for (Case[] cases : gril) {
             for (Case aCase : cases) {
                 if (aCase.getIs() == 's') {
-                    return false;
+                    compt++;
                 }
             }
         }
-        return true;
+        return compt;
     }
     
     public void supprimer(int x, int y){
@@ -68,7 +75,72 @@ public class Grille implements Serializable {
         }
     }
     
-    public void remplacer(){
+    //--------------------------------------------------------
+    
+    public boolean contientColonneVide() {
+        for (int i = 0; i < gril[0].length; i++) {
+            ArrayList<Character> test = new ArrayList<Character>();
+            for (int j = 0; j < gril.length; j++) {
+                test.add(gril[j][i].getIs());
+            }
+            if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B')) {
+                return test.contains('s');
+            }
+        }
+        return false;
+    }
+    
+    public int getColonneVide(){
+        for (int i = 0; i < gril[0].length; i++) {
+            ArrayList<Character> test = new ArrayList<Character>();
+            for (int j = 0; j < gril.length; j++) {
+                test.add(gril[j][i].getIs());
+            }
+            if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B')) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public void decaler(){
+        int pos = getColonneVide();
+        if (pos == gril[0].length-1){
+            for (int i=0;i<gril.length;i++){
+                if (gril[i][gril[0].length-1].getIs() != '-') {
+                    gril[i][gril[0].length - 1].setIs(' ');
+                }
+            }
+        } else {
+            for (int i=0;i<gril.length;i++){
+                if (gril[i][pos].getIs() != ' ' && gril[i][pos].getIs() != '-') {
+                    if (gril[i][pos + 1].getIs() == ' ' || gril[i][pos + 1].getIs() == '-') {
+                        gril[i][pos].setIs(' ');
+                    } else {
+                        char sub = gril[i][pos+1].getIs();
+                        gril[i][pos] = new Case(sub);
+                        gril[i][pos+1]= new Case('s');
+                    }
+    
+                }
+            }
+        }
+    }
+    
+    //--------------------------------------------------------
+    
+    public boolean remplie(){
+        for (Case[] cases : gril) {
+            for (Case aCase : cases) {
+                if (aCase.getIs() == 's') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public void faireDescendre(){
         while(!remplie()){
             for (int i=0;i<gril.length;i++){
                 for (int j=0;j<gril[i].length;j++){
@@ -83,23 +155,6 @@ public class Grille implements Serializable {
                 }
             }
         }
-    }
-    
-    public int ontEteSupprime(){
-        int compt = 0;
-        for (Case[] cases : gril) {
-            for (Case aCase : cases) {
-                if (aCase.getIs() == 's') {
-                    compt++;
-                }
-            }
-        }
-        return compt;
-    }
-    
-    public int points(){
-        int compt = this.ontEteSupprime();
-        return compt*compt*10;
     }
     
     
