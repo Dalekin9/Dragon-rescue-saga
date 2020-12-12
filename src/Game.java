@@ -15,7 +15,7 @@ public class Game {
     
     
     public static void main(String[] args){
-        ObjectOutputStream oos = null;
+        /*ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
         Niveau[] levels = init();
         try {
@@ -46,21 +46,22 @@ public class Game {
             } catch (final IOException ex) {
                 ex.printStackTrace();
             }
-        }
+        }*/
         
-        /*Case[][] cas = new Case[6][8];
-        int a = 1;
-        //aa.System.out.print();
-        /*Niveau one = new Niveau(new Grille(new Case[6][8]),1);
-        a.remplirBlocs();
-        a.afficher();
-        a.supprimer(2,4);
-        System.out.println(a.coupValide(2,4));
-        a.afficher();
-        System.out.println(a.ontEteSupprime());
-        System.out.println(a.points());
-        a.remplacer();
-        a.afficher();
-         */
+        Case[][] cas = new Case[4][4];
+        for (int i=0;i<cas.length;i++){
+            for (int j=0;j<cas[0].length;j++){
+                cas[i][j] = new Case('V');
+            }
+        }
+        cas[0][2] = cas[1][2]=cas[2][2]=cas[3][2]=new Case('O');
+        cas[0][3] = cas[1][3]=cas[2][3]=cas[3][3]=new Case('R');
+        Grille test = new Grille(cas);
+        test.afficher();
+        test.supprimer(1,2);
+        while (test.contientColonneVide()){
+            test.decaler();
+        }
+        test.afficher();
     }
 }
