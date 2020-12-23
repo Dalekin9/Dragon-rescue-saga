@@ -7,8 +7,6 @@ Creer une partie en mode texte (donc lecture dans la console des coordonnées av
 TO DO :
 
 Interface graphique
-creer classe objets
-coup spéciaux quand ligne/bloc supp
 mode infini
 mode chrono
 aide pour un joueur lors d'une partie
@@ -21,6 +19,8 @@ Doing :
 
 
 Finish :
+creer classe objets
+coup spéciaux quand ligne/bloc supp
 augmenter point qnd animaux en bas et les supp puis remplacer bloc
 (Reflechir a une sauvegarde des données)
 Level qui contient -> attribut grille, int level
