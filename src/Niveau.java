@@ -1,47 +1,77 @@
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Niveau implements Serializable {
-    
-    protected Grille grid;
+
+    private Grille grid;
     public int id;
     protected int nb_animaux;
     protected int nb_coup_min;
     protected int nb_point_min;
     protected int[] best_score;
-    protected boolean acces;
-    protected int[][] pos_animal;
-    protected int[][] pos_neutre;
-    protected int[][] pos_vide;
+    protected ArrayList<Character> listColor;
 
-    public Niveau(Grille grille, int numero, int animaux, int coup, int point, int[][] anim, int[][] neutre, int[][] vide){
+    public Niveau(Grille grille, int numero, int animaux, int coup, int point){
         grid = grille;
-        grid = this.remplirGrilleNiveau();
         id = numero;
         nb_animaux = animaux;
         nb_coup_min = coup;
         nb_point_min = point;
         best_score = new int[]{0, 0, 0, 0, 0};
-        acces = false;
-        pos_animal = anim;
-        pos_neutre = neutre;
-        pos_vide = vide;
     }
-    
-    public Grille remplirGrilleNiveau(){
-        Grille fin = this.grid;
-        if (pos_animal != null) {
-            grid.poserAnimaux(pos_animal);
+
+    //remplissage des grilles selon le niveau
+    public void remplir_Grille(){
+        if (id == 1){
+            grid.remplir_Niveau_1(this.liste(5));
+        }else if( id == 2){
+            grid.remplir_Niveau_2(this.liste(3));
+        }else if (id == 3) {
+            grid.remplir_Niveau_3(this.liste(3));
+        } else if (id == 4){
+            grid.remplir_Niveau_4(this.liste(3));
+        }else {
+            grid.remplir_Niveau_5(this.liste(3));
         }
-        if (pos_neutre != null) {
-            grid.poserFixe(pos_neutre);
-        }
-        if (pos_vide != null){
-            grid.poserVide(pos_vide);
-        }
-        grid.remplirBlocs();
-        return grid;
     }
-    
+
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //                  liste de couleurs                     -
+    //---------------------------------------------------------
+
+
+    public int chiffre_aleatoire(int longueur){
+        Random rand = new Random();
+        return rand.nextInt(longueur);
+    }
+
+    public ArrayList<Character> listeColor(){
+        ArrayList<Character> chiffre = new ArrayList<Character>();
+        chiffre.add('J'); chiffre.add('O'); chiffre.add('R'); chiffre.add('B'); chiffre.add('V');
+        return chiffre;
+    }
+
+    public ArrayList<Character> liste(int longueur){
+        ArrayList<Character> chiffre = listeColor();
+        ArrayList<Character> fin = new ArrayList<Character>();
+        for (int i=0;i<longueur;i++){
+            int compt = chiffre_aleatoire(chiffre.size());
+            fin.add(chiffre.get(compt));
+            chiffre.remove(compt);
+        }
+        return fin;
+    }
+
+
+    //---------------------------------------------------------
+    //              --- PARTIE 2 ---                          -
+    //       affichage du niveau et des scores                -
+    //---------------------------------------------------------
+
+    //affichage des propriétés du niveau en mode texte
     public void afficher(){
         System.out.println("Niveau "+id);
         System.out.println("Objectifs :");
@@ -54,7 +84,7 @@ public class Niveau implements Serializable {
         }
         afficher_score();
     }
-    
+
     public void afficher_score(){
         System.out.println("Meilleurs scores :");
         for (int i=0;i<5;i++){
@@ -65,15 +95,21 @@ public class Niveau implements Serializable {
             }
         }
     }
-    
-    public boolean isAcces() {
-        return acces;
+
+
+    //---------------------------------------------------------
+    //              --- PARTIE 3 ---                          -
+    //      contient les getters (et les setters)             -
+    //---------------------------------------------------------
+
+    public Grille getGrid() {
+        return grid;
     }
-    
+
     public int getNb_animaux() {
         return nb_animaux;
     }
-    
+
     public int getNb_coup_min() {
         return nb_coup_min;
     }
