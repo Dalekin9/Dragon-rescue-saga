@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Arrays;
 
 public class Game {
-    
+
     public static Niveau[] init(){
         Niveau[] tab = new Niveau[5];
         tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,0,0);
@@ -12,8 +12,8 @@ public class Game {
         tab[4] = new Niveau(new Grille(new Case[8][9]),5,5,0,0);
         return tab;
     }
-    
-    
+
+
     public static void main(String[] args){
         /*ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
@@ -47,23 +47,60 @@ public class Game {
                 ex.printStackTrace();
             }
         }*/
-        
-        Case[][] cas = new Case[4][4];
+
+        Case[][] cas = new Case[6][6];
         for (int i=0;i<cas.length;i++){
             for (int j=0;j<cas[0].length;j++){
                 cas[i][j] = new Case('V');
             }
         }
-        cas[0][2] = cas[1][2]=cas[2][2]=cas[3][2]=new Case('O');
-        cas[0][3] = cas[1][3]=cas[2][3]=cas[3][3]=new Case('R');
-        cas[3][2] = new Case('a');
+        cas[0][0] =  new Case('s', 'V');
+        cas[0][1]=new Case('s','V');
+        cas[0][2]=new Case('s','V');
+        cas[0][3] =new Case('s','V');
+        cas[0][4] =new Case('s','V');
+
+        cas[1][0] =  new Case('s', 'V');
+        cas[1][1]=new Case('s','V');
+        cas[1][2]=new Case('s','V');
+        cas[1][3] =new Case('s','V');
+        cas[1][4] =new Case('s','V');
+
+        cas[2][0] =  new Case('s', 'V');
+        cas[2][1]=new Case('s','V');
+        cas[2][2]=new Case('s','V');
+        cas[2][3] =new Case('s','V');
+        cas[2][4] =new Case('s','V');
+
+        cas[3][0] =  new Case('s', 'V');
+        cas[3][1]=new Case('s','V');
+        cas[3][2]=new Case('s','V');
+        cas[3][3] =new Case('s','V');
+        cas[3][4] =new Case('s','V');
+
+        cas[4][0] =  new Case('s', 'V');
+        cas[4][1]=new Case('s','V');
+        cas[4][2]=new Case('s','V');
+        cas[4][3] =new Case('s','V');
+        cas[4][4] =new Case('s','V');
         Grille test = new Grille(cas);
         test.afficher();
-        test.supprimerAnimalEnBas();
+        System.out.println("tab du haut en mode tt est supp");
+        test.afficherC();
+
+        int[] pos = test.coupSpecialBlocsPos();
+
+        test.faireDescendre(false);
         test.afficher();
-        test.faireDescendre(true);
+        System.out.println("tab du haut en mode jai fais descendre les blocs");
+        test.afficherC();
+
+        test.poserBallon(pos);
         test.afficher();
-        
-        
+        System.out.println("ballon");
+        test.afficherC();
+
+
+
     }
 }
