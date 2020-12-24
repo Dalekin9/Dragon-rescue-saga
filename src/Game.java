@@ -48,7 +48,7 @@ public class Game {
             }
         }*/
 
-        Case[][] cas = new Case[6][6];
+       /* Case[][] cas = new Case[6][6];
         for (int i=0;i<cas.length;i++){
             for (int j=0;j<cas[0].length;j++){
                 cas[i][j] = new Case('V');
@@ -98,7 +98,7 @@ public class Game {
         test.poserBallon(pos);
         test.afficher();
         System.out.println("ballon");
-        test.afficherC();
+        test.afficherC();*/
 
         /*Pioche pioche = new Pioche();
         pioche.execute(test,0,4);
@@ -115,5 +115,12 @@ public class Game {
         /*Fusee fusee = new Fusee();
         fusee.execute(test, 2);
         test.afficher();*/
+
+        Niveau tes = new Niveau(new Grille(new Case[7][7]),1,2,0,0);
+        tes.remplir_Grille();
+        Grille grilleTest = tes.getGrid();
+        grilleTest.afficher();
+        grilleTest.supprimer(1,0);
+        grilleTest.afficher();
     }
 }
