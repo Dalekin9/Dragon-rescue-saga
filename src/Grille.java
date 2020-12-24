@@ -6,9 +6,12 @@ import java.util.Random;
 public class Grille implements Serializable {
 
     Case[][] gril;
+    int longu,haut;
 
     public Grille(Case[][] grid){
         gril = grid;
+        longu = grid[0].length;
+        haut = grid.length;
     }
 
     public void afficher(){
@@ -62,12 +65,15 @@ public class Grille implements Serializable {
         return false;
     }
 
-    public void supprimerAnimalEnBas(){
+    public int supprimerAnimalEnBas(){
+        int points = 0;
         for (int i=0;i<gril[0].length;i++){
             if (gril[gril.length-1][i].getIs() == 'a'){
                 gril[gril.length-1][i].setIs('s');
+                points += 1000;
             }
         }
+        return points;
     }
 
     //--------------------------------------------------------
@@ -305,6 +311,18 @@ public class Grille implements Serializable {
         return compt;
     }
 
+    //---------------------------------------------------------
+    //              --- PARTIE 2 ---                          -
+    //                  Getters                               -
+    //---------------------------------------------------------
+
+    public int getLongu() {
+        return longu;
+    }
+
+    public int getHaut() {
+        return haut;
+    }
 
     //---------------------------------------------------------
     //              --- PARTIE 2 ---                          -
