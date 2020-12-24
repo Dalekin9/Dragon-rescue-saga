@@ -6,9 +6,12 @@ import java.util.Random;
 public class Grille implements Serializable {
 
     Case[][] gril;
+    int haut,longu;
 
     public Grille(Case[][] grid){
         gril = grid;
+        haut = grid.length;
+        longu = grid[0].length;
     }
 
     public void afficher(){
@@ -21,34 +24,56 @@ public class Grille implements Serializable {
         System.out.println();
     }
 
-    public void afficherC(){
-        for (Case[] cases : gril) {
-            for (Case aCase : cases) {
-                System.out.print(aCase.getColor() + " ");
-            }
-            System.out.println();
+    //---------------------------------------------------------
+    //              --- PARTIE 2 ---                          -
+    //       gestions des coups dans une partie               -
+    //---------------------------------------------------------
+
+    public boolean coupValide(int x,int y){
+        int res = gril[x][y].getIs();
+        if (x-1 > -1 && gril[x-1][y].getIs() == res){
+            return true;
+        } else if (x+1 < gril.length && gril[x+1][y].getIs() == res){
+            return true;
+        } else if (y-1 > -1 && gril[x][y-1].getIs() == res){
+            return true;
+        } else if (y+1 < gril.length && gril[x][y+1].getIs() == res){
+            return true;
+        } else {
+            return false;
         }
-        System.out.println();
     }
 
-    //---------------------------------------------------------
-    //                   --- PARTIE 2 ---                     -
-    //             suppression et remplacement                -
-    //---------------------------------------------------------
+    public int points(){
+        int compt = this.ontEteSupprime();
+        return compt*compt*10;
+    }
+
+    public int ontEteSupprime(){
+        int compt = 0;
+        for (Case[] cases : gril) {
+            for (Case aCase : cases) {
+                if (aCase.getIs() == 's') {
+                    compt++;
+                }
+            }
+        }
+        return compt;
+    }
 
     public void supprimer(int x, int y){
-        int res = gril[x][y].getIs();
-        gril[x][y].setIs('s');
-        if (x-1 > -1 && gril[x-1][y].getIs() == res){
+        int res = gril[y][x].getIs();
+        gril[y][x].setIs('s');
+        if (y-1 > -1 && gril[y-1][x].getIs() == res){
             supprimer(x-1,y);
         }
-        if (x+1 < gril.length && gril[x+1][y].getIs() == res){
+        if (y+1 < gril.length && gril[y+1][x].getIs() == res){
             supprimer(x+1,y);
         }
-        if (y-1 > -1 && gril[x][y-1].getIs() == res){
+        if (x-1 > -1 && gril[y][x-1].getIs() == res){
             supprimer(x,y-1);
         }
-        if (y+1 < gril.length && gril[x][y+1].getIs() == res){
+        if (x+1 < gril.length && gril[y][x+1].getIs() == res){
             supprimer(x,y+1);
         }
     }
@@ -62,12 +87,15 @@ public class Grille implements Serializable {
         return false;
     }
 
-    public void supprimerAnimalEnBas(){
+    public int supprimerAnimalEnBas(){
+        int points = 0;
         for (int i=0;i<gril[0].length;i++){
             if (gril[gril.length-1][i].getIs() == 'a'){
                 gril[gril.length-1][i].setIs('s');
+                points += 1000;
             }
         }
+        return points;
     }
 
     //--------------------------------------------------------
@@ -92,9 +120,7 @@ public class Grille implements Serializable {
                 test.add(gril[j][i].getIs());
             }
             if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B')) {
-                if (test.contains('s')) {
-                    return i;
-                }
+                return i;
             }
         }
         return -1;
@@ -164,145 +190,6 @@ public class Grille implements Serializable {
                 }
             }
         }
-    }
-
-
-    //---------------------------------------------------------
-    //                   --- PARTIE 2 ---                     -
-    //                 gestions des coups                     -
-    //---------------------------------------------------------
-
-    public boolean coupValide(int x,int y){
-        int res = gril[x][y].getIs();
-        if (x-1 > -1 && gril[x-1][y].getIs() == res){
-            return true;
-        } else if (x+1 < gril.length && gril[x+1][y].getIs() == res){
-            return true;
-        } else if (y-1 > -1 && gril[x][y-1].getIs() == res){
-            return true;
-        } else if (y+1 < gril.length && gril[x][y+1].getIs() == res){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //----------------------------------------------------------
-
-    public boolean coupSpecialLigne(){
-        for (int i = 0;i<gril.length;i++){
-            ArrayList<Character> test = new ArrayList<>();
-            for (int j=0;j<gril[i].length;j++){
-                test.add(gril[i][j].getIs());
-            }
-            if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B')) {
-                if (test.contains('s')){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    //il est important de noter que cette fonction s'appelle avant le remplacement des cases supprimées
-    //sinon on ne peut récuper la position de la ligne supprimée
-    public int coupSpecialLignePos(){
-        for (int i = 0;i<gril.length;i++){
-            ArrayList<Character> test = new ArrayList<>();
-            for (int j=0;j<gril[i].length;j++){
-                test.add(gril[i][j].getIs());
-            }
-            if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B')) {
-                if (test.contains('s')){
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    public void poserFusee(int j, int pos){
-        gril[pos][j] = new Case('1',gril[pos][j].getColor());
-    }
-
-    //----------------------------------------------------------
-
-    //regarde si un coup special de bloc a ete realisé
-    //cad si un carré de 5*5 bloc de meme couleur a ete supprimé
-    public boolean coupSpecialBlocs(){
-        boolean test = false;
-        for (int i = 0;i<gril.length-5;i++){
-            for (int j=0;j<gril[0].length-5;j++){
-                if (testCinq(i,j)){
-                    if (testCinq(i+1,j)){
-                        if (testCinq(i+2,j)){
-                            if (testCinq(i+3,j)){
-                                if (testCinq(i+4,j)){
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    //renvoie la position du premier carré d'un bloc qui a ete supprimé
-    public int[] coupSpecialBlocsPos(){
-        for (int i = 0;i<gril.length-5;i++){
-            for (int j=0;j<gril[0].length-5;j++){
-                if (testCinq(i,j)){
-                    if (testCinq(i+1,j)){
-                        if (testCinq(i+2,j)){
-                            if (testCinq(i+3,j)){
-                                if (testCinq(i+4,j)){
-                                    return new int[]{i,j};
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return new int[]{-1,-1};
-    }
-
-    //regarde si pour une position i j
-    //  - les 4 blocs a sa droite sont de la meme couleur
-    //  - si c'est le cas on repete le processus pour les 4 lignes suivantes en partant de la meme colonne
-    // si tout est bon alors c'est qu'un coup special a ete realisé
-    public boolean testCinq(int ligneDepart, int colonneDepart){
-        return gril[ligneDepart][colonneDepart].getColor() == gril[ligneDepart][colonneDepart + 1].getColor() &&
-                gril[ligneDepart][colonneDepart + 1].getColor() == gril[ligneDepart][colonneDepart + 2].getColor() &&
-                gril[ligneDepart][colonneDepart + 2].getColor() == gril[ligneDepart][colonneDepart + 3].getColor() &&
-                gril[ligneDepart][colonneDepart + 3].getColor() == gril[ligneDepart][colonneDepart + 4].getColor();
-    }
-
-    public void poserBallon(int[] pos){
-        gril[pos[0]][pos[1]] = new Case('2',gril[pos[0]][pos[1]].getColor());
-    }
-
-
-
-    //--------------------------------------------------------
-
-    public int points(){
-        int compt = this.ontEteSupprime();
-        return compt*compt*10;
-    }
-
-    public int ontEteSupprime(){
-        int compt = 0;
-        for (Case[] cases : gril) {
-            for (Case aCase : cases) {
-                if (aCase.getIs() == 's') {
-                    compt++;
-                }
-            }
-        }
-        return compt;
     }
 
 
@@ -409,4 +296,11 @@ public class Grille implements Serializable {
         gril[0][0] = gril[0][8] = gril[5][0] = gril[5][8] = gril[6][0] = gril[6][8] = gril[7][0] = gril[7][8] = new Case(' ');
     }
 
+    public int getHaut() {
+        return haut;
+    }
+
+    public int getLongu() {
+        return longu;
+    }
 }
