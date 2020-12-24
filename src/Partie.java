@@ -57,9 +57,9 @@ public class Partie {
         String[] coordsStr;
         int[] coords = new int[2];
         do {
-            switch (joueur.repJoueur()) {
-                case "B":
-                case "Bloc":
+            switch (joueur.repJoueur().toLowerCase()) {
+                case "b":
+                case "bloc":
                     do {
                         coordsStr = joueur.recupCoords();
                         if (coordsVerif(coordsStr)) {
@@ -69,18 +69,18 @@ public class Partie {
                     }while(!flag);
                     lvl.getGrid().supprimer(coords[0],coords[1]);
                     score += lvl.getGrid().points();
-                    lvl.getGrid().faireDescendre(animAlea);
+                    //lvl.getGrid().faireDescendre(animAlea);
                     if(lvl.getGrid().animalEnBas()){
                         int  ajout = lvl.getGrid().supprimerAnimalEnBas();
                         score += ajout;
                         animRes -= ajout/1000;
                     }
-                    lvl.getGrid().faireDescendre(animAlea);
-                    lvl.getGrid().decaler();
+                    //lvl.getGrid().faireDescendre(animAlea);
+                    //lvl.getGrid().decaler();
                     coupRes--;
                     break;
-                case "O":
-                case "Objet":
+                case "o":
+                case "objet":
                     flag = true;
                     coupRes--;
                     break;
