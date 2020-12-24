@@ -76,10 +76,30 @@ public class Game {
         
         //test.poserFusee(0,1, pos);
         test.afficher();
-        System.out.println("colo");
-        //test.afficherC();*/
-        
-        
-        
+        System.out.println("ballon");
+        test.afficherC();*/
+
+        /*Pioche pioche = new Pioche();
+        pioche.execute(test,0,4);
+        test.afficher();*/
+
+        /*Bombe bombe = new Bombe();
+        bombe.execute(test,2,3);
+        test.afficher();*/
+
+        /*Ballon ballon = new Ballon(test.gril[0][0].getColor());
+        ballon.execute(test,0,0);
+        test.afficher();*/
+
+        /*Fusee fusee = new Fusee();
+        fusee.execute(test, 2);
+        test.afficher();*/
+
+        Niveau tes = new Niveau(new Grille(new Case[7][7]),1,2,0,0);
+        tes.remplir_Grille();
+        Grille grilleTest = tes.getGrid();
+        grilleTest.afficher();
+        grilleTest.supprimer(1,0);
+        grilleTest.afficher();
     }
 }

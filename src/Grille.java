@@ -40,18 +40,18 @@ public class Grille implements Serializable {
     //---------------------------------------------------------
 
     public void supprimer(int x, int y){
-        int res = gril[x][y].getIs();
+        char res = gril[x][y].getIs();
         gril[x][y].setIs('s');
-        if (x-1 > -1 && gril[x-1][y].getIs() == res){
+        if (x> 0 && gril[x-1][y].getIs() == res){
             supprimer(x-1,y);
         }
-        if (x+1 < gril.length && gril[x+1][y].getIs() == res){
+        if (x < gril.length-1 && gril[x+1][y].getIs() == res){
             supprimer(x+1,y);
         }
-        if (y-1 > -1 && gril[x][y-1].getIs() == res){
+        if (y > 0 && gril[x][y-1].getIs() == res){
             supprimer(x,y-1);
         }
-        if (y+1 < gril.length && gril[x][y+1].getIs() == res){
+        if (y < gril[0].length-1 && gril[x][y+1].getIs() == res){
             supprimer(x,y+1);
         }
     }
@@ -338,22 +338,33 @@ public class Grille implements Serializable {
     public void remplir_Niveau_1(ArrayList<Character> liste){
         for (int i=0;i<5;i++){
             if ((5-i-1) == 4){
-                gril[1][2] = gril[1][3] = gril[1][4] = gril[3][0] = gril[3][1] = gril[4][0] = gril[4][1] = gril[5][3] = gril[6][3] = gril[5][6] = gril[6][6]= new Case(liste.get(4));
+                gril[1][2] = new Case(liste.get(4));gril[1][3] = new Case(liste.get(4)); gril[1][4] = new Case(liste.get(4));
+                gril[3][0] = new Case(liste.get(4)); gril[3][1] = new Case(liste.get(4)); gril[4][0] = new Case(liste.get(4));
+                gril[4][1] = new Case(liste.get(4)); gril[5][3] = new Case(liste.get(4)); gril[6][3] = new Case(liste.get(4));
+                gril[5][6] = new Case(liste.get(4)); gril[6][6] = new Case(liste.get(4));
                 liste.remove(4);
             } else if ((5-i-1) == 3){
-                gril[1][5] = gril[1][6] = gril[2][5] = gril[2][6] = gril[5][1] = gril[5][2] = gril[6][1]  = gril[6][2]= new Case(liste.get(3));
+                gril[1][5] = new Case(liste.get(3)); gril[1][6] = new Case(liste.get(3)); gril[2][5] = new Case(liste.get(3));
+                gril[2][6] = new Case(liste.get(3)); gril[5][1] = new Case(liste.get(3)); gril[5][2] = new Case(liste.get(3));
+                gril[6][1] = new Case(liste.get(3)); gril[6][2] = new Case(liste.get(3));
                 liste.remove(3);
             } else if ((5-i-1) == 2){
-                gril[2][2] = gril[2][3] = gril[2][4] = gril[3][2] = gril[3][3] = gril[3][4] = gril[4][2] = gril[4][3] = gril[4][4] = new Case(liste.get(2));
+                gril[2][2] = new Case(liste.get(2)); gril[2][3] = new Case(liste.get(2)); gril[2][4] = new Case(liste.get(2));
+                gril[3][2] = new Case(liste.get(2)); gril[3][3] = new Case(liste.get(2)); gril[3][4] = new Case(liste.get(2));
+                gril[4][2] = new Case(liste.get(2)); gril[4][3] = new Case(liste.get(2)); gril[4][4] = new Case(liste.get(2));
                 liste.remove(2);
             } else if ((5-i-1) == 1){
-                gril[1][0] = gril[1][1] = gril[2][0] = gril[2][1] = gril[5][0] = gril[6][0] = gril[5][4] = gril[5][5] = gril[6][4] = gril[6][5] = new Case(liste.get(1));
+                gril[1][0] = new Case(liste.get(1)); gril[1][1] = new Case(liste.get(1)); gril[2][0] = new Case(liste.get(1));
+                gril[2][1] = new Case(liste.get(1)); gril[5][0] = new Case(liste.get(1)); gril[6][0] = new Case(liste.get(1));
+                gril[5][4] = new Case(liste.get(1)); gril[5][5] = new Case(liste.get(1)); gril[6][4] = new Case(liste.get(1));
+                gril[6][5] = new Case(liste.get(1));
                 liste.remove(1);
             } else {
-                gril[3][5] = gril[3][6] = gril[4][5] = gril[4][6] = new Case(liste.get(0));
+                gril[3][5] = new Case(liste.get(0)); gril[3][6] = new Case(liste.get(0));
+                gril[4][5] = new Case(liste.get(0)); gril[4][6] = new Case(liste.get(0));
             }
             //pose les animaux
-            gril[0][1] = gril[0][5] = new Case('a');
+            gril[0][1] = new Case('a'); gril[0][5] = new Case('a');
             //pose les blocs vide du depart
             gril[0][0] = gril[0][2] = gril[0][3] = gril[0][4] = gril[0][6] = new Case(' ');
         }
@@ -362,17 +373,27 @@ public class Grille implements Serializable {
     public void remplir_Niveau_2(ArrayList<Character> liste){
         for (int i=0;i<3;i++){
             if ((3-i-1)==2){
-                gril[0][1] = gril[0][3] = gril[1][1] = gril[1][3] = gril[4][1] = gril[4][3] = gril[5][1] = gril[5][3] = gril[6][0] = gril[6][4] = gril[7][0] = gril[7][4]= new Case(liste.get(2));
+                gril[0][1] = new Case(liste.get(2)); gril[0][3] = new Case(liste.get(2)); gril[1][1] = new Case(liste.get(2));
+                gril[1][3] = new Case(liste.get(2)); gril[4][1] = new Case(liste.get(2)); gril[4][3] = new Case(liste.get(2));
+                gril[5][1] = new Case(liste.get(2)); gril[5][3] = new Case(liste.get(2)); gril[6][0] = new Case(liste.get(2));
+                gril[6][4] = new Case(liste.get(2)); gril[7][0] = new Case(liste.get(2)); gril[7][4] = new Case(liste.get(2));
                 liste.remove(2);
             }
             else if ((3-i-1) == 1){
-                gril[2][0] = gril[2][4] = gril[3][0] = gril[3][4] = gril[3][2] = gril[4][2] = gril[5][2] = gril[6][2]  = gril[7][2]= new Case(liste.get(1));
+                gril[2][0] = new Case(liste.get(1)); gril[2][4] = new Case(liste.get(1)); gril[3][0] = new Case(liste.get(1));
+                gril[3][4] = new Case(liste.get(1)); gril[3][2] = new Case(liste.get(1)); gril[4][2] = new Case(liste.get(1));
+                gril[5][2] = new Case(liste.get(1)); gril[6][2] = new Case(liste.get(1)); gril[7][2] = new Case(liste.get(1));
                 liste.remove(1);
             } else {
-                gril[2][1] = gril[2][3] = gril[3][1] = gril[3][3] = gril[4][0] = gril[4][4] = gril[5][0] = gril[5][4] = gril[6][1] = gril[6][3] = gril[7][1] = gril[7][3] = new Case(liste.get(0));
+                gril[2][1] = new Case(liste.get(0)); gril[2][3] = new Case(liste.get(0)); gril[3][1] = new Case(liste.get(0));
+                gril[3][3] = new Case(liste.get(0)); gril[4][0] = new Case(liste.get(0)); gril[4][4] = new Case(liste.get(0));
+                gril[5][0] = new Case(liste.get(0)); gril[5][4] = new Case(liste.get(0)); gril[6][1] = new Case(liste.get(0));
+                gril[6][3] = new Case(liste.get(0)); gril[7][1] = new Case(liste.get(0)); gril[7][3] = new Case(liste.get(0));
             }
             //pose les animaux
-            gril[0][2] = gril[1][2] = gril[2][2] = gril[1][0] = gril[1][4] = new Case('a');
+            gril[0][2] = new Case('a'); gril[1][2] = new Case('a');
+            gril[2][2] = new Case('a'); gril[1][0] = new Case('a');
+            gril[1][4] = new Case('a');
             //pose les blocs vides
             gril[0][0] = gril[0][4] = new Case (' ');
         }
@@ -384,13 +405,22 @@ public class Grille implements Serializable {
                 gril[1][3] = gril[2][3] = gril[3][2] = gril[4][2] = gril[4][0] = gril[6][0] = gril[7][2] = gril[8][2] = gril[7][4] = gril[8][4] = gril[1][5] = gril[2][5] = gril[3][5] = gril[4][5] = new Case(liste.get(2));
                 liste.remove(2);
             } else if ((3-i-1) == 1){
-                gril[1][2] = gril[2][2] = gril[3][4] = gril[4][4] = gril[3][6] = gril[4][6] = gril[5][0] = gril[5][1]  = gril[5][3] = gril[5][5] = gril[6][1] = gril[6][3] = gril[6][5] = gril[7][0] = gril[7][1] = gril[8][0] = gril[8][1] = new Case(liste.get(1));
+                gril[1][2] = new Case(liste.get(1)); gril[2][2] = new Case(liste.get(1)); gril[3][4] = new Case(liste.get(1));
+                gril[4][4] = new Case(liste.get(1)); gril[3][6] = new Case(liste.get(1)); gril[4][6] = new Case(liste.get(1));
+                gril[5][0] = new Case(liste.get(1)); gril[5][1] = new Case(liste.get(1)); gril[5][3] = new Case(liste.get(1));
+                gril[5][5] = new Case(liste.get(1)); gril[6][1] = new Case(liste.get(1)); gril[6][3] = new Case(liste.get(1));
+                gril[6][5] = new Case(liste.get(1)); gril[7][0] = new Case(liste.get(1)); gril[7][1] = new Case(liste.get(1));
+                gril[8][0] = new Case(liste.get(1)); gril[8][1] = new Case(liste.get(1));
                 liste.remove(1);
             } else {
-                gril[1][4] = gril[1][6] = gril[2][4] = gril[2][6] = gril[3][3] = gril[4][3] = gril[4][1] = gril[5][2] = gril[6][2] = gril[5][4] = gril[6][4] = gril[5][6] = gril[6][6] = gril[7][3] = gril[8][3] = new Case(liste.get(0));
+                gril[1][4] = new Case(liste.get(0)); gril[1][6] = new Case(liste.get(0)); gril[2][4] = new Case(liste.get(0));
+                gril[2][6] = new Case(liste.get(0)); gril[3][3] = new Case(liste.get(0)); gril[4][3] = new Case(liste.get(0));
+                gril[4][1] = new Case(liste.get(0)); gril[5][2] = new Case(liste.get(0)); gril[6][2] = new Case(liste.get(0));
+                gril[5][4] = new Case(liste.get(0)); gril[6][4] = new Case(liste.get(0)); gril[5][6] = new Case(liste.get(0));
+                gril[6][6] = new Case(liste.get(0)); gril[7][3] = new Case(liste.get(0)); gril[8][3] = new Case(liste.get(0));
             }
             //pose les animaux
-            gril[0][2] = gril[0][4] = gril[0][6] = new Case('a');
+            gril[0][2] = new Case('a'); gril[0][4] = new Case('a'); gril[0][6] = new Case('a');
             //pose les blocs vides
             gril[0][0] = gril[0][1] = gril[1][0] = gril[1][1] = gril[2][0] = gril[2][1] = gril[3][0] = gril[3][1] = gril[0][3] = gril[0][5] =  new Case(' ');
             //pose les blocs fixes
