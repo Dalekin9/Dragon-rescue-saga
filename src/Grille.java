@@ -15,9 +15,19 @@ public class Grille implements Serializable {
     }
 
     public void afficher(){
-        for (Case[] cases : gril) {
-            for (Case aCase : cases) {
-                System.out.print(aCase.getIs() + " ");
+        System.out.print("   ");
+        for (int k=0;k<gril[0].length;k++){
+            System.out.print((char)(k+65) + " ");
+        }
+        System.out.println();
+        for (int i = 0;i<gril.length;i++) {
+            if (i<10) {
+                System.out.print(i+ "  ");
+            }else {
+                System.out.print(i+" ");
+            }
+            for (int j=0;j<gril[0].length;j++) {
+                System.out.print(gril[i][j].getIs() + " ");
             }
             System.out.println();
         }
@@ -40,19 +50,21 @@ public class Grille implements Serializable {
     //---------------------------------------------------------
 
     public void supprimer(int x, int y){
-        char res = gril[x][y].getIs();
-        gril[x][y].setIs('s');
-        if (x> 0 && gril[x-1][y].getIs() == res){
-            supprimer(x-1,y);
-        }
-        if (x < gril.length-1 && gril[x+1][y].getIs() == res){
-            supprimer(x+1,y);
-        }
-        if (y > 0 && gril[x][y-1].getIs() == res){
-            supprimer(x,y-1);
-        }
-        if (y < gril[0].length-1 && gril[x][y+1].getIs() == res){
-            supprimer(x,y+1);
+        if(gril[x][y].getIs()!= ' ' && gril[x][y].getIs() != ' ') {
+            char res = gril[x][y].getIs();
+            gril[x][y].setIs('s');
+            if (x > 0 && gril[x - 1][y].getIs() == res) {
+                supprimer(x - 1, y);
+            }
+            if (x < gril.length - 1 && gril[x + 1][y].getIs() == res) {
+                supprimer(x + 1, y);
+            }
+            if (y > 0 && gril[x][y - 1].getIs() == res) {
+                supprimer(x, y - 1);
+            }
+            if (y < gril[0].length - 1 && gril[x][y + 1].getIs() == res) {
+                supprimer(x, y + 1);
+            }
         }
     }
 
@@ -232,8 +244,8 @@ public class Grille implements Serializable {
         return -1;
     }
 
-    public void poserFusee(int j, int pos){
-        gril[pos][j] = new Case('1',gril[pos][j].getColor());
+    public void poserFusee(int pos){
+        gril[pos][0] = new Case('1',gril[pos][0].getColor());
     }
 
     //----------------------------------------------------------
