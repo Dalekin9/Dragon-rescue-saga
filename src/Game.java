@@ -47,61 +47,11 @@ public class Game {
                 ex.printStackTrace();
             }
         }*/
-        /*Joueur me = new Joueur("Ugo");
+        Joueur me = new Joueur("Ugo");
         Niveau[] levels = init();
         levels[0].remplir_Grille();
         Partie pA = new Partie(me,levels[0]);
-        pA.jouer();*/
-        /*Case[][] cas = new Case[4][4];
-        for (int i=0;i<cas.length;i++){
-            for (int j=0;j<cas[0].length;j++){
-                cas[i][j] = new Case('V');
-            }
-        }
-        cas[0][0] =  new Case('s');
-        cas[0][1]=new Case('s');
-        cas[0][2]=new Case('s');
-        cas[0][3] =new Case('s');
-        Grille test = new Grille(cas);
-        test.afficher();
-        System.out.println("colo");
-        //test.afficherC();
-        
-        //int pos = test.coupSpecialLignePos();
-        
-        test.faireDescendre(false);
-        test.afficher();
-        System.out.println("colo");
-        //test.afficherC();
-        
-        //test.poserFusee(0,1, pos);
-        test.afficher();
-        System.out.println("ballon");
-        test.afficherC();*/
+        pA.jouer();
 
-        /*Pioche pioche = new Pioche();
-        pioche.execute(test,0,4);
-        test.afficher();*/
-
-        /*Bombe bombe = new Bombe();
-        bombe.execute(test,2,3);
-        test.afficher();*/
-
-        /*Ballon ballon = new Ballon(test.gril[0][0].getColor());
-        ballon.execute(test,0,0);
-        test.afficher();*/
-
-        /*Fusee fusee = new Fusee();
-        fusee.execute(test, 2);
-        test.afficher();*/
-
-        Niveau tes = new Niveau(new Grille(new Case[7][7]),1,2,0,0);
-        tes.remplir_Grille();
-        Grille grilleTest = tes.getGrid();
-        grilleTest.afficher();
-        grilleTest.supprimer(1,0);
-        grilleTest.afficher();
-        grilleTest.faireDescendre(false);
-        grilleTest.afficher();
     }
 }
