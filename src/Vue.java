@@ -75,15 +75,17 @@ public class Vue extends JFrame {
     }
 
     public void modeAventure(){
-
+        //choix du level
+        //apres le level lancer partie == fonction a appeller dans le choix du level
     }
 
     public void modeInfini(){
-
+        //lancer le mode infini
     }
 
     public void regles(){
-
+        //lancer les regles
+        //penser a faire ca aussi pour le mode texte au debut
     }
 
 }

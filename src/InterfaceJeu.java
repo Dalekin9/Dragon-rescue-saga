@@ -10,11 +10,14 @@ public class InterfaceJeu {
         controleur =  new Controleur(modele);
         view = new Vue (modele, controleur);
         controleur.setView(view);
-        view.setVisible ( true );
-        view.sommaire();
+        view.setVisible (true);
+        //view.sommaire();
         //view.miseAJour();
         //controleur.sliderMoved();
     }
-    public static void main ( String [] args ){ new InterfaceJeu (); }
+    public static void lancement (){
+        InterfaceJeu jeu = new InterfaceJeu ();
+        jeu.view.sommaire();
+    }
 
 }

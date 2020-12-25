@@ -2,7 +2,8 @@ import java.io.*;
 import java.util.Arrays;
 
 public class Game {
-    
+
+    //a deplacer dans launcher
     public static Niveau[] init(){
         Niveau[] tab = new Niveau[5];
         tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,5,3000);
@@ -14,44 +15,26 @@ public class Game {
     }
     
     
-    public static void main(String[] args){
-        /*ObjectOutputStream oos = null;
-        ObjectInputStream ois = null;
-        Niveau[] levels = init();
-        try {
-            FileOutputStream fos = new FileOutputStream("level.ser");
-            oos = new ObjectOutputStream(fos);
-            FileInputStream fis = new FileInputStream("level.ser");
-            ois = new ObjectInputStream(fis);
-            //écriture des niveaux sur le fichier level.ser
-            for (Niveau level : levels) {
-                oos.writeObject(level);
-            }
-            oos.flush();
-            //lecture des niveaux sur le fichier level.ser
-            while (fis.available() > 0) {
-                Niveau lvl = (Niveau) ois.readObject ();
-                lvl.remplir_Grille();
-                lvl.afficher();
-                lvl.getGrid().afficher();
-            }
-        } catch (final IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (oos != null) {
-                    oos.flush();
-                    oos.close();
-                }
-            } catch (final IOException ex) {
-                ex.printStackTrace();
-            }
-        }*/
+    public static void lancement(){
+        /**/
         Joueur me = new Joueur("Ugo");
         Niveau[] levels = init();
+        int level = choixLevel();
         levels[0].remplir_Grille();
         Partie pA = new Partie(me,levels[0]);
         pA.jouer();
+    }
 
+    // a deplacer dans launcher pck aussi utiliser pr l'interface
+    public static int choixLevel(){
+        //demande un level
+        //regarde si acces au level
+        //si oui ok
+        //si non alors le dire et préciser quel level max est autorise
+
+        //ou alors commencer par dire liste des lvl autorisé
+        //demande au joueur
+        //si level ok alors ok
+        //si non alors redemande
     }
 }

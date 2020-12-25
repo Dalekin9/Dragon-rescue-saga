@@ -112,6 +112,8 @@ public class Partie {
     public void jouer(){
         lvl.afficher();
         do{
+            System.out.println("Score : " + score + " points");
+            System.out.println("Vous avez sauvé " + (lvl.getNb_animaux()-animRes) + "/" + lvl.getNb_animaux());
             lvl.getGrid().afficher();
             uneAction(false);
         }while(finJeu() == 0);
