@@ -47,11 +47,11 @@ public class Game {
                 ex.printStackTrace();
             }
         }*/
-        Joueur me = new Joueur("Ugo");
+        /*Joueur me = new Joueur("Ugo");
         Niveau[] levels = init();
         levels[0].remplir_Grille();
         Partie pA = new Partie(me,levels[0]);
-        pA.jouer();
+        pA.jouer();*/
         /*Case[][] cas = new Case[4][4];
         for (int i=0;i<cas.length;i++){
             for (int j=0;j<cas[0].length;j++){
@@ -100,6 +100,8 @@ public class Game {
         Grille grilleTest = tes.getGrid();
         grilleTest.afficher();
         grilleTest.supprimer(1,0);
+        grilleTest.afficher();
+        grilleTest.faireDescendre(false);
         grilleTest.afficher();
     }
 }
