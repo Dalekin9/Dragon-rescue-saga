@@ -19,7 +19,7 @@ public class Grille implements Serializable {
         for (int k=0;k<gril[0].length;k++){
             System.out.print((char)(k+65) + " ");
         }
-        System.out.println();
+        System.out.println();System.out.println();
         for (int i = 0;i<gril.length;i++) {
             if (i<10) {
                 System.out.print(i+ "  ");
@@ -170,7 +170,7 @@ public class Grille implements Serializable {
             }
             for (int i=0;i<gril.length;i++){
                 for (int j=0;j<gril[i].length;j++){
-                    if (gril[i][j].getIs() == 's'){
+                    if (gril[i][j].getIs() == 's' ){
                         if (i-1 < 0){
                             int pos = (int) (Math.random()*liste.size());
                             gril[i][j] = new Case(liste.get(pos));
@@ -228,7 +228,7 @@ public class Grille implements Serializable {
     }
 
     //il est important de noter que cette fonction s'appelle avant le remplacement des cases supprimées
-    //sinon on ne peut récuper la position de la ligne supprimée
+    //sinon on ne peut récuperer la position de la ligne supprimée
     public int coupSpecialLignePos(){
         for (int i = 0;i<gril.length;i++){
             ArrayList<Character> test = new ArrayList<>();

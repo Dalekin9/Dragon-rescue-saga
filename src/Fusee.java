@@ -1,10 +1,13 @@
-public class Fusee{
+public class Fusee extends Objet{
 
-    Fusee(){}
+    Fusee(Grille grille, int ligne){
+        grid = grille;
+        lig = ligne;
+    }
 
-    public void execute(Grille grille, int i) {
-        for (int col=0;col<grille.gril.length;col++) {
-            grille.gril[i][col] = new Case('s');
+    public void execute() {
+        for (int col=0;col<grid.gril.length;col++) {
+            grid.gril[lig][col] = new Case('s');
         }
     }
 }

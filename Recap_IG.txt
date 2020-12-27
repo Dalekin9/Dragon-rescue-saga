@@ -1,0 +1,7 @@
+Vue : Tous les éléments purement graphique aka tout ce que le joueur voit
+( Jpanel Jbuttons etc)
+
+Modele : C'est une "copie" Non affichée de la vue, C'est ce qu'on modiefira avant
+de modifier la vue (Les deux sont directement liés et doivent être "identiques")
+
+Controleur : Je suis pas sur du tout c'est bizarre
