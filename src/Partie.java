@@ -13,6 +13,7 @@ public class Partie {
         animRes = lvl.nb_animaux;
     }
 
+    //Convertis les coordonnées données pour qu'elles soient utilisées
     public int[] coordsInt(String[] coords){
         int[] intab = new int[2];
         intab[0] = Integer.parseInt(coords[1]);
@@ -20,6 +21,7 @@ public class Partie {
         return intab;
     }
 
+    //Vérifie que les coordonées données sont valides
     public boolean coordsVerif(String[] coords){
         int longueur = lvl.getGrid().getLongu();
         int hauteur = lvl.getGrid().getHaut();
@@ -49,6 +51,7 @@ public class Partie {
         return true;
     }
 
+    //Retourne un tableau rempli des deux coordonées sous forme d'entier
     public int[] coordonnées(){
         String[] coordsStr;
         int[] coords = new int[2];
@@ -63,6 +66,7 @@ public class Partie {
         return coords;
     }
 
+    //En fonction du choix de choixObj, utilise un objet sur la grille
     public void useObj(int obj){
         int[] coords = coordonnées();
         Objet x ;
@@ -84,6 +88,8 @@ public class Partie {
         lvl.getGrid().decaler();
     }
 
+    //Casse un bloc et tous ses alentours de même couleur puis
+    // fais descendre et tous les blocs
     public void casseBloc(boolean animAlea){
         int[] coords = coordonnées();
         lvl.getGrid().supprimer(coords[0],coords[1]);
@@ -140,6 +146,7 @@ public class Partie {
         }
     }
 
+    //Vérfie les conditions de fin de jeu
     public int finJeu(){
         if(coupRes == 0){
             return 1;

@@ -28,6 +28,7 @@ public class Joueur implements java.io.Serializable {
         return coordStr;
     }
 
+    //Demande au joueur quel objet il veut utilser et récupère sa réponse
     public int choixObjet() {
         int rep = 0;
         boolean flag = false;
