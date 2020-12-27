@@ -19,7 +19,7 @@ public class Grille implements Serializable {
         for (int k=0;k<gril[0].length;k++){
             System.out.print((char)(k+65) + " ");
         }
-        System.out.println();
+        System.out.println();System.out.println();
         for (int i = 0;i<gril.length;i++) {
             if (i<10) {
                 System.out.print(i+ "  ");

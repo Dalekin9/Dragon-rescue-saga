@@ -32,14 +32,14 @@ public class Joueur implements java.io.Serializable {
         int rep = 0;
         boolean flag = false;
         System.out.println("Quel objet voulez-vous utiliser ?\n1- Bombe   2- Pioche   3- Fusee");
-        while (!flag) {
+        do {
             rep = scaRep.nextInt();
-            if (rep < 5 && rep > 0) {
+            if (rep < 4 && rep > 0) {
                 flag = true;
             }else{
                 System.out.println("Entrez un chiffre entre 1 et 3");
             }
-        }
+        }while (!flag);
         return rep;
     }
 

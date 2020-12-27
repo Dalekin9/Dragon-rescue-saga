@@ -15,8 +15,8 @@ public class Partie {
 
     public int[] coordsInt(String[] coords){
         int[] intab = new int[2];
-        intab[0] = Integer.parseInt(coords[0]);
-        intab[1] = Integer.parseInt(coords[1]);
+        intab[0] = Integer.parseInt(coords[1]);
+        intab[1] = Integer.parseInt(coords[0]);
         return intab;
     }
 
@@ -65,14 +65,31 @@ public class Partie {
 
     public void useObj(int obj){
         int[] coords = coordonnées();
+        Objet x ;
         if(obj == 3){
-
+            x = new Fusee(lvl.getGrid(),coords[0]);
+        }else if(obj == 2){
+            x = new Pioche(lvl.getGrid(), coords[0], coords[1]);
+        }else {
+            x = new Bombe(lvl.getGrid(), coords[0], coords[1]);
         }
+        x.execute();
+        lvl.getGrid().faireDescendre(false);
+        if(lvl.getGrid().animalEnBas()){
+            int  ajout = lvl.getGrid().supprimerAnimalEnBas();
+            score += ajout;
+            animRes -= ajout/1000;
+        }
+        lvl.getGrid().faireDescendre(false);
+        lvl.getGrid().decaler();
     }
 
     public void casseBloc(boolean animAlea){
         int[] coords = coordonnées();
         lvl.getGrid().supprimer(coords[0],coords[1]);
+        if(lvl.getGrid().coupSpecialLigne()){
+        //    lvl.getGrid()
+        }
         score += lvl.getGrid().points();
         lvl.getGrid().faireDescendre(animAlea);
         if(lvl.getGrid().animalEnBas()){
@@ -99,8 +116,8 @@ public class Partie {
                     break;
                 case "o":
                 case "objet":
+                    useObj(joueur.choixObjet());
                     flag = true;
-                    coupRes--;
                     break;
                 default:
                     System.out.println("Réponse non reconnue, choisissez B ou O");
@@ -112,9 +129,15 @@ public class Partie {
     public void jouer(){
         lvl.afficher();
         do{
+            System.out.println("Votre score est: "+score);
             lvl.getGrid().afficher();
             uneAction(false);
         }while(finJeu() == 0);
+        if(finJeu() == 1){
+            System.out.println("Vous avez perdu :(");
+        }else{
+            System.out.println("Bravo vous avez complété le niveau " + lvl.id+ " :)");
+        }
     }
 
     public int finJeu(){
