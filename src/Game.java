@@ -1,40 +1,49 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Game {
-
-    //a deplacer dans launcher
-    public static Niveau[] init(){
-        Niveau[] tab = new Niveau[5];
-        tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,5,3000);
-        tab[1] = new Niveau(new Grille(new Case[8][5]),2,5,0,0);
-        tab[2] = new Niveau(new Grille(new Case[9][7]),3,3,0,0);
-        tab[3] = new Niveau(new Grille(new Case[8][9]),4,12,0,0);
-        tab[4] = new Niveau(new Grille(new Case[8][9]),5,5,0,0);
-        return tab;
-    }
-    
     
     public static void lancement(){
-        /**/
-        Joueur me = new Joueur("Ugo");
-        Niveau[] levels = init();
-        int level = choixLevel();
-        levels[0].remplir_Grille();
-        Partie pA = new Partie(me,levels[0]);
+        Joueur gameur = trouverJoueur();
+        System.out.println("je suis "+ gameur.getNom());
+        int level = choixLevel(gameur);
+        while (! gameur.levelEstPossible(level)){
+            System.out.println("Vous n'avez pas accès à ce niveau !");
+            level = choixLevel(gameur);
+        }
+        Niveau vaJouerA = Niveau.recupNiveau(level);
+        Partie pA = new Partie(gameur,vaJouerA);
         pA.jouer();
     }
 
-    // a deplacer dans launcher pck aussi utiliser pr l'interface
-    public static int choixLevel(){
-        //demande un level
-        //regarde si acces au level
-        //si oui ok
-        //si non alors le dire et préciser quel level max est autorise
 
-        //ou alors commencer par dire liste des lvl autorisé
-        //demande au joueur
-        //si level ok alors ok
-        //si non alors redemande
+    public static Joueur trouverJoueur(){
+        String rep = Joueur.demandeJoueur();
+        if (rep.equals("in")){
+            return Joueur.connexion();
+        } else {
+            return Joueur.inscription();
+        }
     }
+
+
+    public static int choixLevel(Joueur joueur){
+       int level =-1;
+            System.out.println("Voici les niveaux auxquels vous avez accès :");
+            joueur.afficheNiveauPossible();
+            System.out.println("Choisissez le niveau auquel vous voulez jouer :");
+            level = Integer.parseInt(new Scanner(System.in).next());
+            return level;
+    }
+
+    /* a voir apres
+            //lecture des niveaux sur le fichier level.ser
+            while (fis.available() > 0) {
+                Niveau lvl = (Niveau) ois.readObject ();
+                lvl.remplir_Grille();
+                lvl.afficher();
+                lvl.getGrid().afficher();
+            }
+             */
 }

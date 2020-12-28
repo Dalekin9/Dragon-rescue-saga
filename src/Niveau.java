@@ -1,3 +1,6 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -113,5 +116,35 @@ public class Niveau implements Serializable {
     
     public int getNb_coup_max() {
         return nb_coup_max;
+    }
+
+
+    public static Niveau recupNiveau(int level){
+        ObjectInputStream ois = null;
+        try {
+
+            FileInputStream fis = new FileInputStream("level.ser");
+            if (fis.available() != 0) {
+                ois = new ObjectInputStream(fis);
+                while (fis.available() != 0) {
+                    Niveau test = (Niveau) ois.readObject();
+                    if (test.id == level) {
+                        return test;
+                    }
+                }
+            }
+            return null;
+        } catch (final IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (final IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
     }
 }

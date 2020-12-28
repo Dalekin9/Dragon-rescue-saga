@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Partie {
     private Joueur joueur;
@@ -57,7 +58,8 @@ public class Partie {
         String[] coordsStr;
         int[] coords = new int[2];
         do {
-            switch (joueur.repJoueur().toLowerCase()) {
+            String a = new Scanner(System.in).next();
+            switch (a.toLowerCase()) {
                 case "b":
                 case "bloc":
                     boolean ligne = false;
