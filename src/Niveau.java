@@ -2,8 +2,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class Niveau implements Serializable {
     
@@ -12,16 +11,15 @@ public class Niveau implements Serializable {
     protected int nb_animaux;
     protected int nb_coup_max;
     protected int nb_point_min;
-    protected int[] best_score;
+    protected Map<Integer,String> best_score;
     protected ArrayList<Character> listColor;
 
-    public Niveau(Grille grille, int numero, int animaux, int coup, int point){
+    public Niveau(Grille grille, int numero, int animaux, int coup){
         grid = grille;
         id = numero;
         nb_animaux = animaux;
         nb_coup_max = coup;
-        nb_point_min = point;
-        best_score = new int[]{0, 0, 0, 0, 0};
+        best_score = new HashMap<>();
     }
     
     //remplissage des grilles selon le niveau
@@ -90,12 +88,14 @@ public class Niveau implements Serializable {
     
     public void afficher_score(){
         System.out.println("Meilleurs scores :");
-        for (int i=0;i<5;i++){
-            if (best_score[i] != 0){
-                System.out.println(i+1 +" : "+best_score[i]);
-            } else {
-                System.out.println(i+1 +" : Pas encore de score");
-            }
+        int compt = 1;
+        for (var item : best_score.entrySet()) {
+            System.out.println(compt + " : " + item.getKey() +" -> " + item.getValue());
+            compt++;
+        }
+        while (compt <= 5){
+            System.out.println(compt + " : Pas encore de score");
+            compt++;
         }
         System.out.println();
     }
@@ -146,5 +146,29 @@ public class Niveau implements Serializable {
             }
         }
         return null;
+    }
+
+
+
+
+
+    public void miseAJourScore(int score, String joueur){
+        if (! this.best_score.isEmpty()) {
+            int last = recupDernierScore(this.best_score);
+            this.best_score.remove(last);
+        }
+        this.best_score.put(score,joueur);
+        best_score = new TreeMap<Integer,String>(best_score);
+
+    }
+
+    public int recupDernierScore(Map<Integer,String> score){
+        int min = -1;
+        for (var item : best_score.entrySet()) {
+            if (item.getKey() < min){
+                min = item.getKey();
+            }
+        }
+        return min;
     }
 }

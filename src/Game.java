@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Game {
@@ -13,6 +14,7 @@ public class Game {
             level = choixLevel(gameur);
         }
         Niveau vaJouerA = Niveau.recupNiveau(level);
+        Objects.requireNonNull(vaJouerA).remplir_Grille();
         Partie pA = new Partie(gameur,vaJouerA);
         pA.jouer();
     }

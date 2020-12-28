@@ -13,7 +13,7 @@ public class Joueur implements java.io.Serializable {
         this.nom = nom;
         this.mdp = mdp;
         nivAcess = new ArrayList<Integer>();
-        nivAcess.add(0);
+        nivAcess.add(1);
     }
 
     // Recupère les coordonnées de la case qui doit être affectée
@@ -239,4 +239,5 @@ public class Joueur implements java.io.Serializable {
         }
         System.out.println();
     }
+
 }

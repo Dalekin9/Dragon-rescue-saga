@@ -10,7 +10,7 @@ public class Partie {
         joueur = pers;
         lvl = niveau;
         score = 0;
-        coupRes = lvl.getNb_coup_max();
+        coupRes = lvl.nb_coup_max;
         animRes = lvl.nb_animaux;
     }
 
@@ -115,19 +115,41 @@ public class Partie {
         lvl.afficher();
         do{
             System.out.println("Score : " + score + " points");
-            System.out.println("Vous avez sauvé " + (lvl.getNb_animaux()-animRes) + "/" + lvl.getNb_animaux());
+            System.out.println("Vous avez sauvé " + (lvl.getNb_animaux()-animRes) + "/" + lvl.getNb_animaux() + " animaux");
+            if (lvl.nb_coup_max != -1){
+                System.out.println("Il vous reste " + this.coupRes + " coups");
+            }
             lvl.getGrid().afficher();
             uneAction(false);
         }while(finJeu() == 0);
+        affichageFin();
     }
 
     public int finJeu(){
         if(coupRes == 0){
             return 1;
-        }else if(animRes == 0 || score >= lvl.nb_point_min){
+        }else if(animRes == 0){
             return 2;
         }else{
             return 0;
+        }
+    }
+
+    public void affichageFin(){
+        if (this.coupRes == 0 || this.animRes != 0 ){
+            System.out.println("Vous n'avez pas réussi à sauvez tous les ours !");
+            System.out.println(":(");
+            System.out.println("Ce n'est pas grave, vous réussirez une prochaine fois !");
+        } else {
+            System.out.println("Bravo, vous avez sauvez tous les ours !");
+            System.out.println(":)");
+            System.out.println("Vous avez obtenu un score de " + this.score + " points");
+            if (this.score > this.lvl.recupDernierScore(this.lvl.best_score)){
+                System.out.println("Vous faîtes désormais partis du top 5 des meilleurs joueurs de ce niveau !");
+                this.lvl.miseAJourScore(this.score,this.joueur.getNom());
+            } else {
+                System.out.println("Malheureusement vous ne faîtes pas partis du top 5 des meilleurs joueurs de ce niveau.");
+            }
         }
     }
 }
