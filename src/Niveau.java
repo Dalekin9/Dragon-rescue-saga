@@ -10,16 +10,19 @@ public class Niveau implements Serializable {
     public int id;
     protected int nb_animaux;
     protected int nb_coup_max;
-    protected int nb_point_min;
     protected Map<Integer,String> best_score;
     protected ArrayList<Character> listColor;
+    protected boolean decale;
 
-    public Niveau(Grille grille, int numero, int animaux, int coup){
+    public Niveau(Grille grille, int numero, int animaux, int coup, boolean decale){
         grid = grille;
         id = numero;
         nb_animaux = animaux;
         nb_coup_max = coup;
         best_score = new HashMap<>();
+        this.decale = decale;
+        listColor = listeColor();
+
     }
     
     //remplissage des grilles selon le niveau
@@ -77,11 +80,8 @@ public class Niveau implements Serializable {
         System.out.println("Niveau "+id);
         System.out.println("Objectifs :");
         System.out.println("Sauver "+nb_animaux+" ours");
-        if (nb_coup_max != 0){
+        if (nb_coup_max != -1){
             System.out.println(nb_coup_max+" coups maximum");
-        }
-        if (nb_point_min != 0) {
-            System.out.println("Score de " + nb_point_min + " points");
         }
         afficher_score();
     }
@@ -162,9 +162,9 @@ public class Niveau implements Serializable {
 
     }
 
-    public int recupDernierScore(Map<Integer,String> score){
+    public int recupDernierScore(Map<Integer,String> scores){
         int min = -1;
-        for (var item : best_score.entrySet()) {
+        for (var item : scores.entrySet()) {
             if (item.getKey() < min){
                 min = item.getKey();
             }

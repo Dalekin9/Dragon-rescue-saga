@@ -34,23 +34,31 @@ public class Joueur implements java.io.Serializable {
         return this.nom;
     }
 
+    public ArrayList<Integer> getNivAcess(){
+        return nivAcess;
+    }
+
+    public void setNivAcess(ArrayList<Integer> update){
+        nivAcess = update;
+    }
+
     //demande au joueur s'il souhaite se connecter ou s'incrire
     public static String demandeJoueur(){
-        System.out.println("Souhaitez-vous vous connecter (in) ou alors créer un compte(cr) ?");
-        String rep ;
-        boolean ok = false;
+        System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+        String rep;
+        boolean ok;
         do{
             rep = new Scanner(System.in).next();
-            rep = rep.toLowerCase(Locale.ROOT);
-            if(!rep.equals("in") && !rep.equals("cr")){
-                ok = false;
-                System.out.println("Vous n'avez pas répondu correctement !");
-                System.out.println("Souhaitez-vous vous connecter (in) ou alors créer un compte(cr) ?");
-            } else {
-                ok = true;
+            switch (rep.toLowerCase(Locale.ROOT)) {
+                case "co", "connecter", "i", "inscrire","connexion","inscription" -> ok = true;
+                default -> {
+                    ok = false;
+                    System.out.println("Vous n'avez pas répondu correctement !");
+                    System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+                }
             }
         }while(!ok);
-        return rep;
+        return String.valueOf(rep.toLowerCase().charAt(0));
     }
 
     //fonction de connexion
@@ -210,7 +218,6 @@ public class Joueur implements java.io.Serializable {
 
     //fonction qui créer un joueur et l'ecris sur joueur.ser
     public static Joueur creerJoueur(String id, String mdp) {
-
         try {
             Joueur a = new Joueur(id,mdp);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
@@ -239,5 +246,6 @@ public class Joueur implements java.io.Serializable {
         }
         System.out.println();
     }
+
 
 }

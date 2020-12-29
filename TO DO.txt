@@ -1,6 +1,6 @@
 Priorité :
 
-Creer une partie en mode texte (donc lecture dans la console des coordonnées avec mess d'erreur etc)
+Re serialiser joueur apres qu'il ai fini un niveau
 
 
 
@@ -11,7 +11,6 @@ mode infini
 mode chrono
 aide pour un joueur lors d'une partie
 sommaire ou affichage principal
-affichage de liste de niveau (apres affichage principal)
 jeu jouer par un robot
 
 Doing :
@@ -19,6 +18,7 @@ Doing :
 
 
 Finish :
+affichage de liste de niveau (apres affichage principal)
 creer classe objets
 coup spéciaux quand ligne/bloc supp
 augmenter point qnd animaux en bas et les supp puis remplacer bloc

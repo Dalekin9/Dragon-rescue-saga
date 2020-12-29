@@ -5,9 +5,7 @@ import java.util.Scanner;
 
 public class Game {
     
-    public static void lancement(){
-        Joueur gameur = trouverJoueur();
-        System.out.println("je suis "+ gameur.getNom());
+    public static void lancement(Joueur gameur){
         int level = choixLevel(gameur);
         while (! gameur.levelEstPossible(level)){
             System.out.println("Vous n'avez pas accès à ce niveau !");
@@ -20,15 +18,16 @@ public class Game {
     }
 
 
-    public static Joueur trouverJoueur(){
+    public static void trouverJoueur(){
         String rep = Joueur.demandeJoueur();
-        if (rep.equals("in")){
-            return Joueur.connexion();
+        Joueur joueur;
+        if (rep.equals("c")){
+            joueur = Joueur.connexion();
         } else {
-            return Joueur.inscription();
+            joueur = Joueur.inscription();
         }
+        lancement(joueur);
     }
-
 
     public static int choixLevel(Joueur joueur){
        int level =-1;
@@ -38,14 +37,4 @@ public class Game {
             level = Integer.parseInt(new Scanner(System.in).next());
             return level;
     }
-
-    /* a voir apres
-            //lecture des niveaux sur le fichier level.ser
-            while (fis.available() > 0) {
-                Niveau lvl = (Niveau) ois.readObject ();
-                lvl.remplir_Grille();
-                lvl.afficher();
-                lvl.getGrid().afficher();
-            }
-             */
 }

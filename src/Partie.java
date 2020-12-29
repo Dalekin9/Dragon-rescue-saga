@@ -1,4 +1,6 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Partie {
@@ -37,12 +39,7 @@ public class Partie {
             String tmp = coords[1];
             coords[1]  = coords[0];
             coords[0]  = tmp;
-        }else if(nmbrs.contains(coords[0]) && letters.contains(coords[1].toLowerCase())){
-            for(int k = 0; k<longueur; k++) {
-                if (letters.get(k).equals(coords[1].toLowerCase())) {
-                    coords[1] = Integer.toString(k);
-                }
-            }
+            //return coupValide();
         }else{
             System.out.println("Les coordonées ne sont pas valides !");
             return false;
@@ -50,6 +47,9 @@ public class Partie {
         return true;
     }
 
+    public boolean coupValide(int i, int j){
+        return lvl.getGrid().gril[i][j].getIs() != ' ' && lvl.getGrid().gril[i][j].getIs() != '-' && lvl.getGrid().gril[i][j].getIs() != 'a';
+    }
 
 
     public void uneAction(boolean animAlea){
@@ -57,6 +57,7 @@ public class Partie {
         boolean flag = false;
         String[] coordsStr;
         int[] coords = new int[2];
+        int colonnes = lvl.getGrid().gril[0].length;
         do {
             String a = new Scanner(System.in).next();
             switch (a.toLowerCase()) {
@@ -74,6 +75,7 @@ public class Partie {
                         }
                     }while(!flag);
                     lvl.getGrid().supprimer(coords[0],coords[1]);
+
                     if (lvl.getGrid().coupSpecialLigne()){
                         ligne = true;
                         posLignne = lvl.getGrid().coupSpecialLignePos();
@@ -83,20 +85,40 @@ public class Partie {
                         posBloc = lvl.getGrid().coupSpecialBlocsPos();
                     }
                     score += lvl.getGrid().points();
-                    lvl.getGrid().faireDescendre(animAlea);
+                    if (lvl.decale) {
+                        lvl.getGrid().faireDescendreQuandDecale();
+                        lvl.getGrid().afficher();
+                        lvl.getGrid().decaler();
+                    } else {
+                        lvl.getGrid().faireDescendre(animAlea);
+                    }
+                    System.out.println("test1");
+                    while(lvl.getGrid().animalEnBas()) {
+                        System.out.println("suorr ko");
+                        lvl.getGrid().afficher();
+                        int  ajout = lvl.getGrid().supprimerAnimalEnBas();
+                        lvl.getGrid().afficher();
+                        System.out.println(ajout);
+                        System.out.println("suorr ko222222");
+                        score += ajout;
+                        animRes -= ajout/1000;
+                        if (lvl.decale) {
+                            System.out.println("ici0");
+                            lvl.getGrid().faireDescendreQuandDecale();
+                            lvl.getGrid().afficher();
+                            System.out.println("ici1");
+                            lvl.getGrid().decaler();
+                            System.out.println("suorr ko333333");
+                        } else {
+                            lvl.getGrid().faireDescendre(animAlea);
+                        }
+                    }
                     if (ligne){
                         lvl.getGrid().poserFusee(posLignne);
                     }
                     if (bloc){
                         lvl.getGrid().poserBallon(posBloc);
                     }
-                    if(lvl.getGrid().animalEnBas()){
-                        int  ajout = lvl.getGrid().supprimerAnimalEnBas();
-                        score += ajout;
-                        animRes -= ajout/1000;
-                    }
-                    lvl.getGrid().faireDescendre(animAlea);
-                    lvl.getGrid().decaler();
                     coupRes--;
                     break;
                 case "o":
@@ -130,26 +152,48 @@ public class Partie {
             return 1;
         }else if(animRes == 0){
             return 2;
+        } else if (! this.lvl.getGrid().coupPossible()){
+            return 3;
         }else{
             return 0;
         }
     }
 
     public void affichageFin(){
-        if (this.coupRes == 0 || this.animRes != 0 ){
-            System.out.println("Vous n'avez pas réussi à sauvez tous les ours !");
+        if (finJeu() != 2 ){
+            if (finJeu() == 1) {
+                System.out.println("Vous avez épuisé le nombre de coups disponible.");
+            } else if (finJeu() == 3){
+                System.out.println("Plus aucun coup n'est possible.");
+            }
+            System.out.println("Vous n'avez pas réussi à sauver tous les ours !");
             System.out.println(":(");
             System.out.println("Ce n'est pas grave, vous réussirez une prochaine fois !");
+
         } else {
-            System.out.println("Bravo, vous avez sauvez tous les ours !");
+            System.out.println("Bravo, vous avez sauvé tous les ours !");
             System.out.println(":)");
             System.out.println("Vous avez obtenu un score de " + this.score + " points");
+            miseAJour(joueur);
             if (this.score > this.lvl.recupDernierScore(this.lvl.best_score)){
-                System.out.println("Vous faîtes désormais partis du top 5 des meilleurs joueurs de ce niveau !");
+                System.out.println("Vous êtes désormais dans le top 5 des meilleurs joueurs de ce niveau !");
                 this.lvl.miseAJourScore(this.score,this.joueur.getNom());
-            } else {
-                System.out.println("Malheureusement vous ne faîtes pas partis du top 5 des meilleurs joueurs de ce niveau.");
             }
         }
+        Game.lancement(joueur);
     }
+
+    public void miseAJour(Joueur joueur){
+        ArrayList<Integer> update = joueur.getNivAcess();
+        update.add(lvl.id+1);
+        joueur.setNivAcess(update);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
+            oos.writeObject(joueur);
+            oos.close();
+        }catch (IOException e){
+           e.printStackTrace();
+        }
+    }
+
 }
