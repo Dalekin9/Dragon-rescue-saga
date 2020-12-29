@@ -9,10 +9,11 @@ public class Vue extends JFrame {
     private JPanel infoJeu;
     private JPanel jeu;
     private JPanel infoObjet;
-    private JSlider[] tab;
     private Modele model;
     private Controleur control;
     private Color saved;
+    private CardLayout cl = new CardLayout();
+    private JPanel main = new JPanel(cl);
 
     public Vue(Modele mod, Controleur controleur){
         model = mod;
@@ -20,7 +21,6 @@ public class Vue extends JFrame {
         setTitle("Bear Rescue Saga");
         setSize(550,650);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new GridBagLayout());
     }
 
     public void sommaire(){
@@ -46,6 +46,12 @@ public class Vue extends JFrame {
         JButton av = new JButton("Mode Aventure");
         av.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                Thread thread = new Thread() {
+                    public void run() {
+                        modeAventure();
+                    }
+                };
+                thread.start();
                 modeAventure();
             }
         });
@@ -71,11 +77,17 @@ public class Vue extends JFrame {
 
         gbc.weighty = 1;
         pan.add(buttons, gbc); //ajout du panneau de bouton au panneau du début
-        this.add(pan); //ajout du panneau du début à la Vue
+        main.add("SOMMAIRE",pan); //ajout du panneau du début à la Vue
+        add(main);
+        main.setVisible(true);
     }
 
-    public void modeAventure(){
-
+    public void modeAventure() {
+        JPanel pan = new JPanel();
+        JLabel l = new JLabel("FCK YOU");
+        pan.add(l);
+        main.add("MERDE",pan);
+        ((CardLayout)main.getLayout()).show(main,"MERDE");
     }
 
     public void modeInfini(){
