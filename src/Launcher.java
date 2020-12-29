@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -9,8 +10,8 @@ public class Launcher {
         tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,-1,true);
         tab[1] = new Niveau(new Grille(new Case[8][5]),2,5,-1,true);
         tab[2] = new Niveau(new Grille(new Case[9][7]),3,3,-1,true);
-        tab[3] = new Niveau(new Grille(new Case[8][9]),4,12,0,true);
-        tab[4] = new Niveau(new Grille(new Case[8][9]),5,5,0,false);
+        tab[3] = new Niveau(new Grille(new Case[8][9]),4,12,70,false);
+        tab[4] = new Niveau(new Grille(new Case[8][9]),5,5,50,false);
         return tab;
     }
 
@@ -26,6 +27,7 @@ public class Launcher {
                 oos.writeObject(level);
             }
             oos.flush();
+            oos.close();
             //Demande au joueur s'il veut jouer en mode texte ou graphique
             if (demandeJeu().equals("t")){
                 Game.trouverJoueur();

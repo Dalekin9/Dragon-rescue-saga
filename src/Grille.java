@@ -50,22 +50,28 @@ public class Grille implements Serializable {
     //---------------------------------------------------------
 
     public void supprimer(int x, int y){
-        if(gril[x][y].getIs()!= ' ' && gril[x][y].getIs() != ' ') {
             char res = gril[x][y].getIs();
-            gril[x][y].setIs('s');
-            if (x > 0 && gril[x - 1][y].getIs() == res) {
-                supprimer(x - 1, y);
+            gril[x][y] = new Case('s');
+            if (x > 0) {
+                if (gril[x-1][y].getIs() == res) {
+                    supprimer(x - 1, y);
+                }
             }
-            if (x < gril.length - 1 && gril[x + 1][y].getIs() == res) {
-                supprimer(x + 1, y);
+            if (x < gril.length-1){
+                if (gril[x+1][y].getIs() == res) {
+                    supprimer(x + 1, y);
+                }
             }
-            if (y > 0 && gril[x][y - 1].getIs() == res) {
-                supprimer(x, y - 1);
+            if (y > 0 ){
+                if(gril[x][y-1].getIs() == res) {
+                    supprimer(x, y - 1);
+                }
             }
-            if (y < gril[0].length - 1 && gril[x][y + 1].getIs() == res) {
-                supprimer(x, y + 1);
+            if (y < gril[0].length-1 ){
+                if(gril[x][y+1].getIs() == res) {
+                    supprimer(x, y + 1);
+                }
             }
-        }
     }
 
     public boolean animalEnBas(){
@@ -88,45 +94,19 @@ public class Grille implements Serializable {
         return points;
     }
 
+    public int aDAnimaux(){
+        int nombre = 0;
+        for (int i=0;i<gril.length;i++){
+            for (int j=0;j<gril[0].length;j++) {
+                if (gril[i][j].getIs() == 'a') {
+                    nombre++;
+                }
+            }
+        }
+        return nombre;
+    }
+
     //--------------------------------------------------------
-
-    public boolean contientColonneVide(int col) {
-        for (int i = 0; i < gril[0].length-5+col; i++) {
-            ArrayList<Character> test = new ArrayList<Character>();
-            for (int j = 0; j < gril.length; j++) {
-                test.add(gril[j][i].getIs());
-            }
-            if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B') && !test.contains('a')) {
-                if (test.contains('s')){
-                    return true;
-                }
-                if (test.contains(' ')){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /*public int getColonneVide(int col){
-        for (int i = 0; i < gril[0].length-5+col; i++) {
-            ArrayList<Character> test = new ArrayList<Character>();
-            for (int j = 0; j < gril.length; j++) {
-                test.add(gril[j][i].getIs());
-            }
-            if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B') && !test.contains('a')) {
-                if (test.contains('s')){
-                    return i;
-                }
-                if (test.contains(' ')){
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-     */
 
     public boolean estVide(int pos,Grille grille){
         for (int i=0;i<grille.gril.length;i++){
@@ -142,19 +122,22 @@ public class Grille implements Serializable {
         if (pos == gril[0].length-1){
             for (int i=0;i<gril.length;i++){
                 if (gril[i][gril[0].length-1].getIs() != '-') {
-                    gril[i][gril[0].length - 1].setIs(' ');
+                    gril[i][gril[0].length-1].setIs(' ');
                 }
             }
         } else {
             for (int i=0;i<gril.length;i++){
-                    if (gril[i][pos + 1].getIs() == ' ' || gril[i][pos + 1].getIs() == '-') {
+                if (gril[i][pos].getIs() != '-') {
+                    if (gril[i][pos + 1].getIs() == ' ') {
                         gril[i][pos].setIs(' ');
+                    } else if (gril[i][pos + 1].getIs() == '-') {
+                        gril[i][pos].setIs('s');
                     } else {
-                        char sub = gril[i][pos+1].getIs();
+                        char sub = gril[i][pos + 1].getIs();
                         gril[i][pos] = new Case(sub);
-                        gril[i][pos+1]= new Case(' ');
+                        gril[i][pos + 1] = new Case(' ');
                     }
-
+                }
             }
         }
     }
@@ -181,11 +164,28 @@ public class Grille implements Serializable {
     }
 
     public void decaler(){
+        while (pasFiniDeSwitch())
         for (int i=0;i<gril[0].length;i++){
             if (estVide(i,this)){
                 decale(i);
+                faireDescendreQuandDecale();
             }
         }
+    }
+
+    public boolean pasFiniDeSwitch(){
+        int vide = 0;
+        for (int i=0;i<gril[0].length;i++){
+            if (estVide(i,this)){
+                vide++;
+            }
+            else{
+                if (vide !=0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     //--------------------------------------------------------
@@ -234,21 +234,6 @@ public class Grille implements Serializable {
     //                   --- PARTIE 2 ---                     -
     //                 gestions des coups                     -
     //---------------------------------------------------------
-
-    public boolean coupValide(int x,int y){
-        int res = gril[x][y].getIs();
-        if (x-1 > -1 && gril[x-1][y].getIs() == res){
-            return true;
-        } else if (x+1 < gril.length && gril[x+1][y].getIs() == res){
-            return true;
-        } else if (y-1 > -1 && gril[x][y-1].getIs() == res){
-            return true;
-        } else if (y+1 < gril.length && gril[x][y+1].getIs() == res){
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public boolean coupPossible(){
         for (int i=0;i< gril.length;i++){
@@ -511,7 +496,10 @@ public class Grille implements Serializable {
             //pose les animaux
             gril[0][2] = new Case('a'); gril[0][4] = new Case('a'); gril[0][6] = new Case('a');
             //pose les blocs vides
-            gril[0][0] = gril[0][1] = gril[1][0] = gril[1][1] = gril[2][0] = gril[2][1] = gril[3][0] = gril[3][1] = gril[0][3] = gril[0][5] =  new Case(' ');
+            gril[0][0] =  new Case(' '); gril[0][1] =  new Case(' '); gril[1][0] =  new Case(' ');
+            gril[1][1] =   new Case(' ');gril[2][0] =   new Case(' ');gril[2][1] =   new Case(' ');
+            gril[3][0] =  new Case(' '); gril[3][1] =  new Case(' '); gril[0][3] =  new Case(' ');
+            gril[0][5] =  new Case(' ');
             //pose les blocs fixes
             gril[7][5] = gril[7][6] = gril[8][5] = gril[8][6] = new Case('-');
         }

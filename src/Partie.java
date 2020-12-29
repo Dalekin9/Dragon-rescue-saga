@@ -39,7 +39,6 @@ public class Partie {
             String tmp = coords[1];
             coords[1]  = coords[0];
             coords[0]  = tmp;
-            //return coupValide();
         }else{
             System.out.println("Les coordonées ne sont pas valides !");
             return false;
@@ -71,10 +70,14 @@ public class Partie {
                         coordsStr = joueur.recupCoords();
                         if (coordsVerif(coordsStr)) {
                             coords = coordsInt(coordsStr);
-                            flag = true;
+                            if (coupValide(coords[0],coords[1])){
+                                flag = true;
+                            }
                         }
                     }while(!flag);
                     lvl.getGrid().supprimer(coords[0],coords[1]);
+                    lvl.getGrid().afficher();
+                    lvl.getGrid().afficherC();
 
                     if (lvl.getGrid().coupSpecialLigne()){
                         ligne = true;
@@ -91,6 +94,7 @@ public class Partie {
                         lvl.getGrid().decaler();
                     } else {
                         lvl.getGrid().faireDescendre(animAlea);
+                        lvl.getGrid().afficher();
                     }
                     System.out.println("test1");
                     while(lvl.getGrid().animalEnBas()) {
@@ -142,7 +146,12 @@ public class Partie {
                 System.out.println("Il vous reste " + this.coupRes + " coups");
             }
             lvl.getGrid().afficher();
-            uneAction(false);
+            int animAle = lvl.getGrid().aDAnimaux();
+            if (animAle < 5) {
+                uneAction(true);
+            } else {
+                uneAction(false);
+            }
         }while(finJeu() == 0);
         affichageFin();
     }

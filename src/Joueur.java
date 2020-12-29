@@ -7,6 +7,7 @@ public class Joueur implements java.io.Serializable {
     private String nom ;
     private String mdp;
     private ArrayList<Integer> nivAcess= new ArrayList<Integer>();
+
     static final long serialVersionUID = 10203040;
 
     public Joueur(final String nom, final String mdp) {

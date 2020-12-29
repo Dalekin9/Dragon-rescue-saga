@@ -1,6 +1,11 @@
 Priorité :
 
 Re serialiser joueur apres qu'il ai fini un niveau
+re serailiser niveau
+liste objet debloque joueur
+liste object dispo par niveau
+re verifier les coup speciaux
+et leur pose
 
 
 

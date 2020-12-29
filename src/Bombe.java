@@ -1,8 +1,12 @@
-public class Bombe{
+public class Bombe extends Objet{
+    int j;
+    Bombe(Grille grille, int lig, int col){
+        this.grille = grille;
+        i = lig;
+        j = col;
+    }
 
-    Bombe(){}
-
-    public void execute(Grille grille, int i, int j) {
+    public void execute() {
         grille.gril[i][j] = new Case('s');
         if (i>0){
             grille.gril[i-1][j] = new Case('s');
