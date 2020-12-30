@@ -17,10 +17,11 @@ public class Partie {
         animRes = lvl.nb_animaux;
     }
 
+    //Convertis les coordonnées données pour qu'elles soient utilisées
     public int[] coordsInt(String[] coords){
         int[] intab = new int[2];
-        intab[0] = Integer.parseInt(coords[0]);
-        intab[1] = Integer.parseInt(coords[1]);
+        intab[0] = Integer.parseInt(coords[1]);
+        intab[1] = Integer.parseInt(coords[0]);
         return intab;
     }
 
@@ -171,7 +172,7 @@ public class Partie {
                     }
                     break;
                 default:
-                    System.out.println("Réponse non reconnue ! Choisissez B(loc) ou O(bjet)");
+                    System.out.println("Réponse non reconnue, choisissez B ou O");
                     break;
             }
         }while(!flag);
@@ -192,6 +193,7 @@ public class Partie {
         affichageFin();
     }
 
+    //Vérfie les conditions de fin de jeu
     public int finJeu(){
         if(coupRes == 0){
             return 1;
