@@ -1,7 +1,4 @@
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 
 public class Niveau implements Serializable {
@@ -12,6 +9,7 @@ public class Niveau implements Serializable {
     protected int nb_coup_max;
     protected Map<Integer,String> best_score;
     protected ArrayList<Character> listColor;
+    protected ArrayList<String> objDispo;
     protected boolean decale;
 
     public Niveau(Grille grille, int numero, int animaux, int coup, boolean decale){
@@ -22,6 +20,7 @@ public class Niveau implements Serializable {
         best_score = new HashMap<>();
         this.decale = decale;
         listColor = listeColor();
+        objDispo = remplirObjetDispo(id);
 
     }
     
@@ -38,6 +37,20 @@ public class Niveau implements Serializable {
         }else {
             grid.remplir_Niveau_5(this.liste(3));
         }
+    }
+
+    public ArrayList<String> remplirObjetDispo(int id){
+        ArrayList<String> liste = new ArrayList<>();
+        if (id >= 3){
+            liste.add("Fusee");
+        }
+        if (id >= 4){
+            liste.add("Bombe");
+        }
+        if (id >= 5){
+            liste.add("Pioche");
+        }
+        return liste;
     }
     
     
@@ -146,20 +159,6 @@ public class Niveau implements Serializable {
             }
         }
         return null;
-    }
-
-
-
-
-
-    public void miseAJourScore(int score, String joueur){
-        if (! this.best_score.isEmpty()) {
-            int last = recupDernierScore(this.best_score);
-            this.best_score.remove(last);
-        }
-        this.best_score.put(score,joueur);
-        best_score = new TreeMap<Integer,String>(best_score);
-
     }
 
     public int recupDernierScore(Map<Integer,String> scores){

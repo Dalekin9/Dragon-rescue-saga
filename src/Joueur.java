@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Joueur implements java.io.Serializable {
     private String nom ;
     private String mdp;
-    private ArrayList<Integer> nivAcess= new ArrayList<Integer>();
-
+    private ArrayList<Integer> nivAcess;
+    private ArrayList<String> objAcces;
     static final long serialVersionUID = 10203040;
 
     public Joueur(final String nom, final String mdp) {
@@ -15,6 +15,7 @@ public class Joueur implements java.io.Serializable {
         this.mdp = mdp;
         nivAcess = new ArrayList<Integer>();
         nivAcess.add(1);
+        objAcces = new ArrayList<String>();
     }
 
     // Recupère les coordonnées de la case qui doit être affectée
@@ -38,6 +39,10 @@ public class Joueur implements java.io.Serializable {
     public ArrayList<Integer> getNivAcess(){
         return nivAcess;
     }
+
+     public ArrayList<String> getObjAcces() {return objAcces;}
+
+     public void setObjAcces(ArrayList<String> update){objAcces = update;}
 
     public void setNivAcess(ArrayList<Integer> update){
         nivAcess = update;
@@ -249,4 +254,12 @@ public class Joueur implements java.io.Serializable {
     }
 
 
+    public ArrayList<String> remplirListeObj(ArrayList<String> objDispo) {
+        for (String s : objDispo) {
+            if (!this.objAcces.contains(s)) {
+                this.objAcces.add(s);
+            }
+        }
+        return objAcces;
+    }
 }

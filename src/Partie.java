@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Partie {
     private Joueur joueur;
@@ -23,23 +24,23 @@ public class Partie {
         return intab;
     }
 
-    public boolean coordsVerif(String[] coords){
+    public boolean coordsVerif(String[] coords) {
         int longueur = lvl.getGrid().getLongu();
         int hauteur = lvl.getGrid().getHaut();
         ArrayList nmbrs = new ArrayList();
         ArrayList letters = new ArrayList();
-        for(int i = 0; i<hauteur; i++)nmbrs.add(String.valueOf(i));
-        for(int j = 0; j<longueur; j++)letters.add(String.valueOf((char)('a'+ j)));
-        if(nmbrs.contains(coords[1]) && letters.contains(coords[0].toLowerCase())){
-            for(int k = 0; k<longueur; k++) {
+        for (int i = 0; i < hauteur; i++) nmbrs.add(String.valueOf(i));
+        for (int j = 0; j < longueur; j++) letters.add(String.valueOf((char) ('a' + j)));
+        if (nmbrs.contains(coords[1]) && letters.contains(coords[0].toLowerCase())) {
+            for (int k = 0; k < longueur; k++) {
                 if (letters.get(k).equals(coords[0].toLowerCase())) {
                     coords[0] = Integer.toString(k);
                 }
             }
             String tmp = coords[1];
-            coords[1]  = coords[0];
-            coords[0]  = tmp;
-        }else{
+            coords[1] = coords[0];
+            coords[0] = tmp;
+        } else {
             System.out.println("Les coordonées ne sont pas valides !");
             return false;
         }
@@ -76,47 +77,40 @@ public class Partie {
                         }
                     }while(!flag);
                     lvl.getGrid().supprimer(coords[0],coords[1]);
-                    lvl.getGrid().afficher();
-                    lvl.getGrid().afficherC();
-
-                    if (lvl.getGrid().coupSpecialLigne()){
-                        ligne = true;
-                        posLignne = lvl.getGrid().coupSpecialLignePos();
+                    //recherche si des coups spéciaux ont été réalisés
+                    if (lvl.id >= 3) {
+                        if (lvl.getGrid().coupSpecialLigne()) {
+                            ligne = true;
+                            posLignne = lvl.getGrid().coupSpecialLignePos();
+                        }
                     }
-                    if (lvl.getGrid().coupSpecialBlocs()){
-                        bloc = true;
-                        posBloc = lvl.getGrid().coupSpecialBlocsPos();
+                    if (lvl.id >= 4) {
+                        if (lvl.getGrid().coupSpecialBlocs()) {
+                            bloc = true;
+                            posBloc = lvl.getGrid().coupSpecialBlocsPos();
+                        }
                     }
                     score += lvl.getGrid().points();
+                    //remplacer après suppression de bloc
                     if (lvl.decale) {
                         lvl.getGrid().faireDescendreQuandDecale();
-                        lvl.getGrid().afficher();
                         lvl.getGrid().decaler();
                     } else {
                         lvl.getGrid().faireDescendre(animAlea);
-                        lvl.getGrid().afficher();
                     }
-                    System.out.println("test1");
+                    //vérifie qu'il n'y a plus d'animaux en bas
                     while(lvl.getGrid().animalEnBas()) {
-                        System.out.println("suorr ko");
-                        lvl.getGrid().afficher();
                         int  ajout = lvl.getGrid().supprimerAnimalEnBas();
-                        lvl.getGrid().afficher();
-                        System.out.println(ajout);
-                        System.out.println("suorr ko222222");
                         score += ajout;
                         animRes -= ajout/1000;
                         if (lvl.decale) {
-                            System.out.println("ici0");
                             lvl.getGrid().faireDescendreQuandDecale();
-                            lvl.getGrid().afficher();
-                            System.out.println("ici1");
                             lvl.getGrid().decaler();
-                            System.out.println("suorr ko333333");
                         } else {
                             lvl.getGrid().faireDescendre(animAlea);
                         }
                     }
+                    //s'occupe de poser les objets quand il y a des coups spéciaux
                     if (ligne){
                         lvl.getGrid().poserFusee(posLignne);
                     }
@@ -127,8 +121,72 @@ public class Partie {
                     break;
                 case "o":
                 case "objet":
-                    flag = true;
-                    coupRes--;
+                    ArrayList<String> liste = voirObjPossible(joueur.getObjAcces(),lvl.objDispo);
+                    if (! liste.isEmpty()) {
+                        boolean repOk = false;
+                        do {
+                            Objet.afficherPossible(liste);
+                            String rep = new Scanner(System.in).next();
+                            switch (rep.toLowerCase(Locale.ROOT)){
+                                case "0":
+                                    repOk = true;
+                                    break;
+                                case "bombe":
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Bombe ? (ex: B4)");
+                                        coordsStr = joueur.recupCoords();
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValide(coords[0],coords[1])){
+                                                flag = true;
+                                            }
+                                        }
+                                    }while(!flag);
+                                    Bombe bom = new Bombe(this.lvl.getGrid(),coords[0],coords[1]);
+                                    bom.execute();
+                                    repOk = true;
+                                    coupRes--;
+                                    break;
+                                case "fusee":
+                                case "fusée":
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Fusée ? (ex: B)");
+                                        String coordFus = new Scanner(System.in).next();
+                                        coordsStr = new String[]{coordFus, "0"};
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValide(coords[0],coords[1])){
+                                                flag = true;
+                                            }
+                                        }
+                                    }while(!flag);
+                                    Fusee fus = new Fusee(this.lvl.getGrid(),coords[1]);
+                                    fus.execute();
+                                    repOk = true;
+                                    coupRes--;
+                                    break;
+                                case "pioche":
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Pioche ? (ex: B4)");
+                                        coordsStr = joueur.recupCoords();
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValide(coords[0],coords[1])){
+                                                flag = true;
+                                            }
+                                        }
+                                    }while(!flag);
+                                    Pioche pio = new Pioche(this.lvl.getGrid(),coords[0], coords[1]);
+                                    pio.execute();
+                                    repOk = true;
+                                    coupRes--;
+                                    break;
+                                default:
+                                    System.out.println("Réponse non reconnue ! Choisissez un objet (ou 0 pour revenir en arrière");
+                                    break;
+                            }
+                        }while (! repOk);
+                    }
                     break;
                 default:
                     System.out.println("Réponse non reconnue ! Choisissez B(loc) ou O(bjet)");
@@ -147,11 +205,7 @@ public class Partie {
             }
             lvl.getGrid().afficher();
             int animAle = lvl.getGrid().aDAnimaux();
-            if (animAle < 5) {
-                uneAction(true);
-            } else {
-                uneAction(false);
-            }
+            uneAction(animAle < 5);
         }while(finJeu() == 0);
         affichageFin();
     }
@@ -183,10 +237,11 @@ public class Partie {
             System.out.println("Bravo, vous avez sauvé tous les ours !");
             System.out.println(":)");
             System.out.println("Vous avez obtenu un score de " + this.score + " points");
+            joueur.setObjAcces(joueur.remplirListeObj(this.lvl.objDispo));
             miseAJour(joueur);
             if (this.score > this.lvl.recupDernierScore(this.lvl.best_score)){
                 System.out.println("Vous êtes désormais dans le top 5 des meilleurs joueurs de ce niveau !");
-                this.lvl.miseAJourScore(this.score,this.joueur.getNom());
+                miseAJourScore(this.score,this.joueur.getNom());
             }
         }
         Game.lancement(joueur);
@@ -194,7 +249,9 @@ public class Partie {
 
     public void miseAJour(Joueur joueur){
         ArrayList<Integer> update = joueur.getNivAcess();
-        update.add(lvl.id+1);
+        if (!update.contains(lvl.id+1)){
+            update.add(lvl.id + 1);
+        }
         joueur.setNivAcess(update);
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
@@ -203,6 +260,37 @@ public class Partie {
         }catch (IOException e){
            e.printStackTrace();
         }
+    }
+
+    public void miseAJourScore(int score, String joueur){
+        if (! this.lvl.best_score.isEmpty()) {
+            int last = this.lvl.recupDernierScore(this.lvl.best_score);
+            this.lvl.best_score.remove(last);
+        }
+        this.lvl.best_score.put(score,joueur);
+        this.lvl.best_score = new TreeMap<Integer,String>(this.lvl.best_score);
+        this.lvl.remplir_Grille();
+        Niveau a = new Niveau(new Grille(new Case[this.lvl.getGrid().gril.length][this.lvl.getGrid().gril[0].length]),lvl.id,lvl.nb_animaux,lvl.nb_coup_max, lvl.decale);
+        a.best_score = lvl.best_score;
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("level.ser"));
+            oos.writeObject(a);
+            oos.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    ArrayList<String> voirObjPossible(ArrayList<String> a, ArrayList<String> b){
+        ArrayList<String> fin = new ArrayList<>();
+        fin = a;
+        for (String s: b){
+            if(!fin.contains(s)){
+                fin.add(s);
+            }
+        }
+        return fin;
     }
 
 }

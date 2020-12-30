@@ -215,7 +215,7 @@ public class Grille implements Serializable {
                             int pos = (int) (Math.random()*liste.size());
                             gril[i][j] = new Case(liste.get(pos));
                         } else {
-                            if ( gril[i-1][j].getIs() != ' ') {
+                            if ( gril[i-1][j].getIs() != ' ' && gril[i-1][j].getIs() != '-') {
                                 gril[i][j] = new Case(gril[i - 1][j].getIs());
                                 gril[i-1][j] = new Case('s');
                             } else {

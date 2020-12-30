@@ -27,7 +27,19 @@ public class Launcher {
                 oos.writeObject(level);
             }
             oos.flush();
-            oos.close();
+            /*
+            Joueur test = new Joueur("admin","azerty");
+            ArrayList<Integer> a = new ArrayList<Integer>();
+            a.add(1);
+            a.add(2);
+            a.add(3);
+            a.add(4);
+            a.add(5);
+            test.setNivAcess(a);
+            oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
+            oos.writeObject(test);
+
+             */
             //Demande au joueur s'il veut jouer en mode texte ou graphique
             if (demandeJeu().equals("t")){
                 Game.trouverJoueur();
@@ -47,6 +59,15 @@ public class Launcher {
                 ex.printStackTrace();
             }
         }
+        /*
+        if (demandeJeu().equals("t")){
+            Game.trouverJoueur();
+        }else {
+            //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
+            InterfaceJeu.lancement();
+        }
+
+         */
     }
 
     public static String demandeJeu(){

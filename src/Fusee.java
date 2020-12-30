@@ -1,10 +1,15 @@
-public class Fusee{
+public class Fusee extends Objet{
 
-    Fusee(){}
+    Fusee(Grille grille, int i){
+        this.grille = grille;
+        this.i = i;
+    }
 
-    public void execute(Grille grille, int i) {
+    public void execute() {
         for (int col=0;col<grille.gril.length;col++) {
-            grille.gril[i][col] = new Case('s');
+            if (grille.gril[col][i].getIs() != ' ' && grille.gril[col][i].getIs() != '-' && grille.gril[col][i].getIs() != 'a') {
+                grille.gril[col][i] = new Case('s');
+            }
         }
     }
 }
