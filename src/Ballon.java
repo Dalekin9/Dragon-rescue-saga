@@ -1,20 +1,20 @@
 public class Ballon extends Objet{
 
     public char color;
-    int col;
+    int j;
 
-    Ballon(char c,Grille grid,int lig,int col){
-        this.lig = lig;
-        this.col = col;
-        this.grid = grid;
+    Ballon(char c,Grille grille, int i, int y){
         color = c;
+        this.i = i;
+        this.j = y;
+        this.grille = grille;
     }
 
     public void execute() {
-        for (int ligne=0;ligne<grid.getHaut();ligne++){
-            for (int col=0;col<grid.getLongu();col++){
-                if (grid.gril[ligne][col].getIs() == this.color){
-                    grid.gril[ligne][col] = new Case('s');
+        for (int ligne=0;ligne<grille.gril.length;ligne++){
+            for (int col=0;col<grille.gril.length;col++){
+                if (grille.gril[ligne][col].getIs() == this.color){
+                    grille.gril[ligne][col] = new Case('s');
                 }
             }
         }
