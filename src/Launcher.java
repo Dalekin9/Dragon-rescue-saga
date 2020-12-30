@@ -15,7 +15,8 @@ public class Launcher {
         return tab;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
+/*
         ObjectOutputStream oos = null;
         //ObjectInputStream ois = null;
         Niveau[] levels = init();
@@ -27,6 +28,8 @@ public class Launcher {
                 oos.writeObject(level);
             }
             oos.flush();
+            oos.close();
+
             /*
             Joueur test = new Joueur("admin","azerty");
             ArrayList<Integer> a = new ArrayList<Integer>();
@@ -38,9 +41,9 @@ public class Launcher {
             test.setNivAcess(a);
             oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
             oos.writeObject(test);
+*/
 
-             */
-            //Demande au joueur s'il veut jouer en mode texte ou graphique
+  /*          //Demande au joueur s'il veut jouer en mode texte ou graphique
             if (demandeJeu().equals("t")){
                 Game.trouverJoueur();
             }else {
@@ -49,17 +52,13 @@ public class Launcher {
             }
         } catch (final IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (oos != null) {
-                    oos.flush();
-                    oos.close();
-                }
-            } catch (final IOException ex) {
-                ex.printStackTrace();
-            }
         }
-        /*
+
+
+*/
+
+
+
         if (demandeJeu().equals("t")){
             Game.trouverJoueur();
         }else {
@@ -67,10 +66,10 @@ public class Launcher {
             InterfaceJeu.lancement();
         }
 
-         */
+
     }
 
-    public static String demandeJeu(){
+        public static String demandeJeu(){
             System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
             String rep ;
             boolean ok;

@@ -1,9 +1,6 @@
 Priorité :
 
-Re serialiser joueur apres qu'il ai fini un niveau
-re serailiser niveau
-liste objet debloque joueur
-liste object dispo par niveau
+
 re verifier les coup speciaux
 et leur pose
 
@@ -23,6 +20,10 @@ Doing :
 
 
 Finish :
+Re serialiser joueur apres qu'il ai fini un niveau
+re serailiser niveau
+liste objet debloque joueur
+liste object dispo par niveau
 affichage de liste de niveau (apres affichage principal)
 creer classe objets
 coup spéciaux quand ligne/bloc supp

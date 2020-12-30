@@ -14,6 +14,6 @@ public abstract class Objet {
             System.out.print(s+", ");
         }
         System.out.println();
-        System.out.println("Que voulez-vous utiliser ? (0 pour revenir en arrière");
+        System.out.println("Que voulez-vous utiliser ? (0 pour revenir en arrière)");
     }
 }

@@ -68,6 +68,7 @@ public class Partie {
                     boolean bloc = false;
                     int[] posBloc = new int[]{-1,-1};
                     do {
+                        System.out.println("Entrez les coordonnées : (ex: B4)");
                         coordsStr = joueur.recupCoords();
                         if (coordsVerif(coordsStr)) {
                             coords = coordsInt(coordsStr);
@@ -92,24 +93,7 @@ public class Partie {
                     }
                     score += lvl.getGrid().points();
                     //remplacer après suppression de bloc
-                    if (lvl.decale) {
-                        lvl.getGrid().faireDescendreQuandDecale();
-                        lvl.getGrid().decaler();
-                    } else {
-                        lvl.getGrid().faireDescendre(animAlea);
-                    }
-                    //vérifie qu'il n'y a plus d'animaux en bas
-                    while(lvl.getGrid().animalEnBas()) {
-                        int  ajout = lvl.getGrid().supprimerAnimalEnBas();
-                        score += ajout;
-                        animRes -= ajout/1000;
-                        if (lvl.decale) {
-                            lvl.getGrid().faireDescendreQuandDecale();
-                            lvl.getGrid().decaler();
-                        } else {
-                            lvl.getGrid().faireDescendre(animAlea);
-                        }
-                    }
+                    remplacement(animAlea);
                     //s'occupe de poser les objets quand il y a des coups spéciaux
                     if (ligne){
                         lvl.getGrid().poserFusee(posLignne);
@@ -127,63 +111,61 @@ public class Partie {
                         do {
                             Objet.afficherPossible(liste);
                             String rep = new Scanner(System.in).next();
-                            switch (rep.toLowerCase(Locale.ROOT)){
-                                case "0":
-                                    repOk = true;
-                                    break;
-                                case "bombe":
+                            switch (rep.toLowerCase(Locale.ROOT)) {
+                                case "0" -> repOk = true;
+                                case "bombe" -> {
                                     do {
                                         System.out.println("Ou voulez utiliser la Bombe ? (ex: B4)");
                                         coordsStr = joueur.recupCoords();
                                         if (coordsVerif(coordsStr)) {
                                             coords = coordsInt(coordsStr);
-                                            if (coupValide(coords[0],coords[1])){
+                                            if (coupValide(coords[0], coords[1])) {
                                                 flag = true;
                                             }
                                         }
-                                    }while(!flag);
-                                    Bombe bom = new Bombe(this.lvl.getGrid(),coords[0],coords[1]);
+                                    } while (!flag);
+                                    Bombe bom = new Bombe(this.lvl.getGrid(), coords[0], coords[1]);
                                     bom.execute();
+                                    remplacement(animAlea);
                                     repOk = true;
                                     coupRes--;
-                                    break;
-                                case "fusee":
-                                case "fusée":
+                                }
+                                case "fusee", "fusée" -> {
                                     do {
                                         System.out.println("Ou voulez utiliser la Fusée ? (ex: B)");
                                         String coordFus = new Scanner(System.in).next();
                                         coordsStr = new String[]{coordFus, "0"};
                                         if (coordsVerif(coordsStr)) {
                                             coords = coordsInt(coordsStr);
-                                            if (coupValide(coords[0],coords[1])){
+                                            if (coupValide(coords[0], coords[1])) {
                                                 flag = true;
                                             }
                                         }
-                                    }while(!flag);
-                                    Fusee fus = new Fusee(this.lvl.getGrid(),coords[1]);
+                                    } while (!flag);
+                                    Fusee fus = new Fusee(this.lvl.getGrid(), coords[1]);
                                     fus.execute();
+                                    remplacement(animAlea);
                                     repOk = true;
                                     coupRes--;
-                                    break;
-                                case "pioche":
+                                }
+                                case "pioche" -> {
                                     do {
                                         System.out.println("Ou voulez utiliser la Pioche ? (ex: B4)");
                                         coordsStr = joueur.recupCoords();
                                         if (coordsVerif(coordsStr)) {
                                             coords = coordsInt(coordsStr);
-                                            if (coupValide(coords[0],coords[1])){
+                                            if (coupValide(coords[0], coords[1])) {
                                                 flag = true;
                                             }
                                         }
-                                    }while(!flag);
-                                    Pioche pio = new Pioche(this.lvl.getGrid(),coords[0], coords[1]);
+                                    } while (!flag);
+                                    Pioche pio = new Pioche(this.lvl.getGrid(), coords[0], coords[1]);
                                     pio.execute();
+                                    remplacement(animAlea);
                                     repOk = true;
                                     coupRes--;
-                                    break;
-                                default:
-                                    System.out.println("Réponse non reconnue ! Choisissez un objet (ou 0 pour revenir en arrière");
-                                    break;
+                                }
+                                default -> System.out.println("Réponse non reconnue ! Choisissez un objet (ou 0 pour revenir en arrière)");
                             }
                         }while (! repOk);
                     }
@@ -253,12 +235,31 @@ public class Partie {
             update.add(lvl.id + 1);
         }
         joueur.setNivAcess(update);
+        ArrayList<Joueur> liste = new ArrayList<>();
+        ObjectInputStream ois;
+        ObjectOutputStream oos;
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
-            oos.writeObject(joueur);
+            FileInputStream fis = new FileInputStream("joueur.ser");
+            if (fis.available() != 0) {
+                ois = new ObjectInputStream(fis);
+                while (fis.available() != 0) {
+                    Joueur test = (Joueur) ois.readObject();
+                    if (test.getNom() == joueur.getNom()){
+                        liste.add(joueur);
+                    }else {
+                        liste.add(test);
+                    }
+                }
+            }
+            FileOutputStream fos = new FileOutputStream("joueur.ser");
+            oos = new ObjectOutputStream(fos);
+            for (Joueur a : liste) {
+                oos.writeObject(a);
+            }
+            oos.flush();
             oos.close();
-        }catch (IOException e){
-           e.printStackTrace();
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
         }
     }
 
@@ -272,14 +273,32 @@ public class Partie {
         this.lvl.remplir_Grille();
         Niveau a = new Niveau(new Grille(new Case[this.lvl.getGrid().gril.length][this.lvl.getGrid().gril[0].length]),lvl.id,lvl.nb_animaux,lvl.nb_coup_max, lvl.decale);
         a.best_score = lvl.best_score;
+        ArrayList<Niveau> levels = new ArrayList<>();
+        ObjectInputStream ois;
+        ObjectOutputStream oos;
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("level.ser"));
-            oos.writeObject(a);
+            FileInputStream fis = new FileInputStream("level.ser");
+            if (fis.available() != 0) {
+                ois = new ObjectInputStream(fis);
+                while (fis.available() != 0) {
+                    Niveau test = (Niveau) ois.readObject();
+                    if (test.id == lvl.id){
+                        levels.add(lvl);
+                    }else {
+                        levels.add(test);
+                    }
+                }
+            }
+            FileOutputStream fos = new FileOutputStream("level.ser");
+            oos = new ObjectOutputStream(fos);
+            for (Niveau level : levels) {
+                oos.writeObject(level);
+            }
+            oos.flush();
             oos.close();
-        }catch (IOException e){
+        }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
-
     }
 
     ArrayList<String> voirObjPossible(ArrayList<String> a, ArrayList<String> b){
@@ -291,6 +310,27 @@ public class Partie {
             }
         }
         return fin;
+    }
+
+    public void remplacement(boolean animAlea){
+        if (lvl.decale) {
+            lvl.getGrid().faireDescendreQuandDecale();
+            lvl.getGrid().decaler();
+        } else {
+            lvl.getGrid().faireDescendre(animAlea);
+        }
+        //vérifie qu'il n'y a plus d'animaux en bas
+        while(lvl.getGrid().animalEnBas()) {
+            int  ajout = lvl.getGrid().supprimerAnimalEnBas();
+            score += ajout;
+            animRes -= ajout/1000;
+            if (lvl.decale) {
+                lvl.getGrid().faireDescendreQuandDecale();
+                lvl.getGrid().decaler();
+            } else {
+                lvl.getGrid().faireDescendre(animAlea);
+            }
+        }
     }
 
 }

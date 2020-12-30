@@ -20,7 +20,6 @@ public class Joueur implements java.io.Serializable {
 
     // Recupère les coordonnées de la case qui doit être affectée
     public String[] recupCoords(){
-        System.out.println("Entrez les coordonnés de la case(sous forme LettreNombre)");
         String coords ;
         String[] coordStr = new String[2];
         do{
