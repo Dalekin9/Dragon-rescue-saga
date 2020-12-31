@@ -73,9 +73,8 @@ public class Niveau implements Serializable {
     
     //affichage des propriétés du niveau en mode texte
     public void afficher(){
-        System.out.println("Niveau "+id);
-        System.out.println("Objectifs :");
-        System.out.println("Sauver "+nb_animaux+" ours");
+        String str = "" ;
+        System.out.println("Niveau "+ id +"\nObjectifs :\nSauver "+nb_animaux+" ours");
         if (nb_coup_max != 0){
             System.out.println(nb_coup_max+" coups maximum");
         }
@@ -83,6 +82,18 @@ public class Niveau implements Serializable {
             System.out.println("Score de " + nb_point_min + " points");
         }
         afficher_score();
+    }
+
+    public String afficherHtml(){
+        String str = "<html>";
+        str += "Niveau "+ id +"                     Objectifs :<br>Sauver "+nb_animaux+" ours<br>";
+        if (nb_coup_max != 0){
+            str += nb_coup_max+" coups maximum<br>";
+        }
+        if (nb_point_min != 0) {
+            str += "Score de " + nb_point_min + " points<br><html>";
+        }
+        return str;
     }
     
     public void afficher_score(){

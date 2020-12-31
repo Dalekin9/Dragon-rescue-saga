@@ -1,17 +1,18 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class Modele {
-    private Color couleur;
+    private Icon icon;
 
-    public Modele(int r, int g, int b){
-        couleur = new Color(r,g,b);
+    public Modele(String path){
+        icon = new ImageIcon( "C:\\Users\\Dalekin\\Pictures\\raw.jpg");
     }
 
-    public Color getCouleur() {
-        return couleur;
+    public Icon getIcon() {
+        return icon;
     }
 
-    public void setCouleur(Color couleur) {
-        this.couleur = couleur;
+    public void setCouleur(Icon icon) {
+        this.icon = icon;
     }
 }

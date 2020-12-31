@@ -1,19 +1,22 @@
 import java.util.concurrent.TimeUnit;
 
-public class InterfaceJeu {
+public class InterfaceJeu extends Game {
 
     private Vue view ;
     private Controleur controleur;
-    private Modele modele;
+    private Partie partie;
     public InterfaceJeu (){
-        modele = new Modele(0,22,76);
-        controleur =  new Controleur(modele);
-        view = new Vue (modele, controleur);
+        Joueur me = new Joueur("Ugo");
+        Niveau[] levels = init();
+        levels[0].remplir_Grille();
+        partie = new Partie(me,levels[0]);
+        controleur =  new Controleur(partie);
+        view = new Vue (partie, controleur);
         controleur.setView(view);
         view.setVisible ( true );
         view.sommaire();
         //view.miseAJour();
-        //controleur.sliderMoved();
+        // controleur.sliderMoved();
     }
     public static void main ( String [] args ){ new InterfaceJeu (); }
 

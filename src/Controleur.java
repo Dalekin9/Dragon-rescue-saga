@@ -2,16 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Controleur {
-    private Modele model;
+    private Partie partie;
     private Vue view;
 
-    public Controleur(Modele modele, Vue vue){
-        model = modele;
+    public Controleur(Partie partie, Vue vue){
+        this.partie = partie;
         view = vue;
     }
 
-    public Controleur(Modele modele){
-        model = modele;
+    public Controleur(Partie partie){
+        this.partie = partie;
     }
 
 

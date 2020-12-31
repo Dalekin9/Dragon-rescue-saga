@@ -156,4 +156,8 @@ public class Partie {
             return 0;
         }
     }
+
+    public Niveau getLvl() {
+        return lvl;
+    }
 }
