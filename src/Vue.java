@@ -441,7 +441,7 @@ public class Vue extends JFrame {
         JPanel level = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0,0,30,0);
-        gbc.gridx=0;
+        gbc.gridx=1;
         gbc.gridy=0;
         JLabel numLevel = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
         numLevel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -450,7 +450,6 @@ public class Vue extends JFrame {
         level.add(numLevel,gbc);
 
         gbc.insets = new Insets(0,0,10,0);
-        gbc.gridx=0;
         gbc.gridy=1;
 
         JLabel objectif = new JLabel("OBJECTIFS" );
@@ -460,7 +459,6 @@ public class Vue extends JFrame {
         level.add(objectif,gbc);
 
         gbc.insets = new Insets(0,0,5,0);
-        gbc.gridx=0;
         gbc.gridy=2;
         JLabel numAnimHelp= new JLabel("Ours à sauver : " + niveau.nb_animaux);
         numAnimHelp.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -470,7 +468,6 @@ public class Vue extends JFrame {
 
         if (niveau.nb_coup_max != -1){
             gbc.insets = new Insets(0,0,10,0);
-            gbc.gridx=0;
             gbc.gridy=3;
             JLabel numCoupMax= new JLabel("Vous aurez " + niveau.nb_coup_max + " coups pour finir ce niveau");
             numCoupMax.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -480,13 +477,28 @@ public class Vue extends JFrame {
         }
 
         gbc.insets = new Insets(20,0,0,0);
-        gbc.gridx=0;
         gbc.gridy=4;
         JButton demarrer= new JButton("Jouer");
         demarrer.setBorder(BorderFactory.createLineBorder(Color.black));
         demarrer.setPreferredSize(new Dimension(100,40));
         demarrer.setHorizontalAlignment(SwingConstants.CENTER);
         level.add(demarrer,gbc);
+
+        gbc.gridy=5;
+        gbc.insets = new Insets(60,0,0,0);
+        gbc.gridx=0;
+        JButton retour= new JButton("Retour");
+        retour.setBorder(BorderFactory.createLineBorder(Color.black));
+        retour.setPreferredSize(new Dimension(100,40));
+        retour.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(retour,gbc);
+
+        gbc.gridx=2;
+        JButton leave= new JButton("Quitter");
+        leave.setBorder(BorderFactory.createLineBorder(Color.black));
+        leave.setPreferredSize(new Dimension(100,40));
+        leave.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(leave,gbc);
 
         main.add(level);
         add(main);
@@ -533,11 +545,17 @@ public class Vue extends JFrame {
         gbc.insets = new Insets(20,0,0,0);
         gbc.gridx=0;
         gbc.gridy=compt+1;
-        JButton demarrer= new JButton("Niveaux");
-        demarrer.setBorder(BorderFactory.createLineBorder(Color.black));
-        demarrer.setPreferredSize(new Dimension(100,40));
-        demarrer.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(demarrer,gbc);
+        JButton next= new JButton("Suivant");
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                choixDesLevels();
+            }
+        });
+        next.setBorder(BorderFactory.createLineBorder(Color.black));
+        next.setPreferredSize(new Dimension(100,40));
+        next.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(next,gbc);
 
         main.add(level);
         add(main);
