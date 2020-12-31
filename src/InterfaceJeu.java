@@ -13,11 +13,14 @@ public class InterfaceJeu extends Game {
         controleur =  new Controleur(partie);
         view = new Vue (partie, controleur);
         controleur.setView(view);
-        view.setVisible ( true );
-        view.sommaire();
+        view.setVisible (true);
+        //view.sommaire();
         //view.miseAJour();
         // controleur.sliderMoved();
     }
-    public static void main ( String [] args ){ new InterfaceJeu (); }
+    public static void lancement (){
+        InterfaceJeu jeu = new InterfaceJeu ();
+        jeu.view.sommaire();
+    }
 
 }

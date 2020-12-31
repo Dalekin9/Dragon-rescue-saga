@@ -1,13 +1,12 @@
 public class Pioche extends Objet{
-    int col;
-
+    int j;
     Pioche(Grille grille, int i, int j){
-        grid = grille;
-        lig = i;
-        col = j;
+        this.grille = grille;
+        this.i = i;
+        this.j = j;
     }
 
     public void execute() {
-        grid.gril[lig][col] = new Case('s');
+        grille.gril[i][j] = new Case('s');
     }
 }

@@ -1,6 +1,5 @@
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 public class Niveau implements Serializable {
     
@@ -8,17 +7,21 @@ public class Niveau implements Serializable {
     public int id;
     protected int nb_animaux;
     protected int nb_coup_max;
-    protected int nb_point_min;
-    protected int[] best_score;
+    protected Map<Integer,String> best_score;
     protected ArrayList<Character> listColor;
+    protected ArrayList<String> objDispo;
+    protected boolean decale;
 
-    public Niveau(Grille grille, int numero, int animaux, int coup, int point){
+    public Niveau(Grille grille, int numero, int animaux, int coup, boolean decale){
         grid = grille;
         id = numero;
         nb_animaux = animaux;
         nb_coup_max = coup;
-        nb_point_min = point;
-        best_score = new int[]{0, 0, 0, 0, 0};
+        best_score = new HashMap<>();
+        this.decale = decale;
+        listColor = listeColor();
+        objDispo = remplirObjetDispo(id);
+
     }
     
     //remplissage des grilles selon le niveau
@@ -34,6 +37,20 @@ public class Niveau implements Serializable {
         }else {
             grid.remplir_Niveau_5(this.liste(3));
         }
+    }
+
+    public ArrayList<String> remplirObjetDispo(int id){
+        ArrayList<String> liste = new ArrayList<>();
+        if (id >= 3){
+            liste.add("Fusee");
+        }
+        if (id >= 4){
+            liste.add("Bombe");
+        }
+        if (id >= 5){
+            liste.add("Pioche");
+        }
+        return liste;
     }
     
     
@@ -73,37 +90,25 @@ public class Niveau implements Serializable {
     
     //affichage des propriétés du niveau en mode texte
     public void afficher(){
-        String str = "" ;
-        System.out.println("Niveau "+ id +"\nObjectifs :\nSauver "+nb_animaux+" ours");
-        if (nb_coup_max != 0){
+        System.out.println("Niveau "+id);
+        System.out.println("Objectifs :");
+        System.out.println("Sauver "+nb_animaux+" ours");
+        if (nb_coup_max != -1){
             System.out.println(nb_coup_max+" coups maximum");
         }
-        if (nb_point_min != 0) {
-            System.out.println("Score de " + nb_point_min + " points");
-        }
         afficher_score();
-    }
-
-    public String afficherHtml(){
-        String str = "<html>";
-        str += "Niveau "+ id +"                     Objectifs :<br>Sauver "+nb_animaux+" ours<br>";
-        if (nb_coup_max != 0){
-            str += nb_coup_max+" coups maximum<br>";
-        }
-        if (nb_point_min != 0) {
-            str += "Score de " + nb_point_min + " points<br><html>";
-        }
-        return str;
     }
     
     public void afficher_score(){
         System.out.println("Meilleurs scores :");
-        for (int i=0;i<5;i++){
-            if (best_score[i] != 0){
-                System.out.println(i+1 +" : "+best_score[i]);
-            } else {
-                System.out.println(i+1 +" : Pas encore de score");
-            }
+        int compt = 1;
+        for (var item : best_score.entrySet()) {
+            System.out.println(compt + " : " + item.getKey() +" -> " + item.getValue());
+            compt++;
+        }
+        while (compt <= 5){
+            System.out.println(compt + " : Pas encore de score");
+            compt++;
         }
         System.out.println();
     }
@@ -124,5 +129,45 @@ public class Niveau implements Serializable {
     
     public int getNb_coup_max() {
         return nb_coup_max;
+    }
+
+
+    public static Niveau recupNiveau(int level){
+        ObjectInputStream ois = null;
+        try {
+
+            FileInputStream fis = new FileInputStream("level.ser");
+            if (fis.available() != 0) {
+                ois = new ObjectInputStream(fis);
+                while (fis.available() != 0) {
+                    Niveau test = (Niveau) ois.readObject();
+                    if (test.id == level) {
+                        return test;
+                    }
+                }
+            }
+            return null;
+        } catch (final IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (final IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public int recupDernierScore(Map<Integer,String> scores){
+        int min = -1;
+        for (var item : scores.entrySet()) {
+            if (item.getKey() < min){
+                min = item.getKey();
+            }
+        }
+        return min;
     }
 }
