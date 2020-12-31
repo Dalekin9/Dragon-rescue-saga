@@ -7,7 +7,7 @@ public class Launcher {
 
     public static Niveau[] init(){
         Niveau[] tab = new Niveau[5];
-        tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,-1,true);
+        tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,50,true);
         tab[1] = new Niveau(new Grille(new Case[8][5]),2,5,-1,true);
         tab[2] = new Niveau(new Grille(new Case[9][7]),3,3,-1,true);
         tab[3] = new Niveau(new Grille(new Case[8][9]),4,12,70,false);
@@ -57,7 +57,7 @@ public class Launcher {
 
 */
 
-
+/*
 
         if (demandeJeu().equals("t")){
             Game.trouverJoueur();
@@ -65,6 +65,12 @@ public class Launcher {
             //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
             InterfaceJeu.lancement();
         }
+
+ */
+
+
+        //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
+            InterfaceJeu.lancement();
 
 
     }

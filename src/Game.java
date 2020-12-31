@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Game {
-    
+
     public static void lancement(Joueur gameur){
         int level = choixLevel(gameur);
         while (! gameur.levelEstPossible(level)){
@@ -30,11 +30,11 @@ public class Game {
     }
 
     public static int choixLevel(Joueur joueur){
-       int level =-1;
-            System.out.println("Voici les niveaux auxquels vous avez accès :");
-            joueur.afficheNiveauPossible();
-            System.out.println("Choisissez le niveau auquel vous voulez jouer :");
-            level = Integer.parseInt(new Scanner(System.in).next());
-            return level;
+        int level =-1;
+        System.out.println("Voici les niveaux auxquels vous avez accès :");
+        joueur.afficheNiveauPossible();
+        System.out.println("Choisissez le niveau auquel vous voulez jouer :");
+        level = Integer.parseInt(new Scanner(System.in).next());
+        return level;
     }
 }

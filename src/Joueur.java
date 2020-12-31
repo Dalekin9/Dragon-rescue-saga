@@ -31,6 +31,8 @@ public class Joueur implements java.io.Serializable {
         return coordStr;
     }
 
+    public String getMdp(){return this.mdp;}
+
     public String getNom() {
         return this.nom;
     }
@@ -223,16 +225,31 @@ public class Joueur implements java.io.Serializable {
 
     //fonction qui créer un joueur et l'ecris sur joueur.ser
     public static Joueur creerJoueur(String id, String mdp) {
-        try {
-            Joueur a = new Joueur(id,mdp);
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
-            oos.writeObject(a);
-            oos.close();
-            return a;
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+            ArrayList<Joueur> liste = new ArrayList<>();
+            ObjectInputStream ois;
+            ObjectOutputStream oos;
+            try {
+                FileInputStream fis = new FileInputStream("joueur.ser");
+                if (fis.available() != 0) {
+                    ois = new ObjectInputStream(fis);
+                    while (fis.available() != 0) {
+                        Joueur test = (Joueur) ois.readObject();
+                        liste.add(test);
+                    }
+                }
+                Joueur nouveau = new Joueur(id, mdp);
+                liste.add(nouveau);
+                FileOutputStream fos = new FileOutputStream("joueur.ser");
+                oos = new ObjectOutputStream(fos);
+                for (Joueur a : liste) {
+                    oos.writeObject(a);
+                }
+                oos.flush();
+                oos.close();
+            } catch (final IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            return null;
     }
 
     public boolean levelEstPossible(int niveau){
