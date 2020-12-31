@@ -57,7 +57,7 @@ public class Launcher {
 
 */
 
-
+/*
 
         if (demandeJeu().equals("t")){
             Game.trouverJoueur();
@@ -65,6 +65,12 @@ public class Launcher {
             //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
             InterfaceJeu.lancement();
         }
+
+ */
+
+
+        //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
+            InterfaceJeu.lancement();
 
 
     }

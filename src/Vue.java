@@ -11,13 +11,12 @@ import java.io.IOException;
 
 public class Vue extends JFrame {
 
-    private JPanel infoJeu;
-    private JPanel jeu;
-    private JPanel infoObjet;
     private Controleur control;
     private Color saved;
     private CardLayout cl = new CardLayout();
     private JPanel main = new JPanel(cl);
+    private Joueur joueur;
+    private Niveau niveau;
 
     public Vue(Controleur controleur){
         control = controleur;
@@ -64,10 +63,14 @@ public class Vue extends JFrame {
         buttons.add(av, gbc);
         buttons.add(inf, gbc);
 
+        JPanel fck = new JPanel();
+        JLabel l = new JLabel("FCK YOU");
+        fck.add(l);
+
         gbc.weighty = 1;
         pan.add(buttons, gbc);
         main.add("Ecran de connexion",pan); //ajout du panneau du début à la Vue
-        ((CardLayout)main.getLayout()).show(main,"Ecran de connexion");
+        main.add("MERDE",fck);
         add(main);
         main.setVisible(true);
     }
@@ -126,9 +129,9 @@ public class Vue extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (Joueur.rechercheId(ident.getText())){
-                    System.out.println("good joueur");
                     Joueur test = Joueur.getJoueur(ident.getText());
                     if (pswd.getText().equals(test.getMdp())) {
+                        joueur = Joueur.getJoueur(ident.getText());
                         sommaire();
                     }
                     System.out.println(pswd.getText().equals(test.getMdp()));
@@ -141,7 +144,6 @@ public class Vue extends JFrame {
                 panneauButt.add(erreur,gbc);
                 panneauCo.add(panneauButt);
                 main.add("Inscription",panneauCo);
-                ((CardLayout)main.getLayout()).show(main,"Inscription");
             }
         });
 
@@ -345,23 +347,147 @@ public class Vue extends JFrame {
         pan.add(buttons, gbc); //ajout du panneau de bouton au panneau du début
         main.add("SOMMAIRE",pan); //ajout du panneau du début à la Vue
         ((CardLayout)main.getLayout()).show(main,"SOMMAIRE");
+        add(main);
+        setVisible(true);
     }
 
     public void modeAventure() {
-        JPanel pan = new JPanel();
-        JLabel l = new JLabel("FCK YOU");
-        pan.add(l);
-        main.add("MERDE",pan);
-        ((CardLayout)main.getLayout()).show(main,"MERDE");
+        JPanel pan = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(10,0,0,0);
+        JLabel l = new JLabel("CHOIX DU NIVEAU");
+        pan.add(l,gbc);
+        gbc.anchor =GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        pan.add(choixDesLevels(),gbc);
+        main.add("AVENTURE",pan);
+        add(main);
+        setVisible(true);
+    }
+
+    public JPanel choixDesLevels(){
+        JPanel levels = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.gridx=0;
+        gbc.gridy=0;
+        JButton lvl1 = new JButton("Niveau 1");
+        lvl1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (joueur.levelEstPossible(1)){
+                    niveau = Niveau.recupNiveau(1);
+                    presentationLevel(niveau);
+                }
+            }
+        });
+        levels.add(lvl1,gbc);
+        gbc.gridx=1;
+        gbc.gridy=0;
+        JButton lvl2 = new JButton("Niveau 2");
+        lvl1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (joueur.levelEstPossible(2)){
+                    niveau = Niveau.recupNiveau(2);
+                    presentationLevel(niveau);
+                }
+            }
+        });
+        levels.add(lvl2,gbc);
+        gbc.gridx=0;
+        gbc.gridy=1;
+        JButton lvl3 = new JButton("Niveau 3");
+        lvl1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (joueur.levelEstPossible(3)){
+                    niveau = Niveau.recupNiveau(3);
+                    presentationLevel(niveau);
+                }
+            }
+        });
+        levels.add(lvl3,gbc);
+        gbc.gridx=1;
+        gbc.gridy=1;
+        JButton lvl4 = new JButton("Niveau 4");
+        lvl1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (joueur.levelEstPossible(4)){
+                    niveau = Niveau.recupNiveau(4);
+                    presentationLevel(niveau);
+                }
+            }
+        });
+        levels.add(lvl4,gbc);
+        gbc.gridx=0;
+        gbc.gridy=2;
+        JButton lvl5 = new JButton("Niveau 5");
+        lvl1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (joueur.levelEstPossible(5)){
+                    niveau = Niveau.recupNiveau(5);
+                    presentationLevel(niveau);
+                }
+            }
+        });
+        levels.add(lvl5,gbc);
+        return levels;
+    }
+
+    public void presentationLevel(Niveau niveau){
+
     }
 
     public void modeInfini(){
         //lancer le mode infini
+        JPanel pan = new JPanel();
+        JLabel l = new JLabel("MODE INFINI");
+        pan.add(l);
+        main.add("INFINI",pan);
+        add(main);
+        setVisible(true);
     }
 
     public void regles(){
         //lancer les regles
         //penser a faire ca aussi pour le mode texte au debut
+        JPanel pan = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc= new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(0,0,0,0);
+        JLabel l = new JLabel("REGLES");
+        pan.add(l,gbc);
+        JLabel regles = new JLabel("<html><pre>" +
+                "   Bear Rescue Saga est un jeu de puzzle dont le but est de  " +
+                "<br>" +
+                "       parvenir à sauver la vie de tous les petits ours.     " +
+                "<br>" +
+                "En déplaçant des boîtes, vous êtes appelé à créer différentes" +
+                "<br>" +
+                "               combinaisons de même couleur.                 " +
+                "<br>" +
+                " Une fois l'alignement effectué, les cubes disparaissent et  " +
+                "<br>" +
+                "            l'animal  ciblé descend de quelques étages.      " +
+                "<br>" +
+                "   Ce n'est qu'une fois tous les animaux parvenus au bas de  " +
+                "<br>" +
+                "               l'écran que la partie se termine.             " +
+                "</pre></html>");
+        regles.setHorizontalAlignment(JLabel.CENTER);
+        regles.setPreferredSize(new Dimension(450,250));
+        regles.setBorder(BorderFactory.createLineBorder(Color.black));
+        gbc.anchor = GridBagConstraints.CENTER;
+        pan.add(regles,gbc);
+        main.add("REGLES",pan);
+        add(main);
+        setVisible(true);
     }
 
 }
