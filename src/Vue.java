@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.time.chrono.IsoChronology;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Vue extends JFrame {
 
@@ -63,14 +66,9 @@ public class Vue extends JFrame {
         buttons.add(av, gbc);
         buttons.add(inf, gbc);
 
-        JPanel fck = new JPanel();
-        JLabel l = new JLabel("FCK YOU");
-        fck.add(l);
-
         gbc.weighty = 1;
         pan.add(buttons, gbc);
-        main.add("Ecran de connexion",pan); //ajout du panneau du début à la Vue
-        main.add("MERDE",fck);
+        main.add("Ecran de connexion",pan);
         add(main);
         main.setVisible(true);
     }
@@ -440,7 +438,110 @@ public class Vue extends JFrame {
     }
 
     public void presentationLevel(Niveau niveau){
+        JPanel level = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0,0,30,0);
+        gbc.gridx=0;
+        gbc.gridy=0;
+        JLabel numLevel = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
+        numLevel.setBorder(BorderFactory.createLineBorder(Color.black));
+        numLevel.setPreferredSize(new Dimension(150,80));
+        numLevel.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(numLevel,gbc);
 
+        gbc.insets = new Insets(0,0,10,0);
+        gbc.gridx=0;
+        gbc.gridy=1;
+
+        JLabel objectif = new JLabel("OBJECTIFS" );
+        objectif.setBorder(BorderFactory.createLineBorder(Color.black));
+        objectif.setPreferredSize(new Dimension(100,40));
+        objectif.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(objectif,gbc);
+
+        gbc.insets = new Insets(0,0,5,0);
+        gbc.gridx=0;
+        gbc.gridy=2;
+        JLabel numAnimHelp= new JLabel("Ours à sauver : " + niveau.nb_animaux);
+        numAnimHelp.setBorder(BorderFactory.createLineBorder(Color.black));
+        numAnimHelp.setPreferredSize(new Dimension(150,30));
+        numAnimHelp.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(numAnimHelp,gbc);
+
+        if (niveau.nb_coup_max != -1){
+            gbc.insets = new Insets(0,0,10,0);
+            gbc.gridx=0;
+            gbc.gridy=3;
+            JLabel numCoupMax= new JLabel("Vous aurez " + niveau.nb_coup_max + " coups pour finir ce niveau");
+            numCoupMax.setBorder(BorderFactory.createLineBorder(Color.black));
+            numCoupMax.setPreferredSize(new Dimension(250,30));
+            numCoupMax.setHorizontalAlignment(SwingConstants.CENTER);
+            level.add(numCoupMax,gbc);
+        }
+
+        gbc.insets = new Insets(20,0,0,0);
+        gbc.gridx=0;
+        gbc.gridy=4;
+        JButton demarrer= new JButton("Jouer");
+        demarrer.setBorder(BorderFactory.createLineBorder(Color.black));
+        demarrer.setPreferredSize(new Dimension(100,40));
+        demarrer.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(demarrer,gbc);
+
+        main.add(level);
+        add(main);
+        setVisible(true);
+    }
+
+    public void finLevel(Niveau niveau){
+        JPanel level = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0,0,30,0);
+        gbc.gridx=0;
+        gbc.gridy=0;
+        JLabel numLevel = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
+        numLevel.setBorder(BorderFactory.createLineBorder(Color.black));
+        numLevel.setPreferredSize(new Dimension(150,80));
+        numLevel.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(numLevel,gbc);
+
+
+        gbc.insets = new Insets(0,0,5,0);
+        gbc.gridx=0;
+        gbc.gridy=1;
+        int compt = 1;
+        for (var s : niveau.best_score.entrySet()){
+            compt++;
+            JLabel infoScore = new JLabel(compt +" : " + s.getValue() +" -> " + s.getKey() + " points");
+            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
+            infoScore.setPreferredSize(new Dimension(200,20));
+            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
+            gbc.gridy=compt+1;
+            level.add(infoScore,gbc);
+        }
+        while (compt <6){
+
+            JLabel infoScore = new JLabel(compt + " : Pas encore de meilleur score");
+            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
+            infoScore.setPreferredSize(new Dimension(200,20));
+            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
+            gbc.gridy=compt+1;
+            level.add(infoScore,gbc);
+            compt++;
+        }
+
+        gbc.insets = new Insets(20,0,0,0);
+        gbc.gridx=0;
+        gbc.gridy=compt+1;
+        JButton demarrer= new JButton("Niveaux");
+        demarrer.setBorder(BorderFactory.createLineBorder(Color.black));
+        demarrer.setPreferredSize(new Dimension(100,40));
+        demarrer.setHorizontalAlignment(SwingConstants.CENTER);
+        level.add(demarrer,gbc);
+
+        main.add(level);
+        add(main);
+        setVisible(true);
     }
 
     public void modeInfini(){

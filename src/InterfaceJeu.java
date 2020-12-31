@@ -17,8 +17,10 @@ public class InterfaceJeu {
         InterfaceJeu jeu = new InterfaceJeu ();
         //jeu.view.ecranCo();
         //jeu.view.sommaire();
-        jeu.view.modeAventure();
+        //jeu.view.modeAventure();
         //jeu.view.regles();
+        //jeu.view.presentationLevel(Launcher.init()[0]);
+        jeu.view.finLevel(Launcher.init()[0]);
     }
 
 }
