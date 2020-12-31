@@ -1,5 +1,6 @@
-import javax.swing.*;
-import java.awt.*;
+package Controleur;
+
+import Vue.Vue;
 
 public class Controleur {
     private Vue view;

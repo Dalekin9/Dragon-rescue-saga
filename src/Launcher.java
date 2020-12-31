@@ -1,6 +1,7 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Locale;
+import Modele.Case;
+import Modele.Grille;
+import Modele.Niveau;
+
 import java.util.Scanner;
 
 public class Launcher {

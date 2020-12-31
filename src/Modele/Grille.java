@@ -1,11 +1,15 @@
-import java.awt.*;
+package Modele;
+
+import Modele.*;
+import Controleur.*;
+import Vue.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Grille implements Serializable {
 
-    Case[][] gril;
+    public Case[][] gril;
     int longu,haut;
 
     public Grille(Case[][] grid){

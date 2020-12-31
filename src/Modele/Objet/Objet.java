@@ -1,3 +1,7 @@
+package Modele.Objet;
+
+import Modele.Grille;
+
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 

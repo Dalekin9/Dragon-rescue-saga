@@ -1,6 +1,11 @@
-public class Pioche extends Objet{
+package Modele.Objet;
+
+import Modele.Case;
+import Modele.Grille;
+
+public class Pioche extends Objet {
     int j;
-    Pioche(Grille grille, int i, int j){
+    public Pioche(Grille grille, int i, int j){
         this.grille = grille;
         this.i = i;
         this.j = j;

@@ -1,6 +1,11 @@
-public class Bombe extends Objet{
+package Modele.Objet;
+
+import Modele.Case;
+import Modele.Grille;
+
+public class Bombe extends Objet {
     int j;
-    Bombe(Grille grille, int lig, int col){
+    public Bombe(Grille grille, int lig, int col){
         this.grille = grille;
         i = lig;
         j = col;

@@ -1,3 +1,5 @@
+package Modele;
+
 import java.io.Serializable;
 
 public class Case implements Serializable {

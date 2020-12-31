@@ -1,6 +1,11 @@
-public class Fusee extends Objet{
+package Modele.Objet;
 
-    Fusee(Grille grille, int i){
+import Modele.*;
+import Modele.Case;
+
+public class Fusee extends Objet {
+
+    public Fusee(Grille grille, int i){
         this.grille = grille;
         this.i = i;
     }

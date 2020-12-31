@@ -1,5 +1,6 @@
-import java.io.*;
-import java.util.Arrays;
+import Modele.Joueur;
+import Modele.Niveau;
+
 import java.util.Objects;
 import java.util.Scanner;
 

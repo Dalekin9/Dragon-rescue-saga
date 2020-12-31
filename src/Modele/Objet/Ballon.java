@@ -1,9 +1,14 @@
-public class Ballon extends Objet{
+package Modele.Objet;
+
+import Modele.Case;
+import Modele.Grille;
+
+public class Ballon extends Objet {
 
     public char color;
     int j;
 
-    Ballon(char c,Grille grille, int i, int y){
+    Ballon(char c, Grille grille, int i, int y){
         color = c;
         this.i = i;
         this.j = y;

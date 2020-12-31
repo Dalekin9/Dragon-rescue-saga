@@ -1,3 +1,5 @@
+package Modele;
+
 import java.io.*;
 import java.util.*;
 
@@ -7,7 +9,7 @@ public class Niveau implements Serializable {
     public int id;
     protected int nb_animaux;
     protected int nb_coup_max;
-    protected Map<Integer,String> best_score;
+    public Map<Integer,String> best_score;
     protected ArrayList<Character> listColor;
     protected ArrayList<String> objDispo;
     protected boolean decale;
@@ -131,6 +133,13 @@ public class Niveau implements Serializable {
         return nb_coup_max;
     }
 
+    public boolean isDecale() {
+        return decale;
+    }
+
+    public ArrayList<String> getObjDispo(){
+        return objDispo;
+    }
 
     public static Niveau recupNiveau(int level){
         ObjectInputStream ois = null;

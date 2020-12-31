@@ -1,3 +1,12 @@
+import Modele.Case;
+import Modele.Grille;
+import Modele.Joueur;
+import Modele.Niveau;
+import Modele.Objet.Bombe;
+import Modele.Objet.Fusee;
+import Modele.Objet.Objet;
+import Modele.Objet.Pioche;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -13,8 +22,8 @@ public class Partie {
         joueur = pers;
         lvl = niveau;
         score = 0;
-        coupRes = lvl.nb_coup_max;
-        animRes = lvl.nb_animaux;
+        coupRes = lvl.getNb_coup_max();
+        animRes = lvl.getNb_animaux();
     }
 
     //Convertis les coordonnées données pour qu'elles soient utilisées
@@ -106,7 +115,7 @@ public class Partie {
                     break;
                 case "o":
                 case "objet":
-                    ArrayList<String> liste = voirObjPossible(joueur.getObjAcces(),lvl.objDispo);
+                    ArrayList<String> liste = voirObjPossible(joueur.getObjAcces(),lvl.getObjDispo());
                     if (! liste.isEmpty()) {
                         boolean repOk = false;
                         do {
@@ -183,7 +192,7 @@ public class Partie {
         do{
             System.out.println("Score : " + score + " points");
             System.out.println("Vous avez sauvé " + (lvl.getNb_animaux()-animRes) + "/" + lvl.getNb_animaux() + " animaux");
-            if (lvl.nb_coup_max != -1){
+            if (lvl.getNb_coup_max() != -1){
                 System.out.println("Il vous reste " + this.coupRes + " coups");
             }
             lvl.getGrid().afficher();
@@ -221,7 +230,7 @@ public class Partie {
             System.out.println("Bravo, vous avez sauvé tous les ours !");
             System.out.println(":)");
             System.out.println("Vous avez obtenu un score de " + this.score + " points");
-            joueur.setObjAcces(joueur.remplirListeObj(this.lvl.objDispo));
+            joueur.setObjAcces(joueur.remplirListeObj(this.lvl.getObjDispo()));
             miseAJour(joueur);
             if (this.score > this.lvl.recupDernierScore(this.lvl.best_score)){
                 System.out.println("Vous êtes désormais dans le top 5 des meilleurs joueurs de ce niveau !");
@@ -273,7 +282,7 @@ public class Partie {
         this.lvl.best_score.put(score,joueur);
         this.lvl.best_score = new TreeMap<Integer,String>(this.lvl.best_score);
         this.lvl.remplir_Grille();
-        Niveau a = new Niveau(new Grille(new Case[this.lvl.getGrid().gril.length][this.lvl.getGrid().gril[0].length]),lvl.id,lvl.nb_animaux,lvl.nb_coup_max, lvl.decale);
+        Niveau a = new Niveau(new Grille(new Case[this.lvl.getGrid().gril.length][this.lvl.getGrid().gril[0].length]),lvl.id,lvl.getNb_animaux(),lvl.getNb_coup_max(), lvl.isDecale());
         a.best_score = lvl.best_score;
         ArrayList<Niveau> levels = new ArrayList<>();
         ObjectInputStream ois;
@@ -315,7 +324,7 @@ public class Partie {
     }
 
     public void remplacement(boolean animAlea){
-        if (lvl.decale) {
+        if (lvl.isDecale()) {
             lvl.getGrid().faireDescendreQuandDecale();
             lvl.getGrid().decaler();
         } else {
@@ -326,7 +335,7 @@ public class Partie {
             int  ajout = lvl.getGrid().supprimerAnimalEnBas();
             score += ajout;
             animRes -= ajout/1000;
-            if (lvl.decale) {
+            if (lvl.isDecale()) {
                 lvl.getGrid().faireDescendreQuandDecale();
                 lvl.getGrid().decaler();
             } else {

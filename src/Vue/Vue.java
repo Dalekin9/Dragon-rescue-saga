@@ -1,16 +1,15 @@
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+package Vue;
+
+import Controleur.Controleur;
+import Modele.Joueur;
+import Modele.Niveau;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.time.chrono.IsoChronology;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Vue extends JFrame {
 
@@ -460,16 +459,16 @@ public class Vue extends JFrame {
 
         gbc.insets = new Insets(0,0,5,0);
         gbc.gridy=2;
-        JLabel numAnimHelp= new JLabel("Ours à sauver : " + niveau.nb_animaux);
+        JLabel numAnimHelp= new JLabel("Ours à sauver : " + niveau.getNb_animaux());
         numAnimHelp.setBorder(BorderFactory.createLineBorder(Color.black));
         numAnimHelp.setPreferredSize(new Dimension(150,30));
         numAnimHelp.setHorizontalAlignment(SwingConstants.CENTER);
         level.add(numAnimHelp,gbc);
 
-        if (niveau.nb_coup_max != -1){
+        if (niveau.getNb_coup_max() != -1){
             gbc.insets = new Insets(0,0,10,0);
             gbc.gridy=3;
-            JLabel numCoupMax= new JLabel("Vous aurez " + niveau.nb_coup_max + " coups pour finir ce niveau");
+            JLabel numCoupMax= new JLabel("Vous aurez " + niveau.getNb_coup_max() + " coups pour finir ce niveau");
             numCoupMax.setBorder(BorderFactory.createLineBorder(Color.black));
             numCoupMax.setPreferredSize(new Dimension(250,30));
             numCoupMax.setHorizontalAlignment(SwingConstants.CENTER);
