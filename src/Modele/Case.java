@@ -39,22 +39,16 @@ public class Case implements Serializable {
     }
 
     //'s' = Supprimé
-
-    //'n' = neutre
-
     //'a' = animal
-
     //'1' = fusée
     //'2' = ballon
     //'3' = bombe
-    //'4' = marteau
-
+    //'4' = pioche
     //J = jaune
     //O = orange
     //R = rouge
     //B = bleu
     //V = violet
-
     //Vide = espace
     //Obstacle = -
 
