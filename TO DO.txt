@@ -1,5 +1,7 @@
 Priorité :
 
+simplifier le w=switch ds une fonction
+mettre ok que B4 = 4B dans coordVerif
 
 re verifier les coup speciaux
 et leur pose
