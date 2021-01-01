@@ -4,12 +4,19 @@ import Controleur.Controleur;
 import Modele.Joueur;
 import Modele.Niveau;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.time.chrono.IsoChronology;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AffichageGraphique extends JFrame {
 
@@ -26,6 +33,20 @@ public class AffichageGraphique extends JFrame {
         setSize(550,650);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+
+    //setter et getter
+
+    public void setJoueur(Joueur joueur){
+        this.joueur = joueur;
+    }
+
+    public void setNiveau(Niveau niveau){
+        this.niveau = niveau;
+    }
+
+
+
+    //
 
     public void ecranCo(){
         //création d'un panneau pour l'ajouter à la Vue
@@ -50,14 +71,14 @@ public class AffichageGraphique extends JFrame {
         JButton av = new JButton("Se connecter");
         av.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                connexion();
+                control.connexion();
             }
         });
 
         JButton inf = new JButton("S'inscrire");
         inf.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                inscription();
+                control.inscription();
             }
         });
 
@@ -125,25 +146,14 @@ public class AffichageGraphique extends JFrame {
         connex.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ident.getText().isEmpty()) {
-                    if (Joueur.rechercheId(ident.getText())) {
-                        Joueur test = Joueur.getJoueur(ident.getText());
-                        if (pswd.getText().equals(test.getMdp())) {
-                            joueur = Joueur.getJoueur(ident.getText());
-                            sommaire();
-                        }
-                        System.out.println(pswd.getText().equals(test.getMdp()));
-                    }
-                    JLabel erreur = new JLabel("Identifiant/Mot de passe incorrect !");
-                }
-                JLabel erreur = new JLabel("Remplissez les champs");
+                control.seConnecter(ident.getText(),pswd.getText());
             }
         });
 
         JButton av = new JButton("S'inscrire");
         av.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                inscription();
+                control.inscription();
             }
         });
 
@@ -159,7 +169,7 @@ public class AffichageGraphique extends JFrame {
         panneauButt.add(av,gbc);
         panneauCo.add(panneauButt);
         main.add("Connexion",panneauCo);
-        cl.show(main,"Connexion");
+        ((CardLayout)main.getLayout()).show(main,"Connexion");
     }
 
     public void inscription(){
@@ -236,25 +246,14 @@ public class AffichageGraphique extends JFrame {
         JButton inscr = new JButton("Confirmer");
         inscr.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (!Joueur.rechercheId(ident.getText()) && ! ident.getText().equals("")) {
-                    if (pswd.getText().equals(pswd2.getText()) && !pswd.getText().equals("")) {
-                        Joueur.creerJoueur(ident.getText(),pswd.getText());
-                        sommaire();
-                    } else {
-                        gbc.gridy=6;
-                        JLabel erreur = new JLabel("Mots de passe différents !");
-                    }
-                } else {
-                    gbc.gridy=6;
-                    JLabel erreur = new JLabel("Identifiant déjà utilisé !");
-                }
+                control.sInscrire(ident.getText(),pswd.getText(),pswd2.getText());
             }
         });
 
         JButton av = new JButton("Se connecter");
         av.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                connexion();
+                control.connexion();
             }
         });
 
@@ -272,7 +271,7 @@ public class AffichageGraphique extends JFrame {
         panneauButt.add(av,gbc);
         panneauCo.add(panneauButt);
         main.add("Inscription",panneauCo);
-        cl.show(main,"Inscription");
+        ((CardLayout)main.getLayout()).show(main,"Inscription");
     }
 
     public void sommaire(){
@@ -298,27 +297,21 @@ public class AffichageGraphique extends JFrame {
         JButton av = new JButton("Mode Aventure");
         av.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Thread thread = new Thread() {
-                    public void run() {
-                        modeAventure();
-                    }
-                };
-                thread.start();
-                modeAventure();
+                control.modeAventure();
             }
         });
 
         JButton inf = new JButton("Mode Infini");
         inf.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                modeInfini();
+                control.modeInfini();
             }
         });
 
         JButton regles = new JButton("Règles du jeu");
         regles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                regles();
+                control.regles();
             }
         });
 
@@ -330,8 +323,10 @@ public class AffichageGraphique extends JFrame {
         gbc.weighty = 1;
 
         pan.add(buttons, gbc); //ajout du panneau de bouton au panneau du début
-        main.add("sommaire",pan); //ajout du panneau du début à la Vue
-        cl.show(main,"sommaire");
+        main.add("SOMMAIRE",pan); //ajout du panneau du début à la Vue
+        ((CardLayout)main.getLayout()).show(main,"SOMMAIRE");
+        add(main);
+        setVisible(true);
     }
 
     public void modeAventure() {
@@ -360,10 +355,7 @@ public class AffichageGraphique extends JFrame {
         lvl1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (joueur.levelEstPossible(1)){
-                    niveau = Niveau.recupNiveau(1);
-                    presentationLevel(niveau);
-                }
+                control.choixLevel(joueur,1);
             }
         });
         levels.add(lvl1,gbc);
@@ -373,10 +365,7 @@ public class AffichageGraphique extends JFrame {
         lvl1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (joueur.levelEstPossible(2)){
-                    niveau = Niveau.recupNiveau(2);
-                    presentationLevel(niveau);
-                }
+                control.choixLevel(joueur,2);
             }
         });
         levels.add(lvl2,gbc);
@@ -386,10 +375,7 @@ public class AffichageGraphique extends JFrame {
         lvl1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (joueur.levelEstPossible(3)){
-                    niveau = Niveau.recupNiveau(3);
-                    presentationLevel(niveau);
-                }
+                control.choixLevel(joueur,3);
             }
         });
         levels.add(lvl3,gbc);
@@ -399,10 +385,7 @@ public class AffichageGraphique extends JFrame {
         lvl1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (joueur.levelEstPossible(4)){
-                    niveau = Niveau.recupNiveau(4);
-                    presentationLevel(niveau);
-                }
+                control.choixLevel(joueur,4);
             }
         });
         levels.add(lvl4,gbc);
@@ -412,10 +395,7 @@ public class AffichageGraphique extends JFrame {
         lvl1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (joueur.levelEstPossible(5)){
-                    niveau = Niveau.recupNiveau(5);
-                    presentationLevel(niveau);
-                }
+                control.choixLevel(joueur,5);
             }
         });
         levels.add(lvl5,gbc);
@@ -464,6 +444,12 @@ public class AffichageGraphique extends JFrame {
         gbc.insets = new Insets(20,0,0,0);
         gbc.gridy=4;
         JButton demarrer= new JButton("Jouer");
+        demarrer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         demarrer.setBorder(BorderFactory.createLineBorder(Color.black));
         demarrer.setPreferredSize(new Dimension(100,40));
         demarrer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -473,6 +459,12 @@ public class AffichageGraphique extends JFrame {
         gbc.insets = new Insets(60,0,0,0);
         gbc.gridx=0;
         JButton retour= new JButton("Retour");
+        retour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.voirLesLevels();
+            }
+        });
         retour.setBorder(BorderFactory.createLineBorder(Color.black));
         retour.setPreferredSize(new Dimension(100,40));
         retour.setHorizontalAlignment(SwingConstants.CENTER);
@@ -480,6 +472,12 @@ public class AffichageGraphique extends JFrame {
 
         gbc.gridx=2;
         JButton leave= new JButton("Quitter");
+        leave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.exit();
+            }
+        });
         leave.setBorder(BorderFactory.createLineBorder(Color.black));
         leave.setPreferredSize(new Dimension(100,40));
         leave.setHorizontalAlignment(SwingConstants.CENTER);
@@ -487,6 +485,7 @@ public class AffichageGraphique extends JFrame {
 
         main.add(level);
         add(main);
+
         setVisible(true);
     }
 
@@ -534,7 +533,7 @@ public class AffichageGraphique extends JFrame {
         next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                choixDesLevels();
+                control.voirLesLevels();
             }
         });
         next.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -565,8 +564,10 @@ public class AffichageGraphique extends JFrame {
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = new Insets(0,0,0,0);
+        gbc.gridy =0;
         JLabel l = new JLabel("REGLES");
         pan.add(l,gbc);
+        gbc.gridy = 1;
         JLabel regles = new JLabel("<html><pre>" +
                 "   Bear Rescue Saga est un jeu de puzzle dont le but est de  " +
                 "<br>" +
@@ -589,6 +590,18 @@ public class AffichageGraphique extends JFrame {
         regles.setBorder(BorderFactory.createLineBorder(Color.black));
         gbc.anchor = GridBagConstraints.CENTER;
         pan.add(regles,gbc);
+        JButton retour= new JButton("Retour");
+        retour.setBorder(BorderFactory.createLineBorder(Color.black));
+        retour.setPreferredSize(new Dimension(100,40));
+        retour.setHorizontalAlignment(SwingConstants.CENTER);
+        pan.add(retour,gbc);
+
+        gbc.gridx=2;
+        JButton leave= new JButton("Quitter");
+        leave.setBorder(BorderFactory.createLineBorder(Color.black));
+        leave.setPreferredSize(new Dimension(100,40));
+        leave.setHorizontalAlignment(SwingConstants.CENTER);
+        pan.add(leave,gbc);
         main.add("REGLES",pan);
         add(main);
         setVisible(true);

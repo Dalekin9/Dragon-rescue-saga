@@ -5,6 +5,7 @@ import Modele.Niveau;
 import Modele.Partie;
 import Vue.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class Controleur {
     private static AffichageTerminal vueTerm = new AffichageTerminal();
-    private AffichageGraphique affichageGraphiqueGraph;
+    private AffichageGraphique vueGraph = new AffichageGraphique(this);
     private Partie partie;
 
     public Controleur(){
@@ -31,9 +32,32 @@ public class Controleur {
     }
 
     public void setVueGraph(AffichageGraphique affichageGraphiqueGraph){
-        this.affichageGraphiqueGraph = affichageGraphiqueGraph;
+        this.vueGraph = affichageGraphiqueGraph;
     }
 
+    //commun
+    public boolean connexionPossible(String ident, String pswd){
+        if (Joueur.rechercheId(ident)){
+            Joueur test = Joueur.getJoueur(ident);
+            if (pswd.equals(test.getMdp())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean inscriptionPossible(String ident, String pswd, String pswd2){
+        if (!Joueur.rechercheId(ident)) {
+            if (pswd.equals(pswd2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    //texte
     public static void lancement(Joueur gameur){
         vueTerm.setJoueur(gameur);
         int level = choixLevel(gameur);
@@ -216,4 +240,58 @@ public class Controleur {
     public void miseAJourScore(int score,String name,Niveau lvl){
         lvl.miseAJourScore(score,name,lvl);
     }
+
+
+    //graphique
+    public void connexion(){
+        vueGraph.connexion();
+    }
+
+    public void inscription(){
+        vueGraph.inscription();
+    }
+
+    public void seConnecter(String ident, String pswd){
+        if (connexionPossible(ident,pswd)){
+            vueGraph.setJoueur(Joueur.getJoueur(ident));
+            vueGraph.sommaire();
+        }
+    }
+
+    public void sInscrire(String ident, String pswd, String pswd2){
+        if(inscriptionPossible(ident,pswd,pswd2)){
+            vueGraph.setJoueur(Joueur.creerJoueur(ident,pswd));
+            vueGraph.sommaire();
+        }
+    }
+
+    public void modeAventure(){
+        vueGraph.modeAventure();
+    }
+
+    public void modeInfini(){
+        vueGraph.modeInfini();
+    }
+
+    public void regles(){
+        vueGraph.regles();
+    }
+
+    public void choixLevel(Joueur joueur, int id){
+        if (joueur.levelEstPossible(id)) {
+            Niveau level = Niveau.recupNiveau(id);
+            vueGraph.setNiveau(level);
+            vueGraph.presentationLevel(level);
+        }
+    }
+
+    public void voirLesLevels(){
+        vueGraph.choixDesLevels();
+    }
+
+    public void exit(){
+        vueGraph.dispose();
+    }
+
+
 }
