@@ -90,30 +90,9 @@ public class Niveau implements Serializable {
     //       affichage du niveau et des scores                -
     //---------------------------------------------------------
     
-    //affichage des propriétés du niveau en mode texte
-    public void afficher(){
-        System.out.println("Niveau "+id);
-        System.out.println("Objectifs :");
-        System.out.println("Sauver "+nb_animaux+" ours");
-        if (nb_coup_max != -1){
-            System.out.println(nb_coup_max+" coups maximum");
-        }
-        afficher_score();
-    }
+
     
-    public void afficher_score(){
-        System.out.println("Meilleurs scores :");
-        int compt = 1;
-        for (var item : best_score.entrySet()) {
-            System.out.println(compt + " : " + item.getKey() +" -> " + item.getValue());
-            compt++;
-        }
-        while (compt <= 5){
-            System.out.println(compt + " : Pas encore de score");
-            compt++;
-        }
-        System.out.println();
-    }
+
     
     
     //---------------------------------------------------------

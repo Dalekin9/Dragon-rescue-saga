@@ -1,3 +1,6 @@
+package Modele;
+
+import Controleur.Controleur;
 import Modele.Case;
 import Modele.Grille;
 import Modele.Joueur;
@@ -6,6 +9,7 @@ import Modele.Objet.Bombe;
 import Modele.Objet.Fusee;
 import Modele.Objet.Objet;
 import Modele.Objet.Pioche;
+import Vue.AffichageTerminal;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,6 +21,8 @@ public class Partie {
     private Joueur joueur;
     private Niveau lvl;
     private int score,coupRes,animRes;
+    private Controleur controleur;
+    private AffichageTerminal vueTerm;
 
     public Partie(Joueur pers, Niveau niveau){
         joueur = pers;
@@ -24,59 +30,74 @@ public class Partie {
         score = 0;
         coupRes = lvl.getNb_coup_max();
         animRes = lvl.getNb_animaux();
+        controleur = new Controleur();
+        vueTerm = new AffichageTerminal();
     }
 
-    //Convertis les coordonnées données pour qu'elles soient utilisées
-    public int[] coordsInt(String[] coords){
-        int[] intab = new int[2];
-        intab[0] = Integer.parseInt(coords[1]);
-        intab[1] = Integer.parseInt(coords[0]);
-        return intab;
+
+
+
+
+    public int getScore(){
+        return score;
     }
 
-    public boolean coordsVerif(String[] coords) {
-        int longueur = lvl.getGrid().getLongu();
-        int hauteur = lvl.getGrid().getHaut();
-        ArrayList nmbrs = new ArrayList();
-        ArrayList letters = new ArrayList();
-        for (int i = 0; i < hauteur; i++) nmbrs.add(String.valueOf(i));
-        for (int j = 0; j < longueur; j++) letters.add(String.valueOf((char) ('a' + j)));
-        if (nmbrs.contains(coords[1]) && letters.contains(coords[0].toLowerCase())) {
-            for (int k = 0; k < longueur; k++) {
-                if (letters.get(k).equals(coords[0].toLowerCase())) {
-                    coords[0] = Integer.toString(k);
-                }
+    public int getAnimRes(){
+        return animRes;
+    }
+
+    public int getCoupRes(){
+        return coupRes;
+    }
+
+    public Niveau getLvl(){
+        return lvl;
+    }
+
+    public void actionBloc(int[] coords){
+        boolean ligne = false;
+        int posLignne = -1;
+        boolean bloc = false;
+        int[] posBloc = new int[]{-1,-1};
+        lvl.getGrid().supprimer(coords[0],coords[1]);
+        //recherche si des coups spéciaux ont été réalisés
+        if (lvl.id >= 3) {
+            if (lvl.getGrid().coupSpecialLigne()) {
+                ligne = true;
+                posLignne = lvl.getGrid().coupSpecialLignePos();
             }
-            String tmp = coords[1];
-            coords[1] = coords[0];
-            coords[0] = tmp;
-        } else {
-            System.out.println("Les coordonées ne sont pas valides !");
-            return false;
         }
-        return true;
+        if (lvl.id >= 4) {
+            if (lvl.getGrid().coupSpecialBlocs()) {
+                bloc = true;
+                posBloc = lvl.getGrid().coupSpecialBlocsPos();
+            }
+        }
+        score += lvl.getGrid().points();
+        //remplacer après suppression de bloc
+        remplacement(animAlea);
+        //s'occupe de poser les objets quand il y a des coups spéciaux
+        if (ligne){
+            lvl.getGrid().poserFusee(posLignne);
+        }
+        if (bloc){
+            lvl.getGrid().poserBallon(posBloc);
+        }
+        coupRes--;
+        break;
     }
-
-    public boolean coupValide(int i, int j){
-        return lvl.getGrid().gril[i][j].getIs() != ' ' && lvl.getGrid().gril[i][j].getIs() != '-' && lvl.getGrid().gril[i][j].getIs() != 'a';
-    }
-
 
     public void uneAction(boolean animAlea){
-        System.out.println("Voulez-vous supprimer un bloc ou utiliser un objet? (B(loc)/O(bjet))");
+
         boolean flag = false;
-        String[] coordsStr;
-        int[] coords = new int[2];
+
         int colonnes = lvl.getGrid().gril[0].length;
         do {
             String a = new Scanner(System.in).next();
             switch (a.toLowerCase()) {
                 case "b":
                 case "bloc":
-                    boolean ligne = false;
-                    int posLignne = -1;
-                    boolean bloc = false;
-                    int[] posBloc = new int[]{-1,-1};
+
                     do {
                         System.out.println("Entrez les coordonnées : (ex: B4)");
                         coordsStr = joueur.recupCoords();
@@ -87,32 +108,7 @@ public class Partie {
                             }
                         }
                     }while(!flag);
-                    lvl.getGrid().supprimer(coords[0],coords[1]);
-                    //recherche si des coups spéciaux ont été réalisés
-                    if (lvl.id >= 3) {
-                        if (lvl.getGrid().coupSpecialLigne()) {
-                            ligne = true;
-                            posLignne = lvl.getGrid().coupSpecialLignePos();
-                        }
-                    }
-                    if (lvl.id >= 4) {
-                        if (lvl.getGrid().coupSpecialBlocs()) {
-                            bloc = true;
-                            posBloc = lvl.getGrid().coupSpecialBlocsPos();
-                        }
-                    }
-                    score += lvl.getGrid().points();
-                    //remplacer après suppression de bloc
-                    remplacement(animAlea);
-                    //s'occupe de poser les objets quand il y a des coups spéciaux
-                    if (ligne){
-                        lvl.getGrid().poserFusee(posLignne);
-                    }
-                    if (bloc){
-                        lvl.getGrid().poserBallon(posBloc);
-                    }
-                    coupRes--;
-                    break;
+
                 case "o":
                 case "objet":
                     ArrayList<String> liste = voirObjPossible(joueur.getObjAcces(),lvl.getObjDispo());
@@ -188,15 +184,11 @@ public class Partie {
     }
 
     public void jouer(){
-        lvl.afficher();
+        vueTerm.afficherPresentNiveau();
         do{
-            System.out.println("Score : " + score + " points");
-            System.out.println("Vous avez sauvé " + (lvl.getNb_animaux()-animRes) + "/" + lvl.getNb_animaux() + " animaux");
-            if (lvl.getNb_coup_max() != -1){
-                System.out.println("Il vous reste " + this.coupRes + " coups");
-            }
-            lvl.getGrid().afficher();
+            vueTerm.afficheEtat();
             int animAle = lvl.getGrid().aDAnimaux();
+            //vue -> savoirCoup
             uneAction(animAle < 5);
         }while(finJeu() == 0);
         affichageFin();
@@ -237,7 +229,7 @@ public class Partie {
                 miseAJourScore(this.score,this.joueur.getNom());
             }
         }
-        Game.lancement(joueur);
+        Controleur.lancement(joueur);
     }
 
     public void miseAJour(Joueur joueur){

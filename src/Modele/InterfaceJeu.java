@@ -1,5 +1,8 @@
+package Modele;
+
 import Controleur.Controleur;
 import Vue.Vue;
+import Controleur.Launcher;
 
 public class InterfaceJeu {
 
@@ -8,7 +11,7 @@ public class InterfaceJeu {
     public InterfaceJeu (){
         controleur =  new Controleur();
         view = new Vue (controleur);
-        controleur.setView(view);
+        //controleur.setView(view);
         view.setVisible (true);
         //view.sommaire();
         //view.miseAJour();

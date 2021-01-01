@@ -18,25 +18,7 @@ public class Grille implements Serializable {
         haut = grid.length;
     }
 
-    public void afficher(){
-        System.out.print("   ");
-        for (int k=0;k<gril[0].length;k++){
-            System.out.print((char)(k+65) + " ");
-        }
-        System.out.println();System.out.println();
-        for (int i = 0;i<gril.length;i++) {
-            if (i<10) {
-                System.out.print(i+ "  ");
-            }else {
-                System.out.print(i+" ");
-            }
-            for (int j=0;j<gril[0].length;j++) {
-                System.out.print(gril[i][j].getIs() + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
+
 
     public void afficherC(){
         for (Case[] cases : gril) {
