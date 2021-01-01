@@ -12,12 +12,5 @@ public abstract class Objet {
 
     public abstract void execute();
 
-    public static void afficherPossible(ArrayList<String> liste){
-        System.out.print("Vous pouvez utiliser : ");
-        for (String s: liste){
-            System.out.print(s+", ");
-        }
-        System.out.println();
-        System.out.println("Que voulez-vous utiliser ? (0 pour revenir en arrière)");
-    }
+
 }

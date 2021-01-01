@@ -1,7 +1,10 @@
 package Controleur;
 
 import Modele.*;
+import Vue.AffichageGraphique;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
@@ -18,8 +21,9 @@ public class Launcher {
         return tab;
     }
 
-    public static void main(String[] args) {
-/*
+    public static void main(String[] args) throws IOException {
+
+        /*
         ObjectOutputStream oos = null;
         //ObjectInputStream ois = null;
         Niveau[] levels = init();
@@ -33,7 +37,10 @@ public class Launcher {
             oos.flush();
             oos.close();
 
-            /*
+         */
+
+
+        /*ObjectOutputStream oos = null;
             Joueur test = new Joueur("admin","azerty");
             ArrayList<Integer> a = new ArrayList<Integer>();
             a.add(1);
@@ -44,7 +51,9 @@ public class Launcher {
             test.setNivAcess(a);
             oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
             oos.writeObject(test);
-*/
+
+         */
+
 
   /*          //Demande au joueur s'il veut jouer en mode texte ou graphique
             if (demandeJeu().equals("t")){
@@ -53,32 +62,32 @@ public class Launcher {
                 //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
                 InterfaceJeu.lancement();
             }
+
+            */
+
+        /*
         } catch (final IOException e) {
             e.printStackTrace();
         }
 
-
-*/
-
-
-
+         */
         if (demandeJeu().equals("t")){
             trouverJoueur();
         }else {
             //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-            InterfaceJeu.lancement();
+            lancement();
         }
 
 
 
 
         //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-            InterfaceJeu.lancement();
+           // InterfaceJeu.lancement();
 
 
     }
 
-        public static String demandeJeu(){
+    public static String demandeJeu(){
             System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
             String rep ;
             boolean ok;
@@ -191,4 +200,14 @@ public class Launcher {
     }
 
 
+    public static void lancement (){
+        AffichageGraphique view = new AffichageGraphique(new Controleur());
+        view.setVisible(true);
+        view.ecranCo();
+        //jeu.view.sommaire();
+        //jeu.view.modeAventure();
+        //jeu.view.regles();
+        //jeu.view.presentationLevel(Launcher.init()[0]);
+        //jeu.view.finLevel(Launcher.init()[0]);
+    }
 }

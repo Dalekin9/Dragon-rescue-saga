@@ -1,8 +1,8 @@
 package Modele;
-
+import Modele.*;
+import Controleur.*;
+import Vue.*;
 import java.io.*;
-import java.util.Locale;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Joueur implements java.io.Serializable {
@@ -42,14 +42,9 @@ public class Joueur implements java.io.Serializable {
 
     //demande au joueur s'il souhaite se connecter ou s'incrire
 
-
-
-
-
-
     //fonction qui recherche si l'identifiant est présent dans joueur.ser
     public static boolean rechercheId(String id){
-        ObjectInputStream ois = null;
+        ObjectInputStream ois;
         try {
 
             FileInputStream fis = new FileInputStream("joueur.ser");
@@ -65,14 +60,6 @@ public class Joueur implements java.io.Serializable {
             return false;
         } catch (final IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (ois != null) {
-                    ois.close();
-                }
-            } catch (final IOException ex) {
-                ex.printStackTrace();
-            }
         }
         return false;
     }
@@ -171,9 +158,6 @@ public class Joueur implements java.io.Serializable {
         return nivAcess.contains(niveau);
     }
 
-
-
-
     public ArrayList<String> remplirListeObj(ArrayList<String> objDispo) {
         for (String s : objDispo) {
             if (!this.objAcces.contains(s)) {
@@ -181,5 +165,39 @@ public class Joueur implements java.io.Serializable {
             }
         }
         return objAcces;
+    }
+
+    public void miseAJour(Joueur joueur, Niveau lvl){
+        ArrayList<Integer> update = joueur.getNivAcess();
+        if (!update.contains(lvl.id+1)){
+            update.add(lvl.id + 1);
+        }
+        joueur.setNivAcess(update);
+        ArrayList<Joueur> liste = new ArrayList<>();
+        ObjectInputStream ois;
+        ObjectOutputStream oos;
+        try {
+            FileInputStream fis = new FileInputStream("joueur.ser");
+            if (fis.available() != 0) {
+                ois = new ObjectInputStream(fis);
+                while (fis.available() != 0) {
+                    Joueur test = (Joueur) ois.readObject();
+                    if (test.getNom() == joueur.getNom()){
+                        liste.add(joueur);
+                    }else {
+                        liste.add(test);
+                    }
+                }
+            }
+            FileOutputStream fos = new FileOutputStream("joueur.ser");
+            oos = new ObjectOutputStream(fos);
+            for (Joueur a : liste) {
+                oos.writeObject(a);
+            }
+            oos.flush();
+            oos.close();
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
     }
 }

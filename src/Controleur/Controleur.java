@@ -1,15 +1,18 @@
 package Controleur;
 
-import Modele.*;
+import Modele.Joueur;
+import Modele.Niveau;
+import Modele.Partie;
 import Vue.*;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Controleur {
-    private static AffichageTerminal vueTerm;
-    private Vue vueGraph;
+    private static AffichageTerminal vueTerm = new AffichageTerminal();
+    private AffichageGraphique affichageGraphiqueGraph;
     private Partie partie;
 
     public Controleur(){
@@ -27,11 +30,12 @@ public class Controleur {
         this.vueTerm = vueTerm;
     }
 
-    public void setVueGraph(Vue vueGraph){
-        this.vueGraph = vueGraph;
+    public void setVueGraph(AffichageGraphique affichageGraphiqueGraph){
+        this.affichageGraphiqueGraph = affichageGraphiqueGraph;
     }
 
     public static void lancement(Joueur gameur){
+        vueTerm.setJoueur(gameur);
         int level = choixLevel(gameur);
         while (! gameur.levelEstPossible(level)){
             System.out.println("Vous n'avez pas accès à ce niveau !");
@@ -40,11 +44,12 @@ public class Controleur {
         Niveau vaJouerA = Niveau.recupNiveau(level);
         Objects.requireNonNull(vaJouerA).remplir_Grille();
         Partie pA = new Partie(gameur,vaJouerA);
+
         pA.jouer();
     }
 
     public static int choixLevel(Joueur joueur){
-        int level =-1;
+        int level;
         System.out.println("Voici les niveaux auxquels vous avez accès :");
         vueTerm.afficheNiveauPossible();
         System.out.println("Choisissez le niveau auquel vous voulez jouer :");
@@ -52,7 +57,7 @@ public class Controleur {
         return level;
     }
 
-    public void demandeAction(){
+    public void demandeAction(boolean animAlea){
         System.out.println("Voulez-vous supprimer un bloc ou utiliser un objet? (B(loc)/O(bjet))");
         String[] coordsStr;
         int[] coords = new int[2];
@@ -71,17 +76,73 @@ public class Controleur {
                         }
                     }
                 }while(!flag);
-                //do while pr coordonnées
-                //-> lance actionBloc(int[]) dans modele(partie)
+                partie.actionBloc(coords,animAlea);
                 break;
             case "o":
             case "objet":
-                //do while pr coordonnées
-                //-> lance actionObj(nom obj,int[])  dans modele(partie)
+                ArrayList<String> liste = partie.voirObjPossible(partie.getJoueur().getObjAcces(),partie.getLvl().getObjDispo());
+                if (!liste.isEmpty()) {
+                    boolean repOk = false;
+                    do {
+                        flag = false;
+                        vueTerm.afficherObjetPossible(liste);
+                        String rep = new Scanner(System.in).next();
+                        switch (rep.toLowerCase(Locale.ROOT)) {
+                            case "0" -> repOk = true;
+                            case "bombe" -> {
+                                do {
+                                    System.out.println("Ou voulez utiliser la Bombe ? (ex: B4)");
+                                    coordsStr = recupCoords();
+                                    if (coordsVerif(coordsStr)) {
+                                        coords = coordsInt(coordsStr);
+                                        if (coupValide(coords[0], coords[1])) {
+                                            flag = true;
+                                        }
+                                    }
+                                } while (!flag);
+                                partie.actionObj(animAlea,"bombe",coords);
+                                repOk=true;
+                            }
+                            case "fusee", "fusée" -> {
+                                do {
+                                    System.out.println("Ou voulez utiliser la Fusée ? (ex: B)");
+                                    String coordFus = new Scanner(System.in).next();
+                                    coordsStr = new String[]{coordFus, "0"};
+                                    if (coordsVerif(coordsStr)) {
+                                        coords = coordsInt(coordsStr);
+                                        if (coupValideFus(coords[1])) {
+                                            flag = true;
+                                            System.out.println("rgbnh,j;,hngbfvds");
+                                        }
+                                    }
+                                } while (!flag);
+                                partie.actionObj(animAlea,"fusee",coords);
+                                repOk=true;
+                            }
+                            case "pioche" -> {
+                                do {
+                                    System.out.println("Ou voulez utiliser la Pioche ? (ex: B4)");
+                                    coordsStr = recupCoords();
+                                    if (coordsVerif(coordsStr)) {
+                                        coords = coordsInt(coordsStr);
+                                        if (coupValide(coords[0], coords[1])) {
+                                            flag = true;
+                                        }
+                                    }
+                                } while (!flag);
+                                partie.actionObj(animAlea,"pioche",coords);
+                                repOk=true;
+                            }
+                            default -> System.out.println("Réponse non reconnue ! Choisissez un objet (ou 0 pour revenir en arrière)");
+                        }
+                    }while (! repOk);
+                } else {
+                    System.out.println("Pas d'obejt disponible :(");
+                }
                 break;
             default:
                 System.out.println("Entrée incorrecte !");
-                demandeAction();
+                demandeAction(animAlea);
         }
     }
 
@@ -101,8 +162,10 @@ public class Controleur {
     //Convertis les coordonnées données pour qu'elles soient utilisées
     public int[] coordsInt(String[] coords){
         int[] intab = new int[2];
-        intab[0] = Integer.parseInt(coords[1]);
-        intab[1] = Integer.parseInt(coords[0]);
+        intab[0] = Integer.parseInt(coords[0]);
+        intab[1] = Integer.parseInt(coords[1]);
+        System.out.println("i : " + intab[0]);
+        System.out.println("j : "+intab[1]);
         return intab;
     }
 
@@ -130,7 +193,27 @@ public class Controleur {
     }
 
     public boolean coupValide(int i, int j){
-        return partie.getLvl().getGrid().gril[i][j].getIs() != ' ' && partie.getLvl().getGrid().gril[i][j].getIs() != '-' && partie.getLvl().getGrid().gril[i][j].getIs() != 'a';
+        return partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+                partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
+                partie.getLvl().getGrid().gril[i][j].getIs() != 'a';
     }
 
+    public boolean coupValideFus(int j){
+        for (int i=0;i<partie.getLvl().getGrid().gril.length;i++){
+            if (partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+                    partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
+                    partie.getLvl().getGrid().gril[i][j].getIs() != 'a'){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void miseAJour(Joueur joueur,Niveau lvl){
+        joueur.miseAJour(joueur,lvl);
+    }
+
+    public void miseAJourScore(int score,String name,Niveau lvl){
+        lvl.miseAJourScore(score,name,lvl);
+    }
 }

@@ -200,6 +200,9 @@ public class Grille implements Serializable {
                         if (i-1 < 0){
                             int pos = (int) (Math.random()*liste.size());
                             gril[i][j] = new Case(liste.get(pos));
+                            if (this.aDAnimaux()==5){
+                                animAlea = false;
+                            }
                         } else {
                             if ( gril[i-1][j].getIs() != ' ' && gril[i-1][j].getIs() != '-') {
                                 gril[i][j] = new Case(gril[i - 1][j].getIs());
@@ -207,6 +210,9 @@ public class Grille implements Serializable {
                             } else {
                                 int pos = (int) (Math.random()*liste.size());
                                 gril[i][j] = new Case(liste.get(pos));
+                            }
+                            if (this.aDAnimaux()==5){
+                                animAlea = false;
                             }
                         }
                     }

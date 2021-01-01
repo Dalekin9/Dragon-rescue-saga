@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Vue extends JFrame {
+public class AffichageGraphique extends JFrame {
 
     private Controleur control;
     private Color saved;
@@ -20,7 +20,7 @@ public class Vue extends JFrame {
     private Joueur joueur;
     private Niveau niveau;
 
-    public Vue(Controleur controleur){
+    public AffichageGraphique(Controleur controleur){
         control = controleur;
         setTitle("Bear Rescue Saga");
         setSize(550,650);
@@ -125,22 +125,18 @@ public class Vue extends JFrame {
         connex.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Joueur.rechercheId(ident.getText())){
-                    Joueur test = Joueur.getJoueur(ident.getText());
-                    if (pswd.getText().equals(test.getMdp())) {
-                        joueur = Joueur.getJoueur(ident.getText());
-                        sommaire();
+                if (ident.getText().isEmpty()) {
+                    if (Joueur.rechercheId(ident.getText())) {
+                        Joueur test = Joueur.getJoueur(ident.getText());
+                        if (pswd.getText().equals(test.getMdp())) {
+                            joueur = Joueur.getJoueur(ident.getText());
+                            sommaire();
+                        }
+                        System.out.println(pswd.getText().equals(test.getMdp()));
                     }
-                    System.out.println(pswd.getText().equals(test.getMdp()));
-                    System.out.println(test.getMdp());
-                    System.out.println(pswd.getText());
-                    System.out.println("balo pas le mdp");
+                    JLabel erreur = new JLabel("Identifiant/Mot de passe incorrect !");
                 }
-                gbc.gridx=1;
-                JLabel erreur =new JLabel("Identifiant/Mot de passe incorrect !");
-                panneauButt.add(erreur,gbc);
-                panneauCo.add(panneauButt);
-                main.add("Inscription",panneauCo);
+                JLabel erreur = new JLabel("Remplissez les champs");
             }
         });
 
@@ -163,7 +159,7 @@ public class Vue extends JFrame {
         panneauButt.add(av,gbc);
         panneauCo.add(panneauButt);
         main.add("Connexion",panneauCo);
-        ((CardLayout)main.getLayout()).show(main,"Connexion");
+        cl.show(main,"Connexion");
     }
 
     public void inscription(){
@@ -245,20 +241,12 @@ public class Vue extends JFrame {
                         Joueur.creerJoueur(ident.getText(),pswd.getText());
                         sommaire();
                     } else {
-                        gbc.gridx = 1;
+                        gbc.gridy=6;
                         JLabel erreur = new JLabel("Mots de passe différents !");
-                        panneauButt.add(erreur, gbc);
-                        panneauCo.add(panneauButt);
-                        main.add("Inscription",panneauCo);
-                        ((CardLayout)main.getLayout()).show(main,"Inscription");
                     }
                 } else {
-                    gbc.gridx = 1;
+                    gbc.gridy=6;
                     JLabel erreur = new JLabel("Identifiant déjà utilisé !");
-                    panneauButt.add(erreur, gbc);
-                    panneauCo.add(panneauButt);
-                    main.add("Inscription",panneauCo);
-                    ((CardLayout)main.getLayout()).show(main,"Inscription");
                 }
             }
         });
@@ -284,7 +272,7 @@ public class Vue extends JFrame {
         panneauButt.add(av,gbc);
         panneauCo.add(panneauButt);
         main.add("Inscription",panneauCo);
-        ((CardLayout)main.getLayout()).show(main,"Inscription");
+        cl.show(main,"Inscription");
     }
 
     public void sommaire(){
@@ -342,10 +330,8 @@ public class Vue extends JFrame {
         gbc.weighty = 1;
 
         pan.add(buttons, gbc); //ajout du panneau de bouton au panneau du début
-        main.add("SOMMAIRE",pan); //ajout du panneau du début à la Vue
-        ((CardLayout)main.getLayout()).show(main,"SOMMAIRE");
-        add(main);
-        setVisible(true);
+        main.add("sommaire",pan); //ajout du panneau du début à la Vue
+        cl.show(main,"sommaire");
     }
 
     public void modeAventure() {

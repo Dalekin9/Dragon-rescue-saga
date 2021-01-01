@@ -16,6 +16,16 @@ public class AffichageTerminal {
 
     public AffichageTerminal(){}
 
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
+
+    public void setPartie(Partie partie){
+        this.partie = partie;
+        this.niveau = partie.getLvl();
+        controleur = new Controleur(partie);
+    }
+
     public void afficheNiveauPossible(){
         int parcours = 0;
         ArrayList<Integer> copie = joueur.getNivAcess();
@@ -54,14 +64,14 @@ public class AffichageTerminal {
         System.out.println();
     }
 
-    public void afficheEtat(){
+    public void afficheEtat(boolean animAlea){
         System.out.println("Score : " + partie.getScore() + " points");
         System.out.println("Vous avez sauvé " + (niveau.getNb_animaux()-partie.getAnimRes()) + "/" + niveau.getNb_animaux() + " animaux");
         if (niveau.getNb_coup_max() != -1){
             System.out.println("Il vous reste " + partie.getCoupRes() + " coups");
         }
         afficherGrille();
-        controleur.demandeAction();
+        controleur.demandeAction(animAlea);
     }
 
     public void afficherGrille(){
@@ -69,7 +79,7 @@ public class AffichageTerminal {
         for (int k=0;k<niveau.getGrid().gril[0].length;k++){
             System.out.print((char)(k+65) + " ");
         }
-        System.out.println();System.out.println();
+        System.out.println();
         for (int i = 0;i<niveau.getGrid().gril.length;i++) {
             if (i<10) {
                 System.out.print(i+ "  ");
@@ -84,5 +94,38 @@ public class AffichageTerminal {
         System.out.println();
     }
 
+    public void afficherObjetPossible(ArrayList<String> liste){
+        System.out.print("Vous pouvez utiliser : ");
+        for (String s: liste){
+            System.out.print(s+", ");
+        }
+        System.out.println();
+        System.out.println("Que voulez-vous utiliser ? (0 pour revenir en arrière)");
+    }
+
+    public void affichageFinDePartie(int finJeu){
+        if (finJeu != 2 ){
+            if (finJeu == 1) {
+                System.out.println("Vous avez épuisé le nombre de coups disponible.");
+            } else if (finJeu == 3){
+                System.out.println("Plus aucun coup n'est possible.");
+            }
+            System.out.println("Vous n'avez pas réussi à sauver tous les ours !");
+            System.out.println(":(");
+            System.out.println("Ce n'est pas grave, vous réussirez une prochaine fois !");
+
+        } else {
+            System.out.println("Bravo, vous avez sauvé tous les ours !");
+            System.out.println(":)");
+            System.out.println("Vous avez obtenu un score de " + this.partie.getScore() + " points");
+            joueur.setObjAcces(joueur.remplirListeObj(niveau.getObjDispo()));
+            controleur.miseAJour(joueur, niveau);
+            if (this.partie.getScore() > niveau.recupDernierScore(niveau.best_score)){
+                System.out.println("Vous êtes désormais dans le top 5 des meilleurs joueurs de ce niveau !");
+                controleur.miseAJourScore(this.partie.getScore(),this.joueur.getNom(),this.niveau);
+            }
+        }
+        Controleur.lancement(joueur);
+    }
 
 }

@@ -1,30 +1,21 @@
 package Modele;
 
 import Controleur.Controleur;
-import Vue.Vue;
-import Controleur.Launcher;
+import Vue.AffichageGraphique;
 
 public class InterfaceJeu {
 
-    private Vue view ;
+    private AffichageGraphique view ;
     private Controleur controleur;
     public InterfaceJeu (){
         controleur =  new Controleur();
-        view = new Vue (controleur);
+        view = new AffichageGraphique(controleur);
         //controleur.setView(view);
         view.setVisible (true);
         //view.sommaire();
         //view.miseAJour();
         //controleur.sliderMoved();
     }
-    public static void lancement (){
-        InterfaceJeu jeu = new InterfaceJeu ();
-        //jeu.view.ecranCo();
-        //jeu.view.sommaire();
-        //jeu.view.modeAventure();
-        //jeu.view.regles();
-        jeu.view.presentationLevel(Launcher.init()[0]);
-        //jeu.view.finLevel(Launcher.init()[0]);
-    }
+
 
 }

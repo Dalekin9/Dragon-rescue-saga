@@ -84,17 +84,7 @@ public class Niveau implements Serializable {
         return fin;
     }
     
-    
-    //---------------------------------------------------------
-    //              --- PARTIE 2 ---                          -
-    //       affichage du niveau et des scores                -
-    //---------------------------------------------------------
-    
 
-    
-
-    
-    
     //---------------------------------------------------------
     //              --- PARTIE 3 ---                          -
     //      contient les getters (et les setters)             -
@@ -158,4 +148,47 @@ public class Niveau implements Serializable {
         }
         return min;
     }
+
+
+
+
+
+    public void miseAJourScore(int score, String joueur, Niveau lvl){
+        if (! best_score.isEmpty()) {
+            int last = recupDernierScore(best_score);
+            best_score.remove(last);
+        }
+        best_score.put(score,joueur);
+        best_score = new TreeMap<Integer,String>(best_score);
+        remplir_Grille();
+        Niveau a = new Niveau(new Grille(new Case[lvl.getGrid().gril.length][lvl.getGrid().gril[0].length]),lvl.id,lvl.getNb_animaux(),lvl.getNb_coup_max(), lvl.isDecale());
+        a.best_score = best_score;
+        ArrayList<Niveau> levels = new ArrayList<>();
+        ObjectInputStream ois;
+        ObjectOutputStream oos;
+        try {
+            FileInputStream fis = new FileInputStream("level.ser");
+            if (fis.available() != 0) {
+                ois = new ObjectInputStream(fis);
+                while (fis.available() != 0) {
+                    Niveau test = (Niveau) ois.readObject();
+                    if (test.id == lvl.id){
+                        levels.add(lvl);
+                    }else {
+                        levels.add(test);
+                    }
+                }
+            }
+            FileOutputStream fos = new FileOutputStream("level.ser");
+            oos = new ObjectOutputStream(fos);
+            for (Niveau level : levels) {
+                oos.writeObject(level);
+            }
+            oos.flush();
+            oos.close();
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
 }
