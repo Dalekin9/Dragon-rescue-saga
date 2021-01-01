@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class Controleur {
     private static AffichageTerminal vueTerm = new AffichageTerminal();
-    private AffichageGraphique vueGraph = new AffichageGraphique(this);
+    private static AffichageGraphique vueGraph = new AffichageGraphique(new Controleur());
     private Partie partie;
 
     public Controleur(){
@@ -243,8 +243,23 @@ public class Controleur {
 
 
     //graphique
+
+    public static void lancement (){
+        vueGraph = new AffichageGraphique(new Controleur());
+        vueGraph.setVisible(true);
+        vueGraph.ecranCo();
+        //jeu.view.sommaire();
+        //jeu.view.modeAventure();
+        //jeu.view.regles();
+        //jeu.view.presentationLevel(Launcher.init()[0]);
+        //jeu.view.finLevel(Launcher.init()[0]);
+    }
+
     public void connexion(){
+
+        System.out.println("before");
         vueGraph.connexion();
+        System.out.println("after");
     }
 
     public void inscription(){
@@ -285,13 +300,8 @@ public class Controleur {
         }
     }
 
-    public void voirLesLevels(){
-        vueGraph.choixDesLevels();
-    }
-
     public void exit(){
         vueGraph.dispose();
     }
-
 
 }

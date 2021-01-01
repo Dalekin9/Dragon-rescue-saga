@@ -75,7 +75,7 @@ public class Launcher {
             trouverJoueur();
         }else {
             //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-            lancement();
+            Controleur.lancement();
         }
 
 
@@ -200,14 +200,5 @@ public class Launcher {
     }
 
 
-    public static void lancement (){
-        AffichageGraphique view = new AffichageGraphique(new Controleur());
-        view.setVisible(true);
-        view.ecranCo();
-        //jeu.view.sommaire();
-        //jeu.view.modeAventure();
-        //jeu.view.regles();
-        //jeu.view.presentationLevel(Launcher.init()[0]);
-        //jeu.view.finLevel(Launcher.init()[0]);
-    }
+
 }

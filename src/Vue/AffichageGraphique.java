@@ -89,6 +89,7 @@ public class AffichageGraphique extends JFrame {
         gbc.weighty = 1;
         pan.add(buttons, gbc);
         main.add("Ecran de connexion",pan);
+        cl.show(main,"Ecran de connexion");
         add(main);
         main.setVisible(true);
     }
@@ -168,8 +169,8 @@ public class AffichageGraphique extends JFrame {
         gbc.gridy=5;
         panneauButt.add(av,gbc);
         panneauCo.add(panneauButt);
-        main.add("Connexion",panneauCo);
-        ((CardLayout)main.getLayout()).show(main,"Connexion");
+        main.add("connexion",panneauCo);
+        cl.show(main,"connexion");
     }
 
     public void inscription(){
@@ -271,7 +272,7 @@ public class AffichageGraphique extends JFrame {
         panneauButt.add(av,gbc);
         panneauCo.add(panneauButt);
         main.add("Inscription",panneauCo);
-        ((CardLayout)main.getLayout()).show(main,"Inscription");
+        cl.show(main,"Inscription");
     }
 
     public void sommaire(){
@@ -324,9 +325,7 @@ public class AffichageGraphique extends JFrame {
 
         pan.add(buttons, gbc); //ajout du panneau de bouton au panneau du début
         main.add("SOMMAIRE",pan); //ajout du panneau du début à la Vue
-        ((CardLayout)main.getLayout()).show(main,"SOMMAIRE");
-        add(main);
-        setVisible(true);
+        cl.show(main,"SOMMAIRE");
     }
 
     public void modeAventure() {
@@ -341,8 +340,7 @@ public class AffichageGraphique extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         pan.add(choixDesLevels(),gbc);
         main.add("AVENTURE",pan);
-        add(main);
-        setVisible(true);
+        cl.show(main,"AVENTURE");
     }
 
     public JPanel choixDesLevels(){
@@ -462,7 +460,7 @@ public class AffichageGraphique extends JFrame {
         retour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                control.voirLesLevels();
+                control.modeAventure();
             }
         });
         retour.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -483,10 +481,8 @@ public class AffichageGraphique extends JFrame {
         leave.setHorizontalAlignment(SwingConstants.CENTER);
         level.add(leave,gbc);
 
-        main.add(level);
-        add(main);
-
-        setVisible(true);
+        main.add("PRESENTATION",level);
+        cl.show(main,"PRESENTATION");
     }
 
     public void finLevel(Niveau niveau){
@@ -533,7 +529,7 @@ public class AffichageGraphique extends JFrame {
         next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                control.voirLesLevels();
+                control.modeAventure();
             }
         });
         next.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -552,8 +548,7 @@ public class AffichageGraphique extends JFrame {
         JLabel l = new JLabel("MODE INFINI");
         pan.add(l);
         main.add("INFINI",pan);
-        add(main);
-        setVisible(true);
+        cl.show(main,"INFINI");
     }
 
     public void regles(){
@@ -603,8 +598,7 @@ public class AffichageGraphique extends JFrame {
         leave.setHorizontalAlignment(SwingConstants.CENTER);
         pan.add(leave,gbc);
         main.add("REGLES",pan);
-        add(main);
-        setVisible(true);
+        cl.show(main,"REGLES");
     }
 
 }
