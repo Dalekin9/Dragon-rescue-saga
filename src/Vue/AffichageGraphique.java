@@ -291,26 +291,39 @@ public class AffichageGraphique extends JFrame {
     }
 
     public void sommaire(){
-        //création d'un panneau pour l'ajouter à la Vue
-        JPanel pan = new JPanel(new GridBagLayout());
 
-        //mise à jour des contraintes
+        JLabel jLabel1 = new JLabel();
+
+        JButton jButton3 = new JButton();
+        JButton jButton4 = new JButton();
+        JLabel jLabel3 = new JLabel();
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new GridBagLayout());
+
+        jLabel1.setText("<html><h1><strong>Sommaire</strong></h1><hr></html>");
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30,0,0,0);
+        sec.add(jLabel1, gbc);
 
-        pan.add(new JLabel("<html><h1><strong>Bear Rescue Saga</strong></h1><hr></html>"), gbc);
+        JPanel butt= new JPanel();
+        butt.setOpaque(false);
+        butt.setLayout(new GridBagLayout());
 
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 0, 5, 0);
-
-        //création du panneau des boutons
-        JPanel buttons = new JPanel(new GridBagLayout());
 
         //création des boutons et de leur évènement lié
         JButton av = new JButton("Mode Aventure");
+        av.setPreferredSize(new Dimension(150,40));
         av.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.modeAventure();
@@ -318,6 +331,7 @@ public class AffichageGraphique extends JFrame {
         });
 
         JButton inf = new JButton("Mode Infini");
+        inf.setPreferredSize(new Dimension(150,40));
         inf.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.modeInfini();
@@ -325,22 +339,32 @@ public class AffichageGraphique extends JFrame {
         });
 
         JButton regles = new JButton("Règles du jeu");
+        regles.setPreferredSize(new Dimension(150,40));
         regles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.regles();
             }
         });
+        gbc.insets = new Insets(0,0,70,0);
+        butt.add(av, gbc);
+        gbc.insets = new Insets(10,0,70,0);
+        butt.add(inf,gbc);
+        gbc.insets = new Insets(0,0,50,0);
+        butt.add(regles,gbc);
+        gbc.weighty=1;
+        sec.add(butt,gbc);
 
-        //ajout des boutons au panneau de boutons
-        buttons.add(av, gbc);
-        buttons.add(inf, gbc);
-        buttons.add(regles, gbc);
+        princ.add(sec);
+        sec.setBounds(0, 0, 550, 750);
 
-        gbc.weighty = 1;
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\sommaire.png"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0, 0, 550, 750);
 
-        pan.add(buttons, gbc); //ajout du panneau de bouton au panneau du début
-        main.add("SOMMAIRE",pan); //ajout du panneau du début à la Vue
-        cl.show(main,"SOMMAIRE");
+        main.add(princ, "sommaire");
+        cl.show(main,"sommaire");
+
+
     }
 
     public void modeAventure() {
@@ -375,7 +399,7 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=1;
         gbc.gridy=0;
         JButton lvl2 = new JButton("Niveau 2");
-        lvl1.addActionListener(new ActionListener() {
+        lvl2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.choixLevel(joueur,2);
@@ -385,7 +409,7 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=0;
         gbc.gridy=1;
         JButton lvl3 = new JButton("Niveau 3");
-        lvl1.addActionListener(new ActionListener() {
+        lvl3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.choixLevel(joueur,3);
@@ -395,7 +419,7 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=1;
         gbc.gridy=1;
         JButton lvl4 = new JButton("Niveau 4");
-        lvl1.addActionListener(new ActionListener() {
+        lvl4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.choixLevel(joueur,4);
@@ -405,7 +429,7 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=0;
         gbc.gridy=2;
         JButton lvl5 = new JButton("Niveau 5");
-        lvl1.addActionListener(new ActionListener() {
+        lvl5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.choixLevel(joueur,5);
