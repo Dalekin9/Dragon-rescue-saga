@@ -594,7 +594,7 @@ public class AffichageGraphique extends JFrame {
         cl.show(main,"PRESENTATION");
     }
 
-    public void finLevel(Niveau niveau){
+    public void finLevel(Niveau niveau, int finJeu){
 
         JPanel princ = new JPanel();
         princ.setOpaque(false);
@@ -615,11 +615,32 @@ public class AffichageGraphique extends JFrame {
         JPanel third = new JPanel(new GridBagLayout());
         third.setOpaque(false);
 
+        JPanel mess = new JPanel(new GridBagLayout());
+        mess.setOpaque(true);
+        //mess.setBackground(new Color(225,225,225,120));
+
+        gbc.insets = new Insets(20,10,20,10);
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        JLabel info = new JLabel();
+       info.setForeground(Color.BLACK);
+        info.setHorizontalAlignment(SwingConstants.CENTER);
+        if(finJeu == 2) {
+            info.setText("Bravo, vous avez gagné !");
+            //info.setForeground(new Color(144, 232, 125));
+            mess.setBackground(new Color(144, 232, 125,200));
+        } else {
+            info.setText("Dommage, vous avez echoué.");
+            //info.setForeground(new Color(229, 116, 116));
+            mess.setBackground(new Color(229, 116, 116,200));
+        }
+        mess.add(info,gbc);
+
         JPanel pres = new JPanel(new GridBagLayout());
         pres.setOpaque(true);
         pres.setBackground(new Color(225,225,225,120));
-        gbc.insets = new Insets(0,0,10,0);
-        gbc.anchor = GridBagConstraints.CENTER;
+
+        gbc.insets = new Insets(10,0,10,0);
         int compt = 1;
         for (var s : niveau.best_score.entrySet()){
             compt++;
@@ -661,10 +682,12 @@ public class AffichageGraphique extends JFrame {
 
 
         GridBagConstraints abc = new GridBagConstraints();
-        abc.insets = new Insets(0,0,20,0);
+        abc.insets = new Insets(0,0,60,0);
         abc.gridy = 1;
-        third.add(pres,abc);
+        third.add(mess,abc);
         abc.gridy = 2;
+        third.add(pres,abc);
+        abc.gridy = 3;
         third.add(play,abc);
         abc.insets = new Insets(0,0,40,0);
 
