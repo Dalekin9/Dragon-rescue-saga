@@ -301,8 +301,8 @@ public class Controleur {
         }
     }
 
-    public void exit(){
-        vueGraph.dispose();
-    }
+ public void goSommaire(){
+     vueGraph.sommaire();
+ }
 
 }

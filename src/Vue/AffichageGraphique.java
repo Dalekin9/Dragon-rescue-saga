@@ -107,16 +107,16 @@ public class AffichageGraphique extends JFrame {
         sec.add(butt,gbc);
 
         princ.add(sec);
-        sec.setBounds(0, 0, 550, 750);
+        sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\fond3.png"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\principal.png"));
         princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 750);
+        jLabel3.setBounds(0, 0, 550, 725);
 
         main.add(princ, "accueil");
 
         getContentPane().add(main);
-        main.setBounds(0, 0, 550, 750);
+        main.setBounds(0, 0, 550, 725);
         setVisible(true);
     }
 
@@ -191,11 +191,11 @@ public class AffichageGraphique extends JFrame {
         sec.add(butt,gbc);
 
         princ.add(sec);
-        sec.setBounds(0, 0, 550, 750);
+        sec.setBounds(0, 0, 550, 725);
 
         jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
         princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 750);
+        jLabel3.setBounds(0, 0, 550, 725);
 
         main.add(princ, "connexion");
         cl.show(main,"connexion");
@@ -280,11 +280,11 @@ public class AffichageGraphique extends JFrame {
         sec.add(butt,gbc);
 
         princ.add(sec);
-        sec.setBounds(0, 0, 550, 750);
+        sec.setBounds(0, 0, 550, 725);
 
         jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
         princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 750);
+        jLabel3.setBounds(0, 0, 550, 725);
 
         main.add(princ, "inscription");
         cl.show(main,"inscription");
@@ -355,11 +355,11 @@ public class AffichageGraphique extends JFrame {
         sec.add(butt,gbc);
 
         princ.add(sec);
-        sec.setBounds(0, 0, 550, 750);
+        sec.setBounds(0, 0, 550, 725);
 
         jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\sommaire.png"));
         princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 750);
+        jLabel3.setBounds(0, 0, 550, 725);
 
         main.add(princ, "sommaire");
         cl.show(main,"sommaire");
@@ -368,27 +368,48 @@ public class AffichageGraphique extends JFrame {
     }
 
     public void modeAventure() {
-        JPanel pan = new JPanel(new GridBagLayout());
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new GridBagLayout());
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(10,0,0,0);
-        JLabel l = new JLabel("CHOIX DU NIVEAU");
-        pan.add(l,gbc);
+        gbc.insets = new Insets(30,0,0,0);
+        JLabel l = new JLabel("<html><h1><strong>Choix du Niveau</strong></h1><hr></html>");
+        sec.add(l,gbc);
+
         gbc.anchor =GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        pan.add(choixDesLevels(),gbc);
-        main.add("AVENTURE",pan);
+        gbc.weighty=1;
+        sec.add(choixDesLevels(),gbc);
+
+
+        princ.add(sec);
+        sec.setBounds(0,0,550,725);
+
+        JLabel jLabel3 = new JLabel();
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.png"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0,0,550,725);
+        main.add("AVENTURE",princ);
         cl.show(main,"AVENTURE");
     }
 
     public JPanel choixDesLevels(){
         JPanel levels = new JPanel(new GridBagLayout());
+        levels.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5,5,5,5);
+        gbc.insets = new Insets(15,15,15,15);
         gbc.gridx=0;
         gbc.gridy=0;
         JButton lvl1 = new JButton("Niveau 1");
+        lvl1.setPreferredSize(new Dimension(150,70));
         lvl1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -399,6 +420,7 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=1;
         gbc.gridy=0;
         JButton lvl2 = new JButton("Niveau 2");
+        lvl2.setPreferredSize(new Dimension(150,70));
         lvl2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -409,6 +431,7 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=0;
         gbc.gridy=1;
         JButton lvl3 = new JButton("Niveau 3");
+        lvl3.setPreferredSize(new Dimension(150,70));
         lvl3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -419,6 +442,7 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=1;
         gbc.gridy=1;
         JButton lvl4 = new JButton("Niveau 4");
+        lvl4.setPreferredSize(new Dimension(150,70));
         lvl4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -428,7 +452,10 @@ public class AffichageGraphique extends JFrame {
         levels.add(lvl4,gbc);
         gbc.gridx=0;
         gbc.gridy=2;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0,0,40,0);
         JButton lvl5 = new JButton("Niveau 5");
+        lvl5.setPreferredSize(new Dimension(150,70));
         lvl5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -436,50 +463,72 @@ public class AffichageGraphique extends JFrame {
             }
         });
         levels.add(lvl5,gbc);
+        gbc.gridy = 3;
+
+        JPanel ret  = new JPanel(new BorderLayout());
+        JButton retour= new JButton("Retour");
+        retour.setPreferredSize(new Dimension(80,40));
+        retour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.goSommaire();
+            }
+        });
+        ret.add(retour);
+        ret.setOpaque(false);
+
+        levels.add(ret,gbc);
         return levels;
     }
 
     public void presentationLevel(Niveau niveau){
-        JPanel level = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0,0,30,0);
-        gbc.gridx=1;
-        gbc.gridy=0;
-        JLabel numLevel = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
-        numLevel.setBorder(BorderFactory.createLineBorder(Color.black));
-        numLevel.setPreferredSize(new Dimension(150,80));
-        numLevel.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(numLevel,gbc);
 
-        gbc.insets = new Insets(0,0,10,0);
-        gbc.gridy=1;
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(30,0,0,0);
+        JLabel l = new JLabel("<html><h1><strong>Niveau " + niveau.id + " </strong></h1><hr></html>");
+        sec.add(l,gbc);
+
+        JPanel third = new JPanel(new GridBagLayout());
+        third.setOpaque(false);
 
         JLabel objectif = new JLabel("OBJECTIFS" );
         objectif.setBorder(BorderFactory.createLineBorder(Color.black));
         objectif.setPreferredSize(new Dimension(100,40));
         objectif.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(objectif,gbc);
 
-        gbc.insets = new Insets(0,0,5,0);
-        gbc.gridy=2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0,0,10,0);
+        third.add(objectif,gbc);
+
+        gbc.insets = new Insets(0,0,10,0);
         JLabel numAnimHelp= new JLabel("Ours à sauver : " + niveau.getNb_animaux());
         numAnimHelp.setBorder(BorderFactory.createLineBorder(Color.black));
         numAnimHelp.setPreferredSize(new Dimension(150,30));
         numAnimHelp.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(numAnimHelp,gbc);
+
+        third.add(numAnimHelp,gbc);
 
         if (niveau.getNb_coup_max() != -1){
             gbc.insets = new Insets(0,0,10,0);
-            gbc.gridy=3;
             JLabel numCoupMax= new JLabel("Vous aurez " + niveau.getNb_coup_max() + " coups pour finir ce niveau");
             numCoupMax.setBorder(BorderFactory.createLineBorder(Color.black));
             numCoupMax.setPreferredSize(new Dimension(250,30));
             numCoupMax.setHorizontalAlignment(SwingConstants.CENTER);
-            level.add(numCoupMax,gbc);
+            third.add(numCoupMax,gbc);
         }
 
-        gbc.insets = new Insets(20,0,0,0);
-        gbc.gridy=4;
+        gbc.insets = new Insets(20,0,50,0);
         JButton demarrer= new JButton("Jouer");
         demarrer.addActionListener(new ActionListener() {
             @Override
@@ -487,40 +536,37 @@ public class AffichageGraphique extends JFrame {
 
             }
         });
-        demarrer.setBorder(BorderFactory.createLineBorder(Color.black));
         demarrer.setPreferredSize(new Dimension(100,40));
         demarrer.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(demarrer,gbc);
+        third.add(demarrer,gbc);
 
-        gbc.gridy=5;
-        gbc.insets = new Insets(60,0,0,0);
-        gbc.gridx=0;
+        JPanel ret  = new JPanel(new BorderLayout());
+        gbc.insets = new Insets(60,0,60,0);
         JButton retour= new JButton("Retour");
+        retour.setPreferredSize(new Dimension(80,40));
         retour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.modeAventure();
             }
         });
-        retour.setBorder(BorderFactory.createLineBorder(Color.black));
-        retour.setPreferredSize(new Dimension(100,40));
-        retour.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(retour,gbc);
+        ret.add(retour);
+        ret.setOpaque(false);
 
-        gbc.gridx=2;
-        JButton leave= new JButton("Quitter");
-        leave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                control.exit();
-            }
-        });
-        leave.setBorder(BorderFactory.createLineBorder(Color.black));
-        leave.setPreferredSize(new Dimension(100,40));
-        leave.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(leave,gbc);
+        third.add(ret);
 
-        main.add("PRESENTATION",level);
+        gbc.weighty = 1;
+        sec.add(third,gbc);
+
+
+        princ.add(sec);
+        sec.setBounds(0,0,550,725);
+
+        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
+        princ.add(icon);
+        icon.setBounds(0,0,550,725);
+
+        main.add("PRESENTATION",princ);
         cl.show(main,"PRESENTATION");
     }
 
