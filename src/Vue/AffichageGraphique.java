@@ -637,52 +637,82 @@ public class AffichageGraphique extends JFrame {
     }
 
     public void regles(){
+
+        JLabel jLabel3 = new JLabel();
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
         //lancer les regles
         //penser a faire ca aussi pour le mode texte au debut
-        JPanel pan = new JPanel(new GridBagLayout());
+        JPanel sec = new JPanel(new GridBagLayout());
+        sec.setOpaque(false);
         GridBagConstraints gbc= new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = new Insets(0,0,0,0);
         gbc.gridy =0;
-        JLabel l = new JLabel("REGLES");
-        pan.add(l,gbc);
+        JLabel l = new JLabel("<html><h1><strong>Regles</strong></h1><hr></html>");
+        sec.add(l,gbc);
         gbc.gridy = 1;
         JLabel regles = new JLabel("<html><pre>" +
-                "   Bear Rescue Saga est un jeu de puzzle dont le but est de  " +
+                "     Rescue All Dragons est un jeu de Réflexion    "+
                 "<br>" +
-                "       parvenir à sauver la vie de tous les petits ours.     " +
                 "<br>" +
-                "En déplaçant des boîtes, vous êtes appelé à créer différentes" +
+                "                 Votre Objectif :                  "+
+                "<br>"+
+                "           Sauver tous les dragons perdus          " +
                 "<br>" +
-                "               combinaisons de même couleur.                 " +
                 "<br>" +
-                " Une fois l'alignement effectué, les cubes disparaissent et  " +
+                "Pour y parvenir, vous devrez :                     " +
                 "<br>" +
-                "            l'animal  ciblé descend de quelques étages.      " +
+                "  - Détruire des blocs de même matériaux (min 2)   " +
                 "<br>" +
-                "   Ce n'est qu'une fois tous les animaux parvenus au bas de  " +
+                "  - Amenez les dragons au sol pour les sauver      " +
                 "<br>" +
-                "               l'écran que la partie se termine.             " +
+                "  - Faire attention aux nombre de coups maximum    " +
+                "<br>" +
+                "<br>" +
+                "La partie est terminée lorsque :                   " +
+                "<br>" +
+                "  - Vous ne pouvez plus détruire de blocs          " +
+                "<br>" +
+                "  - Vous avez effectué tous les coups disponibles  " +
+                "<br>" +
+                "  - Vous avez sauvé tous les dragons          " +
+                "<br>" +
                 "</pre></html>");
+        regles.setForeground(Color.BLACK);
+        regles.setOpaque(true);
+        regles.setFont(new java.awt.Font("Gill Sans MT", Font.BOLD, 14));
+        regles.setBackground(new Color(255,255,255,150));
         regles.setHorizontalAlignment(JLabel.CENTER);
-        regles.setPreferredSize(new Dimension(450,250));
+        regles.setPreferredSize(new Dimension(450,350));
         regles.setBorder(BorderFactory.createLineBorder(Color.black));
         gbc.anchor = GridBagConstraints.CENTER;
-        pan.add(regles,gbc);
+        sec.add(regles,gbc);
+        gbc.gridy = 2;
+        gbc.insets = new Insets(20,0,0,0);
         JButton retour= new JButton("Retour");
+        retour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.goSommaire();
+            }
+        });
         retour.setBorder(BorderFactory.createLineBorder(Color.black));
         retour.setPreferredSize(new Dimension(100,40));
         retour.setHorizontalAlignment(SwingConstants.CENTER);
-        pan.add(retour,gbc);
+        sec.add(retour,gbc);
 
-        gbc.gridx=2;
-        JButton leave= new JButton("Quitter");
-        leave.setBorder(BorderFactory.createLineBorder(Color.black));
-        leave.setPreferredSize(new Dimension(100,40));
-        leave.setHorizontalAlignment(SwingConstants.CENTER);
-        pan.add(leave,gbc);
-        main.add("REGLES",pan);
+
+        princ.add(sec);
+        sec.setBounds(0, 0, 550, 725);
+
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\rules.jpg"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0, 0, 550, 725);
+
+        main.add(princ, "REGLES");
         cl.show(main,"REGLES");
     }
 
