@@ -256,7 +256,8 @@ public class Controleur {
     }
 
     public void connexion(){
-        vueGraph.connexion();
+        vueGraph.finLevel(Launcher.init()[0]);
+        //vueGraph.connexion();
     }
 
     public void inscription(){
