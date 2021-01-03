@@ -71,6 +71,8 @@ public class Launcher {
         }
 
          */
+
+        /*
         if (demandeJeu().equals("t")){
             trouverJoueur();
         }else {
@@ -78,11 +80,11 @@ public class Launcher {
             Controleur.lancement();
         }
 
-
+*/
 
 
         //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-           // InterfaceJeu.lancement();
+            Controleur.lancement();
 
 
     }

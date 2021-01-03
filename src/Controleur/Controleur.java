@@ -248,7 +248,7 @@ public class Controleur {
         vueGraph = new AffichageGraphique(new Controleur());
         vueGraph.setVisible(true);
         vueGraph.ecranCo();
-        //jeu.view.sommaire();
+        //vueGraph.sommaire();
         //jeu.view.modeAventure();
         //jeu.view.regles();
         //jeu.view.presentationLevel(Launcher.init()[0]);
@@ -256,10 +256,8 @@ public class Controleur {
     }
 
     public void connexion(){
-
-        System.out.println("before");
-        vueGraph.connexion();
-        System.out.println("after");
+        vueGraph.finLevel(Launcher.init()[0]);
+        //vueGraph.connexion();
     }
 
     public void inscription(){
@@ -268,7 +266,11 @@ public class Controleur {
 
     public void seConnecter(String ident, String pswd){
         if (connexionPossible(ident,pswd)){
-            vueGraph.setJoueur(Joueur.getJoueur(ident));
+            Joueur a = Joueur.getJoueur(ident);
+            for (int b: a.getNivAcess()){
+                System.out.println(b);
+            }
+            vueGraph.setJoueur(a);
             vueGraph.sommaire();
         }
     }
@@ -300,8 +302,8 @@ public class Controleur {
         }
     }
 
-    public void exit(){
-        vueGraph.dispose();
-    }
+ public void goSommaire(){
+     vueGraph.sommaire();
+ }
 
 }

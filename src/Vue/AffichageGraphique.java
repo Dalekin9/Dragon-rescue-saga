@@ -3,6 +3,7 @@ package Vue;
 import Controleur.Controleur;
 import Modele.Joueur;
 import Modele.Niveau;
+import Modele.Partie;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -13,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.time.chrono.IsoChronology;
 import java.util.HashMap;
@@ -30,8 +33,10 @@ public class AffichageGraphique extends JFrame {
     public AffichageGraphique(Controleur controleur){
         control = controleur;
         setTitle("Bear Rescue Saga");
-        setSize(550,650);
+        setSize(550,750);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+        setAlwaysOnTop(true);
     }
 
     //setter et getter
@@ -49,253 +54,282 @@ public class AffichageGraphique extends JFrame {
     //
 
     public void ecranCo(){
-        //création d'un panneau pour l'ajouter à la Vue
-        JPanel pan = new JPanel(new GridBagLayout());
 
-        //mise à jour des contraintes
+        JLabel jLabel1 = new JLabel();
+
+        JButton jButton3 = new JButton();
+        JButton jButton4 = new JButton();
+        JLabel jLabel3 = new JLabel();
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new java.awt.GridBagLayout());
+
+
+        jLabel1.setText("<html><h1><strong>Rescue All Dragons</strong></h1><hr></html>");
+        jLabel1.setForeground(Color.BLACK);
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30,0,0,0);
+        sec.add(jLabel1, gbc);
 
-        pan.add(new JLabel("<html><h1><strong>Bear Rescue Saga</strong></h1><hr></html>"), gbc);
+        JPanel butt= new JPanel();
+        butt.setOpaque(false);
+        butt.setLayout(new GridBagLayout());
 
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 0, 5, 0);
 
-        //création du panneau des boutons
-        JPanel buttons = new JPanel(new GridBagLayout());
-
-        //création des boutons et de leur évènement lié
-        JButton av = new JButton("Se connecter");
-        av.addActionListener(new ActionListener() {
+        jButton3.setText("Connexion");
+        jButton3.setPreferredSize(new Dimension(150,55));
+        jButton3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.connexion();
             }
         });
+        butt.add(jButton3, gbc);
 
-        JButton inf = new JButton("S'inscrire");
-        inf.addActionListener(new ActionListener() {
+        jButton4.setText("Incription");
+        jButton4.setPreferredSize(new Dimension(150,55));
+        jButton4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                control.inscription();
+                control.connexion();
             }
         });
-
-        //ajout des boutons au panneau de boutons
-        buttons.add(av, gbc);
-        buttons.add(inf, gbc);
+        butt.add(jButton4, gbc);
 
         gbc.weighty = 1;
-        pan.add(buttons, gbc);
-        main.add("Ecran de connexion",pan);
-        cl.show(main,"Ecran de connexion");
-        add(main);
-        main.setVisible(true);
+
+        sec.add(butt,gbc);
+
+        princ.add(sec);
+        sec.setBounds(0, 0, 550, 725);
+
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\principal.png"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0, 0, 550, 725);
+
+        main.add(princ, "accueil");
+
+        getContentPane().add(main);
+        main.setBounds(0, 0, 550, 725);
+        setVisible(true);
     }
 
     public void connexion() {
-        JPanel panneauCo = new JPanel(new GridBagLayout());
+
+        JLabel jLabel1 = new JLabel();
+
+        JButton jButton3 = new JButton();
+        JButton jButton4 = new JButton();
+        JLabel jLabel3 = new JLabel();
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setText("<html><h1><strong>Connexion</strong></h1><hr></html>");
+        jLabel1.setForeground(Color.BLACK);
+
         GridBagConstraints gbc = new GridBagConstraints();
-        JPanel panneauButt = new JPanel(new GridBagLayout());
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridy = 1;
+        gbc.gridx=1;
+        sec.add(jLabel1, gbc);
+
+        JPanel butt= new JPanel();
+        butt.setOpaque(false);
+        butt.setLayout(new GridBagLayout());
+
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 0, 5, 0);
 
         JTextField ident = new JTextField("identifiant");
-        ident.getFont().deriveFont(Font.ITALIC);
-        ident.setForeground(Color.gray);
-        ident.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseReleased(MouseEvent e) {}
-            @Override
-            public void mousePressed(MouseEvent e) {}
-            @Override
-            public void mouseExited(MouseEvent e) {}
-            @Override
-            public void mouseEntered(MouseEvent e) {}
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JTextField texteField = ((JTextField)e.getSource());
-                texteField.setText("");
-                texteField.getFont().deriveFont(Font.PLAIN);
-                texteField.setForeground(Color.black);
-                texteField.removeMouseListener(this);
-            }});
         ident.setPreferredSize(new Dimension(150,30));
+        ident.setHorizontalAlignment(JTextField.CENTER);
+        gbc.gridx = 3;
+        gbc.gridx++;
+        gbc.gridy++;
+        butt.add(ident,gbc);
 
         JTextField pswd = new JTextField("mot de passe");
-        pswd.getFont().deriveFont(Font.ITALIC);
-        pswd.setForeground(Color.gray);
-        pswd.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseReleased(MouseEvent e) {}
-            @Override
-            public void mousePressed(MouseEvent e) {}
-            @Override
-            public void mouseExited(MouseEvent e) {}
-            @Override
-            public void mouseEntered(MouseEvent e) {}
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JTextField texteField = ((JTextField)e.getSource());
-                texteField.setText("");
-                texteField.getFont().deriveFont(Font.PLAIN);
-                texteField.setForeground(Color.black);
-                texteField.removeMouseListener(this);
-            }});
         pswd.setPreferredSize(new Dimension(150,30));
+        pswd.setHorizontalAlignment(JTextField.CENTER);
+        gbc.gridy++;
+        butt.add(pswd,gbc);
 
-        JButton connex = new JButton("Confirmer");
-        connex.addActionListener(new ActionListener() {
-            @Override
+        jButton3.setText("Confirmer");
+        jButton3.setPreferredSize(new Dimension(150,30));
+        jButton3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.seConnecter(ident.getText(),pswd.getText());
             }
         });
+        gbc.insets = new Insets(10,0,0,0);
+        gbc.gridy++;
+        butt.add(jButton3, gbc);
 
-        JButton av = new JButton("S'inscrire");
-        av.addActionListener(new ActionListener() {
+        jButton4.setText("Incription");
+        jButton4.setPreferredSize(new Dimension(150,30));
+        jButton4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.inscription();
             }
         });
+        gbc.gridy++;
+        butt.add(jButton4, gbc);
 
-        gbc.gridx=1;
-        gbc.insets = new Insets(10,0,0,0);
-        gbc.gridy=1;
-        panneauButt.add(ident,gbc);
-        gbc.gridy=2;
-        panneauButt.add(pswd,gbc);
-        gbc.gridy=3;
-        panneauButt.add(connex,gbc);
-        gbc.gridy=5;
-        panneauButt.add(av,gbc);
-        panneauCo.add(panneauButt);
-        main.add("connexion",panneauCo);
+        gbc.anchor = GridBagConstraints.LINE_END;
+        sec.add(butt,gbc);
+
+        princ.add(sec);
+        sec.setBounds(0, 0, 550, 725);
+
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0, 0, 550, 725);
+
+        main.add(princ, "connexion");
         cl.show(main,"connexion");
+
     }
 
     public void inscription(){
-        JPanel panneauCo = new JPanel(new GridBagLayout());
+
+        JLabel jLabel1 = new JLabel();
+
+        JButton jButton3 = new JButton();
+        JButton jButton4 = new JButton();
+        JLabel jLabel3 = new JLabel();
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new java.awt.GridBagLayout());
+
+
+        jLabel1.setText("<html><h1><strong>Inscription</strong></h1><hr></html>");
+        jLabel1.setForeground(Color.BLACK);
+
         GridBagConstraints gbc = new GridBagConstraints();
-        JPanel panneauButt = new JPanel(new GridBagLayout());
-
-        JTextField ident = new JTextField("identifiant");
-        ident.getFont().deriveFont(Font.ITALIC);
-        ident.setForeground(Color.gray);
-        ident.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseReleased(MouseEvent e) {}
-            @Override
-            public void mousePressed(MouseEvent e) {}
-            @Override
-            public void mouseExited(MouseEvent e) {}
-            @Override
-            public void mouseEntered(MouseEvent e) {}
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JTextField texteField = ((JTextField)e.getSource());
-                texteField.setText("");
-                texteField.getFont().deriveFont(Font.PLAIN);
-                texteField.setForeground(Color.black);
-                texteField.removeMouseListener(this);
-            }});
-        ident.setPreferredSize(new Dimension(150,30));
-
-        JTextField pswd = new JTextField("mot de passe");
-        pswd.getFont().deriveFont(Font.ITALIC);
-        pswd.setForeground(Color.gray);
-        pswd.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseReleased(MouseEvent e) {}
-            @Override
-            public void mousePressed(MouseEvent e) {}
-            @Override
-            public void mouseExited(MouseEvent e) {}
-            @Override
-            public void mouseEntered(MouseEvent e) {}
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JTextField texteField = ((JTextField)e.getSource());
-                texteField.setText("");
-                texteField.getFont().deriveFont(Font.PLAIN);
-                texteField.setForeground(Color.black);
-                texteField.removeMouseListener(this);
-            }});
-        pswd.setPreferredSize(new Dimension(150,30));
-
-        JTextField pswd2 = new JTextField("mot de passe");
-        pswd2.getFont().deriveFont(Font.ITALIC);
-        pswd2.setForeground(Color.gray);
-        pswd2.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseReleased(MouseEvent e) {}
-            @Override
-            public void mousePressed(MouseEvent e) {}
-            @Override
-            public void mouseExited(MouseEvent e) {}
-            @Override
-            public void mouseEntered(MouseEvent e) {}
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JTextField texteField = ((JTextField)e.getSource());
-                texteField.setText("");
-                texteField.getFont().deriveFont(Font.PLAIN);
-                texteField.setForeground(Color.black);
-                texteField.removeMouseListener(this);
-            }});
-        pswd2.setPreferredSize(new Dimension(150,30));
-
-        JButton inscr = new JButton("Confirmer");
-        inscr.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                control.sInscrire(ident.getText(),pswd.getText(),pswd2.getText());
-            }
-        });
-
-        JButton av = new JButton("Se connecter");
-        av.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                control.connexion();
-            }
-        });
-
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridy = 1;
         gbc.gridx=1;
-        gbc.insets = new Insets(10,0,0,0);
-        gbc.gridy=1;
-        panneauButt.add(ident,gbc);
-        gbc.gridy=2;
-        panneauButt.add(pswd,gbc);
-        gbc.gridy=3;
-        panneauButt.add(pswd2,gbc);
-        gbc.gridy=4;
-        panneauButt.add(inscr,gbc);
-        gbc.gridy=5;
-        panneauButt.add(av,gbc);
-        panneauCo.add(panneauButt);
-        main.add("Inscription",panneauCo);
-        cl.show(main,"Inscription");
-    }
+        sec.add(jLabel1, gbc);
 
-    public void sommaire(){
-        //création d'un panneau pour l'ajouter à la Vue
-        JPanel pan = new JPanel(new GridBagLayout());
-
-        //mise à jour des contraintes
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(30,0,0,0);
-
-        pan.add(new JLabel("<html><h1><strong>Bear Rescue Saga</strong></h1><hr></html>"), gbc);
+        JPanel butt= new JPanel();
+        butt.setOpaque(false);
+        butt.setLayout(new GridBagLayout());
 
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 0, 5, 0);
 
-        //création du panneau des boutons
-        JPanel buttons = new JPanel(new GridBagLayout());
+        JTextField ident = new JTextField("identifiant");
+        ident.setPreferredSize(new Dimension(150,30));
+        ident.setHorizontalAlignment(JTextField.CENTER);
+        gbc.gridx = 3;
+        gbc.gridx++;
+        gbc.gridy++;
+        butt.add(ident,gbc);
+
+        JTextField pswd = new JTextField("mot de passe");
+        pswd.setPreferredSize(new Dimension(150,30));
+        pswd.setHorizontalAlignment(JTextField.CENTER);
+        gbc.gridy++;
+        butt.add(pswd,gbc);
+
+        JTextField pswd2 = new JTextField("mot de passe");
+        pswd2.setPreferredSize(new Dimension(150,30));
+        pswd2.setHorizontalAlignment(JTextField.CENTER);
+        gbc.gridy++;
+        butt.add(pswd2,gbc);
+
+        jButton3.setText("Confirmer");
+        jButton3.setPreferredSize(new Dimension(150,30));
+        jButton3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                control.sInscrire(ident.getText(),pswd.getText(),pswd2.getText());
+            }
+        });
+        gbc.insets = new Insets(10,0,0,0);
+        gbc.gridy++;
+        butt.add(jButton3, gbc);
+
+        jButton4.setText("Connexion");
+        jButton4.setPreferredSize(new Dimension(150,30));
+        jButton4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                control.connexion();
+            }
+        });
+        gbc.gridy++;
+        butt.add(jButton4, gbc);
+
+        gbc.anchor = GridBagConstraints.LINE_END;
+        sec.add(butt,gbc);
+
+        princ.add(sec);
+        sec.setBounds(0, 0, 550, 725);
+
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0, 0, 550, 725);
+
+        main.add(princ, "inscription");
+        cl.show(main,"inscription");
+    }
+
+    public void sommaire(){
+
+        JLabel jLabel1 = new JLabel();
+
+        JButton jButton3 = new JButton();
+        JButton jButton4 = new JButton();
+        JLabel jLabel3 = new JLabel();
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new GridBagLayout());
+
+        jLabel1.setText("<html><h1><strong>Sommaire</strong></h1><hr></html>");
+        jLabel1.setForeground(Color.BLACK);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(30,0,0,0);
+        sec.add(jLabel1, gbc);
+
+        JPanel butt= new JPanel();
+        butt.setOpaque(false);
+        butt.setLayout(new GridBagLayout());
+
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         //création des boutons et de leur évènement lié
         JButton av = new JButton("Mode Aventure");
+        av.setPreferredSize(new Dimension(150,40));
         av.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.modeAventure();
@@ -303,6 +337,7 @@ public class AffichageGraphique extends JFrame {
         });
 
         JButton inf = new JButton("Mode Infini");
+        inf.setPreferredSize(new Dimension(150,40));
         inf.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.modeInfini();
@@ -310,46 +345,78 @@ public class AffichageGraphique extends JFrame {
         });
 
         JButton regles = new JButton("Règles du jeu");
+        regles.setPreferredSize(new Dimension(150,40));
         regles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.regles();
             }
         });
+        gbc.insets = new Insets(0,0,70,0);
+        butt.add(av, gbc);
+        gbc.insets = new Insets(10,0,70,0);
+        butt.add(inf,gbc);
+        gbc.insets = new Insets(0,0,50,0);
+        butt.add(regles,gbc);
+        gbc.weighty=1;
+        sec.add(butt,gbc);
 
-        //ajout des boutons au panneau de boutons
-        buttons.add(av, gbc);
-        buttons.add(inf, gbc);
-        buttons.add(regles, gbc);
+        princ.add(sec);
+        sec.setBounds(0, 0, 550, 725);
 
-        gbc.weighty = 1;
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\sommaire.png"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0, 0, 550, 725);
 
-        pan.add(buttons, gbc); //ajout du panneau de bouton au panneau du début
-        main.add("SOMMAIRE",pan); //ajout du panneau du début à la Vue
-        cl.show(main,"SOMMAIRE");
+        main.add(princ, "sommaire");
+        cl.show(main,"sommaire");
+
+
     }
 
     public void modeAventure() {
-        JPanel pan = new JPanel(new GridBagLayout());
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new GridBagLayout());
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(10,0,0,0);
-        JLabel l = new JLabel("CHOIX DU NIVEAU");
-        pan.add(l,gbc);
+        gbc.insets = new Insets(30,0,0,0);
+        JLabel l = new JLabel("<html><h1><strong>Choix du Niveau</strong></h1><hr></html>");
+        l.setForeground(Color.BLACK);
+        sec.add(l,gbc);
+
         gbc.anchor =GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        pan.add(choixDesLevels(),gbc);
-        main.add("AVENTURE",pan);
+        gbc.weighty=1;
+        sec.add(choixDesLevels(),gbc);
+
+
+        princ.add(sec);
+        sec.setBounds(0,0,550,725);
+
+        JLabel jLabel3 = new JLabel();
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.png"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0,0,550,725);
+        main.add("AVENTURE",princ);
         cl.show(main,"AVENTURE");
     }
 
     public JPanel choixDesLevels(){
         JPanel levels = new JPanel(new GridBagLayout());
+        levels.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5,5,5,5);
+        gbc.insets = new Insets(15,15,15,15);
         gbc.gridx=0;
         gbc.gridy=0;
         JButton lvl1 = new JButton("Niveau 1");
+        lvl1.setPreferredSize(new Dimension(150,70));
         lvl1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -360,7 +427,8 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=1;
         gbc.gridy=0;
         JButton lvl2 = new JButton("Niveau 2");
-        lvl1.addActionListener(new ActionListener() {
+        lvl2.setPreferredSize(new Dimension(150,70));
+        lvl2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.choixLevel(joueur,2);
@@ -370,7 +438,8 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=0;
         gbc.gridy=1;
         JButton lvl3 = new JButton("Niveau 3");
-        lvl1.addActionListener(new ActionListener() {
+        lvl3.setPreferredSize(new Dimension(150,70));
+        lvl3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.choixLevel(joueur,3);
@@ -380,7 +449,8 @@ public class AffichageGraphique extends JFrame {
         gbc.gridx=1;
         gbc.gridy=1;
         JButton lvl4 = new JButton("Niveau 4");
-        lvl1.addActionListener(new ActionListener() {
+        lvl4.setPreferredSize(new Dimension(150,70));
+        lvl4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.choixLevel(joueur,4);
@@ -389,58 +459,90 @@ public class AffichageGraphique extends JFrame {
         levels.add(lvl4,gbc);
         gbc.gridx=0;
         gbc.gridy=2;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0,0,40,0);
         JButton lvl5 = new JButton("Niveau 5");
-        lvl1.addActionListener(new ActionListener() {
+        lvl5.setPreferredSize(new Dimension(150,70));
+        lvl5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.choixLevel(joueur,5);
             }
         });
         levels.add(lvl5,gbc);
+        gbc.gridy = 3;
+
+        JPanel ret  = new JPanel(new BorderLayout());
+        JButton retour= new JButton("Retour");
+        retour.setPreferredSize(new Dimension(80,40));
+        retour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.goSommaire();
+            }
+        });
+        ret.add(retour);
+        ret.setOpaque(false);
+
+        levels.add(ret,gbc);
         return levels;
     }
 
     public void presentationLevel(Niveau niveau){
-        JPanel level = new JPanel(new GridBagLayout());
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new GridBagLayout());
+
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0,0,30,0);
-        gbc.gridx=1;
-        gbc.gridy=0;
-        JLabel numLevel = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
-        numLevel.setBorder(BorderFactory.createLineBorder(Color.black));
-        numLevel.setPreferredSize(new Dimension(150,80));
-        numLevel.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(numLevel,gbc);
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(30,0,0,0);
+        JLabel l = new JLabel("<html><h1><strong>Niveau " + niveau.id + " </strong></h1><hr></html>");
+        l.setForeground(Color.BLACK);
+        sec.add(l,gbc);
+
+        JPanel third = new JPanel(new GridBagLayout());
+        third.setOpaque(false);
+
+        JPanel pres = new JPanel(new GridBagLayout());
+        pres.setOpaque(true);
+        pres.setBackground(new Color(225,225,225,120));
+        JLabel objectif = new JLabel("OBJECTIFS" );
+        //objectif.setBorder(BorderFactory.createLineBorder(Color.black));
+        objectif.setPreferredSize(new Dimension(100,30));
+        objectif.setHorizontalAlignment(SwingConstants.CENTER);
+        objectif.setForeground(Color.BLACK);
+
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10,0,10,0);
+        pres.add(objectif,gbc);
 
         gbc.insets = new Insets(0,0,10,0);
-        gbc.gridy=1;
-
-        JLabel objectif = new JLabel("OBJECTIFS" );
-        objectif.setBorder(BorderFactory.createLineBorder(Color.black));
-        objectif.setPreferredSize(new Dimension(100,40));
-        objectif.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(objectif,gbc);
-
-        gbc.insets = new Insets(0,0,5,0);
-        gbc.gridy=2;
-        JLabel numAnimHelp= new JLabel("Ours à sauver : " + niveau.getNb_animaux());
-        numAnimHelp.setBorder(BorderFactory.createLineBorder(Color.black));
+        JLabel numAnimHelp= new JLabel("Dragons à sauver : " + niveau.getNb_animaux());
+        //numAnimHelp.setBorder(BorderFactory.createLineBorder(Color.black));
         numAnimHelp.setPreferredSize(new Dimension(150,30));
         numAnimHelp.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(numAnimHelp,gbc);
+        numAnimHelp.setForeground(Color.BLACK);
+
+        pres.add(numAnimHelp,gbc);
 
         if (niveau.getNb_coup_max() != -1){
             gbc.insets = new Insets(0,0,10,0);
-            gbc.gridy=3;
             JLabel numCoupMax= new JLabel("Vous aurez " + niveau.getNb_coup_max() + " coups pour finir ce niveau");
-            numCoupMax.setBorder(BorderFactory.createLineBorder(Color.black));
+            //numCoupMax.setBorder(BorderFactory.createLineBorder(Color.black));
             numCoupMax.setPreferredSize(new Dimension(250,30));
             numCoupMax.setHorizontalAlignment(SwingConstants.CENTER);
-            level.add(numCoupMax,gbc);
+            numCoupMax.setForeground(Color.BLACK);
+            pres.add(numCoupMax,gbc);
         }
 
-        gbc.insets = new Insets(20,0,0,0);
-        gbc.gridy=4;
+        JPanel play = new JPanel(new BorderLayout());
         JButton demarrer= new JButton("Jouer");
         demarrer.addActionListener(new ActionListener() {
             @Override
@@ -448,44 +550,140 @@ public class AffichageGraphique extends JFrame {
 
             }
         });
-        demarrer.setBorder(BorderFactory.createLineBorder(Color.black));
-        demarrer.setPreferredSize(new Dimension(100,40));
+        demarrer.setPreferredSize(new Dimension(100,50));
         demarrer.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(demarrer,gbc);
+        play.add(demarrer);
+        play.setOpaque(false);
 
-        gbc.gridy=5;
-        gbc.insets = new Insets(60,0,0,0);
-        gbc.gridx=0;
+
+        JPanel ret  = new JPanel(new BorderLayout());
+
         JButton retour= new JButton("Retour");
+        retour.setPreferredSize(new Dimension(80,40));
         retour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 control.modeAventure();
             }
         });
-        retour.setBorder(BorderFactory.createLineBorder(Color.black));
-        retour.setPreferredSize(new Dimension(100,40));
-        retour.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(retour,gbc);
+        ret.add(retour);
+        ret.setOpaque(false);
 
-        gbc.gridx=2;
-        JButton leave= new JButton("Quitter");
-        leave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                control.exit();
-            }
-        });
-        leave.setBorder(BorderFactory.createLineBorder(Color.black));
-        leave.setPreferredSize(new Dimension(100,40));
-        leave.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(leave,gbc);
+        GridBagConstraints abc = new GridBagConstraints();
+        abc.insets = new Insets(0,0,20,0);
+        abc.gridy = 1;
+        third.add(pres,abc);
+        abc.gridy = 2;
+        third.add(play,abc);
+        abc.insets = new Insets(0,0,40,0);
+        abc.gridy = 3;
+        third.add(ret,abc);
 
-        main.add("PRESENTATION",level);
+        gbc.weighty = 1;
+        sec.add(third,gbc);
+
+
+        princ.add(sec);
+        sec.setBounds(0,0,550,725);
+
+        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
+        princ.add(icon);
+        icon.setBounds(0,0,550,725);
+
+        main.add("PRESENTATION",princ);
         cl.show(main,"PRESENTATION");
     }
 
     public void finLevel(Niveau niveau){
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
+        JPanel sec = new JPanel();
+        sec.setOpaque(false);
+        sec.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(30,0,0,0);
+        JLabel l = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
+        l.setForeground(Color.BLACK);
+        sec.add(l,gbc);
+
+        JPanel third = new JPanel(new GridBagLayout());
+        third.setOpaque(false);
+
+        JPanel pres = new JPanel(new GridBagLayout());
+        pres.setOpaque(true);
+        pres.setBackground(new Color(225,225,225,120));
+        gbc.insets = new Insets(0,0,10,0);
+        gbc.anchor = GridBagConstraints.CENTER;
+        int compt = 1;
+        for (var s : niveau.best_score.entrySet()){
+            compt++;
+            JLabel infoScore = new JLabel(compt +" : " + s.getValue() +" -> " + s.getKey() + " points");
+            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
+            infoScore.setPreferredSize(new Dimension(200,20));
+            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
+            infoScore.setForeground(Color.BLACK);
+            gbc.gridy=compt+1;
+            pres.add(infoScore,gbc);
+        }
+        while (compt <6){
+
+            JLabel infoScore = new JLabel(compt + " : Pas encore de meilleur score");
+            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
+            infoScore.setPreferredSize(new Dimension(200,20));
+            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
+            infoScore.setForeground(Color.BLACK);
+            gbc.gridy=compt+1;
+            pres.add(infoScore,gbc);
+            compt++;
+        }
+
+        //
+
+        JPanel play = new JPanel(new BorderLayout());
+        JButton next= new JButton("Suivant");
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.modeAventure();
+            }
+        });
+        next.setBorder(BorderFactory.createLineBorder(Color.black));
+        next.setPreferredSize(new Dimension(100,40));
+        next.setHorizontalAlignment(SwingConstants.CENTER);
+        play.add(next);
+        play.setOpaque(false);
+
+
+        GridBagConstraints abc = new GridBagConstraints();
+        abc.insets = new Insets(0,0,20,0);
+        abc.gridy = 1;
+        third.add(pres,abc);
+        abc.gridy = 2;
+        third.add(play,abc);
+        abc.insets = new Insets(0,0,40,0);
+
+        gbc.weighty = 1;
+        sec.add(third,gbc);
+
+
+        princ.add(sec);
+        sec.setBounds(0,0,550,725);
+
+        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
+        princ.add(icon);
+        icon.setBounds(0,0,550,725);
+
+        main.add("FIN_LEVEL",princ);
+        cl.show(main,"FIN_LEVEL");
+
+
+        /*
         JPanel level = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0,0,30,0);
@@ -497,6 +695,10 @@ public class AffichageGraphique extends JFrame {
         numLevel.setHorizontalAlignment(SwingConstants.CENTER);
         level.add(numLevel,gbc);
 
+
+         */
+
+        /*
 
         gbc.insets = new Insets(0,0,5,0);
         gbc.gridx=0;
@@ -522,6 +724,10 @@ public class AffichageGraphique extends JFrame {
             compt++;
         }
 
+
+         */
+
+        /*
         gbc.insets = new Insets(20,0,0,0);
         gbc.gridx=0;
         gbc.gridy=compt+1;
@@ -540,6 +746,8 @@ public class AffichageGraphique extends JFrame {
         main.add(level);
         add(main);
         setVisible(true);
+
+         */
     }
 
     public void modeInfini(){
@@ -552,52 +760,83 @@ public class AffichageGraphique extends JFrame {
     }
 
     public void regles(){
+
+        JLabel jLabel3 = new JLabel();
+
+        JPanel princ = new JPanel();
+        princ.setOpaque(false);
+        princ.setLayout(null);
+
         //lancer les regles
         //penser a faire ca aussi pour le mode texte au debut
-        JPanel pan = new JPanel(new GridBagLayout());
+        JPanel sec = new JPanel(new GridBagLayout());
+        sec.setOpaque(false);
         GridBagConstraints gbc= new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = new Insets(0,0,0,0);
         gbc.gridy =0;
-        JLabel l = new JLabel("REGLES");
-        pan.add(l,gbc);
+        JLabel l = new JLabel("<html><h1><strong>Regles</strong></h1><hr></html>");
+        l.setForeground(Color.BLACK);
+        sec.add(l,gbc);
         gbc.gridy = 1;
         JLabel regles = new JLabel("<html><pre>" +
-                "   Bear Rescue Saga est un jeu de puzzle dont le but est de  " +
+                "     Rescue All Dragons est un jeu de Réflexion    "+
                 "<br>" +
-                "       parvenir à sauver la vie de tous les petits ours.     " +
                 "<br>" +
-                "En déplaçant des boîtes, vous êtes appelé à créer différentes" +
+                "                 Votre Objectif :                  "+
+                "<br>"+
+                "           Sauver tous les dragons perdus          " +
                 "<br>" +
-                "               combinaisons de même couleur.                 " +
                 "<br>" +
-                " Une fois l'alignement effectué, les cubes disparaissent et  " +
+                "Pour y parvenir, vous devrez :                     " +
                 "<br>" +
-                "            l'animal  ciblé descend de quelques étages.      " +
+                "  - Détruire des blocs de même matériaux (min 2)   " +
                 "<br>" +
-                "   Ce n'est qu'une fois tous les animaux parvenus au bas de  " +
+                "  - Amenez les dragons au sol pour les sauver      " +
                 "<br>" +
-                "               l'écran que la partie se termine.             " +
+                "  - Faire attention aux nombre de coups maximum    " +
+                "<br>" +
+                "<br>" +
+                "La partie est terminée lorsque :                   " +
+                "<br>" +
+                "  - Vous ne pouvez plus détruire de blocs          " +
+                "<br>" +
+                "  - Vous avez effectué tous les coups disponibles  " +
+                "<br>" +
+                "  - Vous avez sauvé tous les dragons          " +
+                "<br>" +
                 "</pre></html>");
+        regles.setForeground(Color.BLACK);
+        regles.setOpaque(true);
+        regles.setFont(new java.awt.Font("Gill Sans MT", Font.BOLD, 14));
+        regles.setBackground(new Color(255,255,255,150));
         regles.setHorizontalAlignment(JLabel.CENTER);
-        regles.setPreferredSize(new Dimension(450,250));
+        regles.setPreferredSize(new Dimension(450,350));
         regles.setBorder(BorderFactory.createLineBorder(Color.black));
         gbc.anchor = GridBagConstraints.CENTER;
-        pan.add(regles,gbc);
+        sec.add(regles,gbc);
+        gbc.gridy = 2;
+        gbc.insets = new Insets(20,0,0,0);
         JButton retour= new JButton("Retour");
+        retour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.goSommaire();
+            }
+        });
         retour.setBorder(BorderFactory.createLineBorder(Color.black));
         retour.setPreferredSize(new Dimension(100,40));
         retour.setHorizontalAlignment(SwingConstants.CENTER);
-        pan.add(retour,gbc);
+        sec.add(retour,gbc);
 
-        gbc.gridx=2;
-        JButton leave= new JButton("Quitter");
-        leave.setBorder(BorderFactory.createLineBorder(Color.black));
-        leave.setPreferredSize(new Dimension(100,40));
-        leave.setHorizontalAlignment(SwingConstants.CENTER);
-        pan.add(leave,gbc);
-        main.add("REGLES",pan);
+
+        princ.add(sec);
+        sec.setBounds(0, 0, 550, 725);
+
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\rules.jpg"));
+        princ.add(jLabel3);
+        jLabel3.setBounds(0, 0, 550, 725);
+
+        main.add(princ, "REGLES");
         cl.show(main,"REGLES");
     }
 
