@@ -19,22 +19,29 @@ public class Grille implements Serializable {
     }
 
 
+    //---------------------------------------------------------
+    //              --- PARTIE 1 ---                          -
+    //                  Getters                               -
+    //---------------------------------------------------------
 
-    public void afficherC(){
-        for (Case[] cases : gril) {
-            for (Case aCase : cases) {
-                System.out.print(aCase.getColor() + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
+    public int getLongu() {
+        return longu;
     }
+
+    public int getHaut() {
+        return haut;
+    }
+
 
     //---------------------------------------------------------
     //                   --- PARTIE 2 ---                     -
     //             suppression et remplacement                -
     //---------------------------------------------------------
 
+
+    //supprime la case à la position [i][j]
+    //puis si les cases adjacentes sont de meme couleur
+    //recursion sur elles pour les supprimer et faire de même
     public void supprimer(int x, int y){
             char res = gril[x][y].getIs();
             gril[x][y] = new Case('s');
@@ -60,6 +67,7 @@ public class Grille implements Serializable {
             }
     }
 
+    //retourne vrai s'il y a des animaux en bas du tableau
     public boolean animalEnBas(){
         for (int i=0;i<gril[0].length;i++){
             if (gril[gril.length-1][i].getIs() == 'a'){
@@ -69,6 +77,8 @@ public class Grille implements Serializable {
         return false;
     }
 
+    //supprime les animaux qui sont en bas du tableau
+    //et retourne le nombre de points obtenus
     public int supprimerAnimalEnBas(){
         int points = 0;
         for (int i=0;i<gril[0].length;i++){
@@ -80,6 +90,8 @@ public class Grille implements Serializable {
         return points;
     }
 
+    //compte le nombre d'animaux présent sur le tableau
+    //et le retourne
     public int aDAnimaux(){
         int nombre = 0;
         for (int i=0;i<gril.length;i++){
@@ -93,7 +105,10 @@ public class Grille implements Serializable {
     }
 
     //--------------------------------------------------------
+    //                  si Decale
+    //--------------------------------------------------------
 
+    //regarge la colonne est vide
     public boolean estVide(int pos,Grille grille){
         for (int i=0;i<grille.gril.length;i++){
             if (grille.gril[i][pos].getIs() == 'a' || grille.gril[i][pos].getIs() == 'V' || grille.gril[i][pos].getIs() == 'J' || grille.gril[i][pos].getIs() == 'R' ||
@@ -104,6 +119,7 @@ public class Grille implements Serializable {
         return true;
     }
 
+    //decale les blocs vers la gauche
     public void decale(int pos){
         if (pos == gril[0].length-1){
             for (int i=0;i<gril.length;i++){
@@ -128,6 +144,7 @@ public class Grille implements Serializable {
         }
     }
 
+    //fait descendre les blocs sans en rajouter de nouveaux
     public void faireDescendreQuandDecale(){
         while (!remplie()) {
             for (int i = 0; i < gril.length; i++) {
@@ -149,16 +166,23 @@ public class Grille implements Serializable {
         }
     }
 
+    //fonction qui effectue le décalage du tableau
+    //tant que on a pas fini de switch les colonnes
+    //on regarde si la colonne est vide
+    // pour la decaler et faire descendre
     public void decaler(){
-        while (pasFiniDeSwitch())
-        for (int i=0;i<gril[0].length;i++){
-            if (estVide(i,this)){
-                decale(i);
-                faireDescendreQuandDecale();
+        while (pasFiniDeSwitch()) {
+            for (int i = 0; i < gril[0].length; i++) {
+                if (estVide(i, this)) {
+                    decale(i);
+                    faireDescendreQuandDecale();
+                }
             }
         }
     }
 
+    //regarde si on a fini de switch les colonnes
+    // si on a remplie - vide - remplie => pas fini de switch
     public boolean pasFiniDeSwitch(){
         int vide = 0;
         for (int i=0;i<gril[0].length;i++){
@@ -175,7 +199,11 @@ public class Grille implements Serializable {
     }
 
     //--------------------------------------------------------
+    //                  si pas Decale
+    //--------------------------------------------------------
 
+    //regarde si le tableau est rempli
+    // -> pas de case 's' présente
     public boolean remplie(){
         for (Case[] cases : gril) {
             for (Case aCase : cases) {
@@ -187,6 +215,8 @@ public class Grille implements Serializable {
         return true;
     }
 
+    //fait descendre les blocs en en rajoutant de nouveau
+    //si animAlea -> un animal peut apparaître aléatoirement
     public void faireDescendre(boolean animAlea){
         while(!remplie()){
             ArrayList<Character> liste = new ArrayList<Character>();
@@ -223,10 +253,13 @@ public class Grille implements Serializable {
 
 
     //---------------------------------------------------------
-    //                   --- PARTIE 2 ---                     -
+    //                   --- PARTIE 3 ---                     -
     //                 gestions des coups                     -
     //---------------------------------------------------------
 
+
+    //regarde si un coup est encore possible
+    // -> si au moins 2 blocs adjacents identiques
     public boolean coupPossible(){
         for (int i=0;i< gril.length;i++){
             for (int j=0;j<gril[0].length;j++){
@@ -259,8 +292,29 @@ public class Grille implements Serializable {
         return false;
     }
 
+    public int points(){
+        int compt = this.ontEteSupprime();
+        return compt*compt*10;
+    }
+
+    public int ontEteSupprime(){
+        int compt = 0;
+        for (Case[] cases : gril) {
+            for (Case aCase : cases) {
+                if (aCase.getIs() == 's') {
+                    compt++;
+                }
+            }
+        }
+        return compt;
+    }
+
+
+    //----------------------------------------------------------
+    //                Coup Spécial Fusée
     //----------------------------------------------------------
 
+    //regarde si un coup scpécial a ete réalisé sur une ligne
     public boolean coupSpecialLigne(){
         for (int i = 0;i<gril.length;i++){
             ArrayList<Character> test = new ArrayList<>();
@@ -276,6 +330,7 @@ public class Grille implements Serializable {
         return false;
     }
 
+    //retourne la position du coup spécial
     //il est important de noter que cette fonction s'appelle avant le remplacement des cases supprimées
     //sinon on ne peut récuperer la position de la ligne supprimée
     public int coupSpecialLignePos(){
@@ -293,16 +348,22 @@ public class Grille implements Serializable {
         return -1;
     }
 
-    public void poserFusee(int pos){
-        gril[pos][0] = new Case('1',gril[pos][0].getColor());
+    //pose une fusée sur la ligne ou le coup special a ete réalisé
+    public void poserFusee(int pos, int j){
+        gril[pos][j] = new Case('1',gril[pos][j].getColor());
     }
 
+    //----------------------------------------------------------
+    //                Coup Spécial Bloc
     //----------------------------------------------------------
 
     //regarde si un coup special de bloc a ete realisé
     //cad si un carré de 5*5 bloc de meme couleur a ete supprimé
+    //regarde si pour une position i j
+    //  - les 4 blocs a sa droite sont de la meme couleur
+    //  - si c'est le cas on repete le processus pour les 4 lignes suivantes en partant de la meme colonne
+    // si tout est bon alors c'est qu'un coup special a ete realisé
     public boolean coupSpecialBlocs(){
-        boolean test = false;
         for (int i = 0;i<gril.length-5;i++){
             for (int j=0;j<gril[0].length-5;j++){
                 if (testCinq(i,j)){
@@ -343,8 +404,6 @@ public class Grille implements Serializable {
 
     //regarde si pour une position i j
     //  - les 4 blocs a sa droite sont de la meme couleur
-    //  - si c'est le cas on repete le processus pour les 4 lignes suivantes en partant de la meme colonne
-    // si tout est bon alors c'est qu'un coup special a ete realisé
     public boolean testCinq(int ligneDepart, int colonneDepart){
         return gril[ligneDepart][colonneDepart].getColor() == gril[ligneDepart][colonneDepart + 1].getColor() &&
                 gril[ligneDepart][colonneDepart + 1].getColor() == gril[ligneDepart][colonneDepart + 2].getColor() &&
@@ -352,53 +411,15 @@ public class Grille implements Serializable {
                 gril[ligneDepart][colonneDepart + 3].getColor() == gril[ligneDepart][colonneDepart + 4].getColor();
     }
 
+    //pose le ballon ou le coup spécial a été réalisé
     public void poserBallon(int[] pos){
         gril[pos[0]][pos[1]] = new Case('2',gril[pos[0]][pos[1]].getColor());
     }
 
 
-
-    //--------------------------------------------------------
-
-    public int points(){
-        int compt = this.ontEteSupprime();
-        return compt*compt*10;
-    }
-
-    public int ontEteSupprime(){
-        int compt = 0;
-        for (Case[] cases : gril) {
-            for (Case aCase : cases) {
-                if (aCase.getIs() == 's') {
-                    compt++;
-                }
-            }
-        }
-        return compt;
-    }
-
     //---------------------------------------------------------
-    //              --- PARTIE 2 ---                          -
-    //                  Getters                               -
-    //---------------------------------------------------------
-
-    public int getLongu() {
-        return longu;
-    }
-
-    public int getHaut() {
-        return haut;
-    }
-
-    //---------------------------------------------------------
-    //              --- PARTIE 2 ---                          -
-    //         gestion liée à la fin du jeu                   -
-    //---------------------------------------------------------
-
-
-    //---------------------------------------------------------
-    //              --- PARTIE 2 ---                          -
-    //       affichage du niveau et des scores                -
+    //                 --- PARTIE 4 ---                       -
+    //                Remplissage ses niveaux                 -
     //---------------------------------------------------------
 
     public void remplir_Niveau_1(ArrayList<Character> liste){

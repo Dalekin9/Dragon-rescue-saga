@@ -16,6 +16,13 @@ public class AffichageTerminal {
 
     public AffichageTerminal(){}
 
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 1 ---                     -
+    //                       Setters                          -
+    //---------------------------------------------------------
+
+
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
     }
@@ -26,6 +33,14 @@ public class AffichageTerminal {
         controleur = new Controleur(partie);
     }
 
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //                      Affichage                         -
+    //---------------------------------------------------------
+
+
+    //affiche les niveaux possibles
     public void afficheNiveauPossible(){
         int parcours = 0;
         ArrayList<Integer> copie = joueur.getNivAcess();
@@ -50,6 +65,7 @@ public class AffichageTerminal {
         afficher_score();
     }
 
+    //affiche les meilleurs scores du niveau choisi
     public void afficher_score(){
         System.out.println("Meilleurs scores :");
         int compt = 1;
@@ -64,6 +80,7 @@ public class AffichageTerminal {
         System.out.println();
     }
 
+    //affiche l'etat de la partie en cours
     public void afficheEtat(boolean animAlea){
         System.out.println("Score : " + partie.getScore() + " points");
         System.out.println("Vous avez sauvé " + (niveau.getNb_animaux()-partie.getAnimRes()) + "/" + niveau.getNb_animaux() + " animaux");
@@ -74,6 +91,7 @@ public class AffichageTerminal {
         controleur.demandeAction(animAlea);
     }
 
+    //affiche la grille du niveau
     public void afficherGrille(){
         System.out.print("   ");
         for (int k=0;k<niveau.getGrid().gril[0].length;k++){
@@ -94,15 +112,7 @@ public class AffichageTerminal {
         System.out.println();
     }
 
-    public void afficherObjetPossible(ArrayList<String> liste){
-        System.out.print("Vous pouvez utiliser : ");
-        for (String s: liste){
-            System.out.print(s+", ");
-        }
-        System.out.println();
-        System.out.println("Que voulez-vous utiliser ? (0 pour revenir en arrière)");
-    }
-
+    //affichage pour la fin de la partie
     public void affichageFinDePartie(int finJeu){
         if (finJeu != 2 ){
             if (finJeu == 1) {
@@ -127,5 +137,17 @@ public class AffichageTerminal {
         }
         Controleur.lancement(joueur);
     }
+
+    //affiche les objets possible à utiliser
+    public void afficherObjetPossible(ArrayList<String> liste){
+        System.out.print("Vous pouvez utiliser : ");
+        for (String s: liste){
+            System.out.print(s+", ");
+        }
+        System.out.println();
+        System.out.println("Que voulez-vous utiliser ? (0 pour revenir en arrière)");
+    }
+
+
 
 }

@@ -21,6 +21,11 @@ public class Joueur implements java.io.Serializable {
     }
 
 
+    //---------------------------------------------------------
+    //                 --- PARTIE 2 ---                       -
+    //               Getters et Setters                       -
+    //---------------------------------------------------------
+
 
     public String getMdp(){return this.mdp;}
 
@@ -40,7 +45,13 @@ public class Joueur implements java.io.Serializable {
         nivAcess = update;
     }
 
-    //demande au joueur s'il souhaite se connecter ou s'incrire
+
+    //---------------------------------------------------------
+    //                    --- PARTIE 2 ---                    -
+    //                  Méthodes de recherche
+    //               + Getter et creation de joueur           -
+    //---------------------------------------------------------
+
 
     //fonction qui recherche si l'identifiant est présent dans joueur.ser
     public static boolean rechercheId(String id){
@@ -93,6 +104,11 @@ public class Joueur implements java.io.Serializable {
             }
         }
         return false;
+    }
+
+    //regarde si le niveau entré en paramètre est possible pour le joueur
+    public boolean levelEstPossible(int niveau){
+        return nivAcess.contains(niveau);
     }
 
     //fonction qui récupère un joueur en fonction de son identifiant dans joueur.ser
@@ -154,10 +170,14 @@ public class Joueur implements java.io.Serializable {
             return null;
     }
 
-    public boolean levelEstPossible(int niveau){
-        return nivAcess.contains(niveau);
-    }
 
+    //---------------------------------------------------------
+    //                    --- PARTIE 2 ---                    -
+    //             Méthodes de mises à jour                   -
+    //---------------------------------------------------------
+
+
+    //rempli la liste d'objet accessible en fonction de la liste d'objet disponible
     public ArrayList<String> remplirListeObj(ArrayList<String> objDispo) {
         for (String s : objDispo) {
             if (!this.objAcces.contains(s)) {
@@ -167,6 +187,8 @@ public class Joueur implements java.io.Serializable {
         return objAcces;
     }
 
+    //met à jour le joueur dans joueur.ser
+    //(après avoir mis à jour la liste d'objet accessible)
     public void miseAJour(Joueur joueur, Niveau lvl){
         ArrayList<Integer> update = joueur.getNivAcess();
         if (!update.contains(lvl.id+1)){

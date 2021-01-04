@@ -12,11 +12,18 @@ public class Case implements Serializable {
         color = est;
     }
 
-    //utile pour les objets
+    //necessaire pour le ballon
     public Case(char est, char colo){
         is = est;
         color = colo;
     }
+
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 1 ---                     -
+    //                  Getters et Setters                    -
+    //---------------------------------------------------------
+
 
     public char getIs(){
         return is;
@@ -28,6 +35,12 @@ public class Case implements Serializable {
         is = c;
     }
 
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //                       Méthodes                         -
+    //---------------------------------------------------------
+
     public void supprimer(){
         is = 's';
     }
@@ -38,16 +51,23 @@ public class Case implements Serializable {
 
     }
 
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //                  Infos sur les cases                   -
+    //---------------------------------------------------------
+
+    //Voici la description des différents états des cases
+
     //'s' = Supprimé
-
-    //'n' = neutre
-
     //'a' = animal
+    //' ' = vide
+    //'-' = fixe
 
     //'1' = fusée
     //'2' = ballon
     //'3' = bombe
-    //'4' = marteau
+    //'4' = pioche
 
     //J = jaune
     //O = orange
@@ -55,7 +75,5 @@ public class Case implements Serializable {
     //B = bleu
     //V = violet
 
-    //Vide = espace
-    //Obstacle = -
 
 }

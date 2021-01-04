@@ -24,7 +24,6 @@ import java.util.Map;
 public class AffichageGraphique extends JFrame {
 
     private Controleur control;
-    private Color saved;
     private CardLayout cl = new CardLayout();
     private JPanel main = new JPanel(cl);
     private Joueur joueur;
@@ -39,7 +38,12 @@ public class AffichageGraphique extends JFrame {
         setAlwaysOnTop(true);
     }
 
-    //setter et getter
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 1 ---                     -
+    //                       Setters                          -
+    //---------------------------------------------------------
+
 
     public void setJoueur(Joueur joueur){
         this.joueur = joueur;
@@ -50,9 +54,13 @@ public class AffichageGraphique extends JFrame {
     }
 
 
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //                      Affichage                         -
+    //---------------------------------------------------------
 
-    //
 
+    //affiche de l'ecran d'accueil
     public void ecranCo(){
 
         JLabel jLabel1 = new JLabel();
@@ -123,6 +131,7 @@ public class AffichageGraphique extends JFrame {
         setVisible(true);
     }
 
+    //affiche de l'ecran de connexion
     public void connexion() {
 
         JLabel jLabel1 = new JLabel();
@@ -206,6 +215,7 @@ public class AffichageGraphique extends JFrame {
 
     }
 
+    //affichage de l'ecran d'inscription
     public void inscription(){
 
         JLabel jLabel1 = new JLabel();
@@ -295,6 +305,7 @@ public class AffichageGraphique extends JFrame {
         cl.show(main,"inscription");
     }
 
+    //affichage du sommaire
     public void sommaire(){
 
         JLabel jLabel1 = new JLabel();
@@ -373,6 +384,8 @@ public class AffichageGraphique extends JFrame {
 
     }
 
+    //affichage du mode aventure
+    // -> montre tous les levels
     public void modeAventure() {
 
         JPanel princ = new JPanel();
@@ -408,6 +421,7 @@ public class AffichageGraphique extends JFrame {
         cl.show(main,"AVENTURE");
     }
 
+    //retourne un panneau contenant tous les niveaux
     public JPanel choixDesLevels(){
         JPanel levels = new JPanel(new GridBagLayout());
         levels.setOpaque(false);
@@ -488,6 +502,7 @@ public class AffichageGraphique extends JFrame {
         return levels;
     }
 
+    //affiche de l'ecran de presentation du niveau choisi
     public void presentationLevel(Niveau niveau){
 
         JPanel princ = new JPanel();
@@ -594,6 +609,7 @@ public class AffichageGraphique extends JFrame {
         cl.show(main,"PRESENTATION");
     }
 
+    //affichage de l'ecran de fin de niveau
     public void finLevel(Niveau niveau, int finJeu){
 
         JPanel princ = new JPanel();
@@ -773,6 +789,7 @@ public class AffichageGraphique extends JFrame {
          */
     }
 
+    //affiche du mode infini
     public void modeInfini(){
         //lancer le mode infini
         JPanel pan = new JPanel();
@@ -782,6 +799,7 @@ public class AffichageGraphique extends JFrame {
         cl.show(main,"INFINI");
     }
 
+    //affichage des règles
     public void regles(){
 
         JLabel jLabel3 = new JLabel();

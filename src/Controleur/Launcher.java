@@ -13,7 +13,7 @@ public class Launcher {
 
     public static Niveau[] init(){
         Niveau[] tab = new Niveau[5];
-        tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,50,true);
+        tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,-1,true);
         tab[1] = new Niveau(new Grille(new Case[8][5]),2,5,-1,true);
         tab[2] = new Niveau(new Grille(new Case[9][7]),3,3,-1,true);
         tab[3] = new Niveau(new Grille(new Case[8][9]),4,12,70,false);
@@ -73,6 +73,7 @@ public class Launcher {
          */
 
         /*
+
         if (demandeJeu().equals("t")){
             trouverJoueur();
         }else {
@@ -82,125 +83,30 @@ public class Launcher {
 
 */
 
-
         //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
             Controleur.lancement();
 
 
     }
 
+    //demande au joueur de quelle manière il souhaite jouer
+    // -> Interface Graphique ou via le terminal
     public static String demandeJeu(){
-            System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
-            String rep ;
-            boolean ok;
-            do{
-                rep = new Scanner(System.in).next();
-                switch (rep.toLowerCase()){
-                    case "t","texte","i","interface" -> ok = true;
-                    default -> {
-                        System.out.println("Vous n'avez pas répondu correctement !");
-                        System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
-                        ok = false;
-                    }
-                }
-            }while(!ok);
-
-            return String.valueOf(rep.toLowerCase().charAt(0));
-    }
-
-    public static void trouverJoueur(){
-        String rep = demandeJoueur();
-        Joueur joueur;
-        if (rep.equals("c")){
-            joueur = connexion();
-        } else {
-            joueur = inscription();
-        }
-        Controleur.lancement(joueur);
-    }
-
-    public static String demandeJoueur(){
-        System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
-        String rep;
+        System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
+        String rep ;
         boolean ok;
         do{
             rep = new Scanner(System.in).next();
-            switch (rep.toLowerCase(Locale.ROOT)) {
-                case "co", "connecter", "i", "inscrire","connexion","inscription" -> ok = true;
+            switch (rep.toLowerCase()){
+                case "t","texte","i","interface" -> ok = true;
                 default -> {
-                    ok = false;
                     System.out.println("Vous n'avez pas répondu correctement !");
-                    System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+                    System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
+                    ok = false;
                 }
             }
         }while(!ok);
+
         return String.valueOf(rep.toLowerCase().charAt(0));
     }
-
-    //fonction de connexion
-    public static Joueur connexion(){
-        System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
-        String rep ;
-        Joueur joueur = null;
-        boolean ok = false;
-        do {
-            rep = new Scanner(System.in).next();
-            if (rep.equals("i")) {
-                joueur = inscription();
-                ok =true;
-            } else if (!Joueur.rechercheId(rep)) { //regarder si present dans joueur.ser (ici cas negatif)
-                System.out.println("Identifiant introuvable.");
-                System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
-                ok = false;
-            } else { // l'identifiant est présent dans joueur.ser, on demande le mot de passe
-                System.out.println("Entrez votre mot de passe :");
-                String repMdp = new Scanner(System.in).next();
-                if (!Joueur.rechercheMdp(rep, repMdp)) { // mauvais mot de passe
-                    ok = false;
-                    System.out.println("Mot de passe incorrect !");
-                    System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
-                } else { //mot de pass correct
-                    joueur = Joueur.getJoueur(rep);
-                    ok = true;
-                }
-            }
-        } while (!ok);
-        return joueur;
-    }
-
-    //fonction d'inscription
-    public static Joueur inscription(){
-        System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
-        String rep ;
-        Joueur joueur = null;
-        boolean ok = false;
-        do {
-            rep = new Scanner(System.in).next();
-            if (rep.equals("c")) {
-                joueur = connexion();
-                ok = true;
-            } else if (!Joueur.rechercheId(rep)) { //regarder si present dans joueur.ser (ici cas negatif donc demande mot de passe)
-                System.out.println("Entrez votre mot de passe :");
-                String repMdp = new Scanner(System.in).next();
-                System.out.println("Entrez votre mot de passe une nouvelle fois :");
-                String repMdp2 = new Scanner(System.in).next();
-                if (repMdp.equals(repMdp2)) { // les 2 mots de passe sont pareil donc création du joueur et ecriture sur joueur.ser
-                    joueur = Joueur.creerJoueur(rep, repMdp);
-                    ok = true;
-                } else { //mot de pass incorrect
-                    ok = false;
-                    System.out.println("Vos mots de passes sont différents !");
-                    System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
-                }
-            } else { // l'identifiant est présent dans joueur.ser, on ne peut pas l'utiliser
-                System.out.println("Identifiant déjà utilisé.");
-                System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
-                ok = false;
-            }
-        } while (!ok);
-        return joueur;
-    }
-
-
-
 }
