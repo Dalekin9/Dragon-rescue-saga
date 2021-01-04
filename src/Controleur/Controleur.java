@@ -14,28 +14,44 @@ import java.util.Scanner;
 public class Controleur {
     private static AffichageTerminal vueTerm = new AffichageTerminal();
     private static AffichageGraphique vueGraph = new AffichageGraphique(new Controleur());
-    private Partie partie;
+    private static Partie partie;
 
     public Controleur(){
     }
 
-    public Controleur(Partie partie){
-        this.partie = partie;
+    public Controleur(Partie parti){
+        partie = parti;
     }
 
-    public void setPartie(Partie partie){
-        this.partie = partie;
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 1 ---                     -
+    //                  Getters et Setters                    -
+    //---------------------------------------------------------
+
+
+    public static void setPartie(Partie parti){
+        partie = parti;
     }
 
-    public void setVueTerm(AffichageTerminal vueTerm){
-        this.vueTerm = vueTerm;
+    public void setVueTerm(AffichageTerminal vueTer){
+        vueTerm = vueTer;
     }
 
-    public void setVueGraph(AffichageGraphique affichageGraphiqueGraph){
-        this.vueGraph = affichageGraphiqueGraph;
+    public void setVueGraph(AffichageGraphique affichageGraphiqueGra){
+        vueGraph = affichageGraphiqueGra;
     }
 
-    //commun
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //                 Communne aux 2 vues                    -
+    //---------------------------------------------------------
+
+
+    //regarde si la connexion est possible
+    // -> si l'identifiant est dans joueur.ser
+    // -> si le mot de passe correspond à celui récuper dans joueur.ser
     public boolean connexionPossible(String ident, String pswd){
         if (Joueur.rechercheId(ident)){
             Joueur test = Joueur.getJoueur(ident);
@@ -46,6 +62,9 @@ public class Controleur {
         return false;
     }
 
+    //regarde si l'inscription est possible
+    // -> si l'identifiant est dans joueur.ser
+    // -> si les 2 mots de passe sont identiques
     public boolean inscriptionPossible(String ident, String pswd, String pswd2){
         if (!Joueur.rechercheId(ident)) {
             if (pswd.equals(pswd2)) {
@@ -55,24 +74,198 @@ public class Controleur {
         return false;
     }
 
+    //regarde si un coup est Valide
+    // -> si on ne clique pas sur un dragon, un bloc fixe ou un espace vide
+    public boolean coupValide(int i, int j){
+        return partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+                partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
+                partie.getLvl().getGrid().gril[i][j].getIs() != 'a';
+    }
+
+    //regarde si le coup de la fusée est possible
+    // -> si on ne lance pas la fusée sur une colonne vide ou rempli de bloc fixe
+    public boolean coupValideFus(int j){
+        for (int i=0;i<partie.getLvl().getGrid().gril.length;i++){
+            if (partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+                    partie.getLvl().getGrid().gril[i][j].getIs() != '-'){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //met à jour le joueur dans joueur.ser
+    public void miseAJour(Joueur joueur,Niveau lvl){
+        joueur.miseAJour(joueur,lvl);
+    }
+
+    //met à jour les score du niveau (best_score)
+    public void miseAJourScore(int score,String name,Niveau lvl){
+        lvl.miseAJourScore(score,name,lvl);
+    }
+
+    //regarde si un coup est possible
+    // -> si un bloc en haut, en bas, à droite ou à gauche est comme lui
+    public boolean isCoupPossible(int i, int j){
+        if (i>0){
+            if(j>0){
+                if (partie.getLvl().getGrid().gril[i-1][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                    return true;
+                }
+            }
+            if (j<partie.getLvl().getGrid().gril[0].length-1){
+                if (partie.getLvl().getGrid().gril[i-1][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                    return true;
+                }
+            }
+        }
+        if (i<partie.getLvl().getGrid().gril.length-1){
+            if(j>0){
+                if (partie.getLvl().getGrid().gril[i+1][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                    return true;
+                }
+            }
+            if (j<partie.getLvl().getGrid().gril[0].length-1){
+                if (partie.getLvl().getGrid().gril[i+1][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
-    //texte
+    //---------------------------------------------------------
+    //                   --- PARTIE 3 ---                     -
+    //                    Pour le Terminal                    -
+    //---------------------------------------------------------
+
+
+    //lance la connexion ou l'inscription en fonction du choix du joueur
+    public static void trouverJoueur(){
+        String rep = demandeJoueur();
+        Joueur joueur;
+        if (rep.equals("c")){
+            joueur = connexionTxt();
+        } else {
+            joueur = inscriptionTxt();
+        }
+        Controleur.lancement(joueur);
+    }
+
+    //demande au joueur s'il préfère se connecter ou s'incrire
+    public static String demandeJoueur(){
+        System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+        String rep;
+        boolean ok;
+        do{
+            rep = new Scanner(System.in).next();
+            switch (rep.toLowerCase(Locale.ROOT)) {
+                case "co", "connecter", "i", "inscrire","connexion","inscription" -> ok = true;
+                default -> {
+                    ok = false;
+                    System.out.println("Vous n'avez pas répondu correctement !");
+                    System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+                }
+            }
+        }while(!ok);
+        return String.valueOf(rep.toLowerCase().charAt(0));
+    }
+
+    //fonction de connexion
+    public static Joueur connexionTxt(){
+        System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+        String rep ;
+        Joueur joueur = null;
+        boolean ok = false;
+        do {
+            rep = new Scanner(System.in).next();
+            if (rep.equals("i")) {
+                joueur = inscriptionTxt();
+                ok =true;
+            } else if (!Joueur.rechercheId(rep)) { //regarder si present dans joueur.ser (ici cas negatif)
+                System.out.println("Identifiant introuvable.");
+                System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+                ok = false;
+            } else { // l'identifiant est présent dans joueur.ser, on demande le mot de passe
+                System.out.println("Entrez votre mot de passe :");
+                String repMdp = new Scanner(System.in).next();
+                if (!Joueur.rechercheMdp(rep, repMdp)) { // mauvais mot de passe
+                    ok = false;
+                    System.out.println("Mot de passe incorrect !");
+                    System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+                } else { //mot de pass correct
+                    joueur = Joueur.getJoueur(rep);
+                    ok = true;
+                }
+            }
+        } while (!ok);
+        return joueur;
+    }
+
+    //fonction d'inscription
+    public static Joueur inscriptionTxt(){
+        System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+        String rep ;
+        Joueur joueur = null;
+        boolean ok = false;
+        do {
+            rep = new Scanner(System.in).next();
+            if (rep.equals("c")) {
+                joueur = connexionTxt();
+                ok = true;
+            } else if (!Joueur.rechercheId(rep)) { //regarder si present dans joueur.ser (ici cas negatif donc demande mot de passe)
+                System.out.println("Entrez votre mot de passe :");
+                String repMdp = new Scanner(System.in).next();
+                System.out.println("Entrez votre mot de passe une nouvelle fois :");
+                String repMdp2 = new Scanner(System.in).next();
+                if (repMdp.equals(repMdp2)) { // les 2 mots de passe sont pareil donc création du joueur et ecriture sur joueur.ser
+                    joueur = Joueur.creerJoueur(rep, repMdp);
+                    ok = true;
+                } else { //mot de pass incorrect
+                    ok = false;
+                    System.out.println("Vos mots de passes sont différents !");
+                    System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+                }
+            } else { // l'identifiant est présent dans joueur.ser, on ne peut pas l'utiliser
+                System.out.println("Identifiant déjà utilisé.");
+                System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+                ok = false;
+            }
+        } while (!ok);
+        return joueur;
+    }
+
+    //lancement du jeu :
+    // -> choix du niveau
+    // -> lancement d'une partie
     public static void lancement(Joueur gameur){
         vueTerm.setJoueur(gameur);
-        int level = choixLevel(gameur);
+        int level = choixLevel();
         while (! gameur.levelEstPossible(level)){
             System.out.println("Vous n'avez pas accès à ce niveau !");
-            level = choixLevel(gameur);
+            level = choixLevel();
         }
         Niveau vaJouerA = Niveau.recupNiveau(level);
         Objects.requireNonNull(vaJouerA).remplir_Grille();
         Partie pA = new Partie(gameur,vaJouerA);
-
-        pA.jouer();
+        setPartie(pA);
+        jouer(partie);
     }
 
-    public static int choixLevel(Joueur joueur){
+    //déroulement d'une partie
+    public static void jouer(Partie partie){
+        vueTerm.setPartie(partie);
+        vueTerm.afficherPresentNiveau();
+        do{
+            int animAle = partie.getLvl().getGrid().aDAnimaux();
+            vueTerm.afficheEtat(animAle<5);
+        }while(partie.finJeu() == 0);
+        vueTerm.affichageFinDePartie(partie.finJeu());
+    }
+
+    //retourne le niveau choisi
+    public static int choixLevel(){
         int level;
         System.out.println("Voici les niveaux auxquels vous avez accès :");
         vueTerm.afficheNiveauPossible();
@@ -81,6 +274,8 @@ public class Controleur {
         return level;
     }
 
+    //demande au joueur quelle action il veut faire
+    // -> casser des blocs ou utiliser un objet
     public void demandeAction(boolean animAlea){
         System.out.println("Voulez-vous supprimer un bloc ou utiliser un objet? (B(loc)/O(bjet))");
         String[] coordsStr;
@@ -193,77 +388,62 @@ public class Controleur {
         return intab;
     }
 
+    //vérifie si les coordonnées sont dans le tableau :
+    // si E15 -> regarde si E est ok
+    //        -> regarde si 15 est ok
     public boolean coordsVerif(String[] coords) {
-        int longueur = partie.getLvl().getGrid().getLongu();
-        int hauteur = partie.getLvl().getGrid().getHaut();
-        ArrayList nmbrs = new ArrayList();
-        ArrayList letters = new ArrayList();
-        for (int i = 0; i < hauteur; i++) nmbrs.add(String.valueOf(i));
-        for (int j = 0; j < longueur; j++) letters.add(String.valueOf((char) ('a' + j)));
-        if (nmbrs.contains(coords[1]) && letters.contains(coords[0].toLowerCase())) {
-            for (int k = 0; k < longueur; k++) {
-                if (letters.get(k).equals(coords[0].toLowerCase())) {
-                    coords[0] = Integer.toString(k);
-                }
-            }
-            String tmp = coords[1];
-            coords[1] = coords[0];
-            coords[0] = tmp;
-        } else {
-            System.out.println("Les coordonées ne sont pas valides !");
+        if (coords.length >2){
             return false;
-        }
-        return true;
-    }
-
-    public boolean coupValide(int i, int j){
-        return partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
-                partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
-                partie.getLvl().getGrid().gril[i][j].getIs() != 'a';
-    }
-
-    public boolean coupValideFus(int j){
-        for (int i=0;i<partie.getLvl().getGrid().gril.length;i++){
-            if (partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
-                    partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
-                    partie.getLvl().getGrid().gril[i][j].getIs() != 'a'){
+        } else {
+            int longueur = partie.getLvl().getGrid().getLongu();
+            int hauteur = partie.getLvl().getGrid().getHaut();
+            ArrayList nmbrs = new ArrayList();
+            ArrayList letters = new ArrayList();
+            for (int i = 0; i < hauteur; i++) nmbrs.add(String.valueOf(i));
+            for (int j = 0; j < longueur; j++) letters.add(String.valueOf((char) ('a' + j)));
+            if (nmbrs.contains(coords[1]) && letters.contains(coords[0].toLowerCase())) {
+                for (int k = 0; k < longueur; k++) {
+                    if (letters.get(k).equals(coords[0].toLowerCase())) {
+                        coords[0] = Integer.toString(k);
+                    }
+                }
+                String tmp = coords[1];
+                coords[1] = coords[0];
+                coords[0] = tmp;
                 return true;
+            } else {
+                System.out.println("Les coordonées ne sont pas valides !");
+                return false;
             }
         }
-        return false;
-    }
-
-    public void miseAJour(Joueur joueur,Niveau lvl){
-        joueur.miseAJour(joueur,lvl);
-    }
-
-    public void miseAJourScore(int score,String name,Niveau lvl){
-        lvl.miseAJourScore(score,name,lvl);
     }
 
 
-    //graphique
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //            Pour l'interface graphique                  -
+    //---------------------------------------------------------
 
+
+    //lancement de l'interface graphique
+    // -> affiche l'ecran d'accueil
     public static void lancement (){
         vueGraph = new AffichageGraphique(new Controleur());
         vueGraph.setVisible(true);
         vueGraph.ecranCo();
-        //vueGraph.sommaire();
-        //jeu.view.modeAventure();
-        //jeu.view.regles();
-        //jeu.view.presentationLevel(Launcher.init()[0]);
-        //jeu.view.finLevel(Launcher.init()[0]);
     }
 
+    //affiche l'ecran de connexion
     public void connexion(){
-        vueGraph.finLevel(Launcher.init()[0]);
-        //vueGraph.connexion();
+        vueGraph.connexion();
     }
 
+    //affiche l'ecran d'inscription
     public void inscription(){
         vueGraph.inscription();
     }
 
+    //affiche le sommaire si la connexion de joueur s'avère possible
     public void seConnecter(String ident, String pswd){
         if (connexionPossible(ident,pswd)){
             Joueur a = Joueur.getJoueur(ident);
@@ -275,6 +455,7 @@ public class Controleur {
         }
     }
 
+    //affiche le sommaire si l'inscription est possible
     public void sInscrire(String ident, String pswd, String pswd2){
         if(inscriptionPossible(ident,pswd,pswd2)){
             vueGraph.setJoueur(Joueur.creerJoueur(ident,pswd));
@@ -282,18 +463,22 @@ public class Controleur {
         }
     }
 
+    //affiche le mode aventure
     public void modeAventure(){
         vueGraph.modeAventure();
     }
 
+    //affiche le mode infini
     public void modeInfini(){
         vueGraph.modeInfini();
     }
 
+    //affiche les regles
     public void regles(){
         vueGraph.regles();
     }
 
+    //affiche la presentation du niveau si on y a accès
     public void choixLevel(Joueur joueur, int id){
         if (joueur.levelEstPossible(id)) {
             Niveau level = Niveau.recupNiveau(id);
@@ -302,8 +487,9 @@ public class Controleur {
         }
     }
 
- public void goSommaire(){
-     vueGraph.sommaire();
- }
+    //affiche le sommaire
+     public void goSommaire(){
+         vueGraph.sommaire();
+     }
 
 }

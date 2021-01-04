@@ -14,8 +14,6 @@ public class Partie {
     private Joueur joueur;
     private Niveau lvl;
     private int score,coupRes,animRes;
-    private Controleur controleur;
-    private AffichageTerminal vueTerm;
 
     public Partie(Joueur pers, Niveau niveau){
         joueur = pers;
@@ -23,10 +21,14 @@ public class Partie {
         score = 0;
         coupRes = lvl.getNb_coup_max();
         animRes = lvl.getNb_animaux();
-        controleur = new Controleur();
-        vueTerm = new AffichageTerminal();
-        controleur = new Controleur(this);
     }
+
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 1 ---                     -
+    //                 Getters et Setters                     -
+    //---------------------------------------------------------
+
 
     public Joueur getJoueur(){
         return joueur;
@@ -49,7 +51,13 @@ public class Partie {
     }
 
 
+    //---------------------------------------------------------
+    //                   --- PARTIE 2 ---                     -
+    //                        Actions                         -
+    //---------------------------------------------------------
 
+
+    //action quand decide de supprimer un bloc
     public void actionBloc(int[] coords, boolean animAlea){
         boolean ligne = false;
         int posLignne = -1;
@@ -74,7 +82,7 @@ public class Partie {
         remplacement(animAlea);
         //s'occupe de poser les objets quand il y a des coups spéciaux
         if (ligne){
-            lvl.getGrid().poserFusee(posLignne);
+            lvl.getGrid().poserFusee(posLignne,coords[1]);
         }
         if (bloc){
             lvl.getGrid().poserBallon(posBloc);
@@ -82,6 +90,7 @@ public class Partie {
         coupRes--;
     }
 
+    //action quand decide d'utiliser un objet
     public void actionObj(boolean animAlea,String obj, int[] coords){
         if (obj.equals("bombe")){
             Bombe bom = new Bombe(this.lvl.getGrid(), coords[0], coords[1]);
@@ -101,41 +110,7 @@ public class Partie {
         }
     }
 
-    public void jouer(){
-        vueTerm.setPartie(this);
-        vueTerm.afficherPresentNiveau();
-        do{
-            int animAle = lvl.getGrid().aDAnimaux();
-            vueTerm.afficheEtat(animAle<5);
-        }while(finJeu() == 0);
-        vueTerm.affichageFinDePartie(finJeu());
-    }
-
-    //Vérfie les conditions de fin de jeu
-    public int finJeu(){
-        if(coupRes == 0){
-            return 1;
-        }else if(animRes == 0){
-            return 2;
-        } else if (! this.lvl.getGrid().coupPossible()){
-            return 3;
-        }else{
-            return 0;
-        }
-    }
-
-
-    public ArrayList<String> voirObjPossible(ArrayList<String> a, ArrayList<String> b){
-        ArrayList<String> fin = new ArrayList<>();
-        fin = a;
-        for (String s: b){
-            if(!fin.contains(s)){
-                fin.add(s);
-            }
-        }
-        return fin;
-    }
-
+    //remplacement du tableau après une action
     public void remplacement(boolean animAlea){
         if (lvl.isDecale()) {
             lvl.getGrid().faireDescendreQuandDecale();
@@ -156,5 +131,38 @@ public class Partie {
             }
         }
     }
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 3 ---                     -
+    //                      Méthodes                          -
+    //---------------------------------------------------------
+
+    //Vérfie les conditions de fin de jeu
+    public int finJeu(){
+        if(coupRes == 0){
+            return 1;
+        }else if(animRes == 0){
+            return 2;
+        } else if (! this.lvl.getGrid().coupPossible()){
+            return 3;
+        }else{
+            return 0;
+        }
+    }
+
+    //regarde les objet possible lors de la partie
+    // -> mise en commun des objet accessible du Joueur
+    //    et des objets disponible du niveau
+    public ArrayList<String> voirObjPossible(ArrayList<String> a, ArrayList<String> b){
+        ArrayList<String> fin = new ArrayList<>();
+        fin = a;
+        for (String s: b){
+            if(!fin.contains(s)){
+                fin.add(s);
+            }
+        }
+        return fin;
+    }
+
 
 }

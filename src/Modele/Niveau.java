@@ -25,6 +25,12 @@ public class Niveau implements Serializable {
         objDispo = remplirObjetDispo(id);
 
     }
+
+
+    //---------------------------------------------------------
+    //                   --- PARTIE 1 ---                     -
+    //                     Remplissage                        -
+    //---------------------------------------------------------
     
     //remplissage des grilles selon le niveau
     public void remplir_Grille(){
@@ -41,6 +47,7 @@ public class Niveau implements Serializable {
         }
     }
 
+    //rempli la liste d'objet disponible du niveau
     public ArrayList<String> remplirObjetDispo(int id){
         ArrayList<String> liste = new ArrayList<>();
         if (id >= 3){
@@ -61,18 +68,24 @@ public class Niveau implements Serializable {
     //                  liste de couleurs                     -
     //---------------------------------------------------------
     
-    
+
+    //renvoie un chiffre aléatoire en fonction de la longueur
     public int chiffre_aleatoire(int longueur){
         Random rand = new Random();
         return rand.nextInt(longueur);
     }
-    
+
+    //creation et renvoie d'une liste de couleur
     public ArrayList<Character> listeColor(){
         ArrayList<Character> chiffre = new ArrayList<Character>();
         chiffre.add('J'); chiffre.add('O'); chiffre.add('R'); chiffre.add('B'); chiffre.add('V');
         return chiffre;
     }
-    
+
+    //creer une liste de couleur en fonction dune longueur
+    // -> prends un element aléatoire dans chiffre
+    // -> ajout dans notre liste puis suppression dans chiffre
+    //permet d'obtenir une liste de couleur à chaque fois différente
     public ArrayList<Character> liste(int longueur){
         ArrayList<Character> chiffre = listeColor();
         ArrayList<Character> fin = new ArrayList<Character>();
@@ -86,10 +99,11 @@ public class Niveau implements Serializable {
     
 
     //---------------------------------------------------------
-    //              --- PARTIE 3 ---                          -
-    //      contient les getters (et les setters)             -
+    //                   --- PARTIE 3 ---                     -
+    //                 Getters et Setters                     -
     //---------------------------------------------------------
-    
+
+
     public Grille getGrid() {
         return grid;
     }
@@ -150,9 +164,13 @@ public class Niveau implements Serializable {
     }
 
 
+    //---------------------------------------------------------
+    //                   --- PARTIE 4 ---                     -
+    //                 Mise a jour du Niveau                  -
+    //---------------------------------------------------------
 
 
-
+    //met a jour le niveau dans level.ser
     public void miseAJourScore(int score, String joueur, Niveau lvl){
         if (! best_score.isEmpty()) {
             int last = recupDernierScore(best_score);
