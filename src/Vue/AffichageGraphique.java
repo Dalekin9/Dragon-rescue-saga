@@ -43,7 +43,7 @@ public class AffichageGraphique extends JFrame {
         setTitle("Bear Rescue Saga");
         setSize(550,725);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //getContentPane().setLayout(null);
+
         setAlwaysOnTop(true);
     }
 
@@ -829,7 +829,8 @@ public class AffichageGraphique extends JFrame {
 
         main.add("END",level);
         cl.show(main,"END");
-    }*/
+        */
+    }
 
     public void updateGrille(){
         jeu.remove(infoJeu);
@@ -1133,7 +1134,8 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regles.jpg"));
+
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regle.png"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
