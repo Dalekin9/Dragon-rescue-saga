@@ -23,7 +23,7 @@ public class Launcher {
 
     public static void main(String[] args) throws IOException {
 
-        /*
+
         ObjectOutputStream oos = null;
         //ObjectInputStream ois = null;
         Niveau[] levels = init();
@@ -37,7 +37,7 @@ public class Launcher {
             oos.flush();
             oos.close();
 
-         */
+
 
 
         /*ObjectOutputStream oos = null;
@@ -49,10 +49,18 @@ public class Launcher {
             a.add(4);
             a.add(5);
             test.setNivAcess(a);
+            ArrayList<String> b = new ArrayList<>();
+            b.add("Fusee");
+            b.add("Bombe");
+            b.add("Pioche");
+            test.setObjAcces(b);
             oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
-            oos.writeObject(test);
+            oos.writeObject(test);*/
 
-         */
+
+
+
+
 
 
   /*          //Demande au joueur s'il veut jouer en mode texte ou graphique
@@ -65,12 +73,12 @@ public class Launcher {
 
             */
 
-        /*
+
         } catch (final IOException e) {
             e.printStackTrace();
         }
 
-         */
+
 
         /*
 

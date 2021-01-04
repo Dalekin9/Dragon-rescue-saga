@@ -8,7 +8,7 @@ et leur pose
 
 
 
-TO DO :
+TODO :
 
 Interface graphique
 mode infini
@@ -16,6 +16,7 @@ mode chrono
 aide pour un joueur lors d'une partie
 sommaire ou affichage principal
 jeu jouer par un robot
+ballon dispo ds quels niveaux
 
 Doing :
 

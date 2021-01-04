@@ -164,6 +164,7 @@ public class Joueur implements java.io.Serializable {
                 }
                 oos.flush();
                 oos.close();
+                return nouveau;
             } catch (final IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

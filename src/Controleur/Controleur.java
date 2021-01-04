@@ -1,5 +1,6 @@
 package Controleur;
 
+import Modele.Grille;
 import Modele.Joueur;
 import Modele.Niveau;
 import Modele.Partie;
@@ -479,12 +480,63 @@ public class Controleur {
         vueGraph.regles();
     }
 
+    public void objetUsed(int x, int y , String obj){
+        Grille grid = partie.getLvl().getGrid();
+        int panelHaut = vueGraph.getSize().height - vueGraph.getInsets().top;
+        int panelLongu = vueGraph.getSize().width;
+        int haut = partie.getLvl().getGrid().getHaut();
+        int longu = partie.getLvl().getGrid().getLongu();
+        int ecartX = (panelLongu-50*longu)/2;
+        int ecartY = (panelHaut-50*haut)/2;
+        int i;
+        int j;
+        if((x > ecartX && x < panelLongu-ecartX ) && (y > ecartY && y < panelHaut-ecartY)){
+            i = (y - ecartY)/50;
+            j = (x - ecartX)/50;
+            System.out.println(ecartX);
+            System.out.println(ecartY);
+            System.out.println(i);
+            System.out.println(j);
+            int[] coords = new int[2];
+            coords[0] = i;
+            coords[1] = j;
+            if (!partie.getLvl().isDecale()) {
+                partie.actionObj(grid.aDAnimaux() < 5,obj.toLowerCase(),coords);
+            } else {
+                partie.actionObj(false, obj.toLowerCase(), coords);
+            }
+            vueGraph.updateGrille();
+            if (partie.finJeu() != 0) {
+                vueGraph.finLevel(partie.getLvl(), partie.finJeu());
+            }
+        }
+    }
+
     //affiche la presentation du niveau si on y a accès
     public void choixLevel(Joueur joueur, int id){
         if (joueur.levelEstPossible(id)) {
             Niveau level = Niveau.recupNiveau(id);
+            level.remplir_Grille();
             vueGraph.setNiveau(level);
             vueGraph.presentationLevel(level);
+        }
+    }
+
+    public void blockClicked(int x, int y){
+        Modele.Grille grid = partie.getLvl().getGrid();
+        int[] coords = new int[2];
+        coords[0] = x;
+        coords[1] = y;
+        if(coupValide(x,y)){
+            if (!partie.getLvl().isDecale()) {
+                partie.actionBloc(coords, grid.aDAnimaux() < 5);
+            } else {
+                partie.actionBloc(coords, false);
+            }
+            vueGraph.updateGrille();
+            if (partie.finJeu() != 0) {
+                vueGraph.finLevel(partie.getLvl(), partie.finJeu());
+            }
         }
     }
 
