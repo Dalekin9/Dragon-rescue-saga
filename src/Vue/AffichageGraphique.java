@@ -6,24 +6,16 @@ import Modele.Joueur;
 import Modele.Niveau;
 import Modele.Partie;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
 public class AffichageGraphique extends JFrame {
 
@@ -168,7 +160,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\principal.jpg"));
+        jLabel3.setIcon(new ImageIcon("Ressources\\Fonts\\principal.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -254,7 +246,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.jpg"));
+        jLabel3.setIcon(new ImageIcon("Ressources\\Fonts\\connexion.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -345,7 +337,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.jpg"));
+        jLabel3.setIcon(new ImageIcon("Ressources\\Fonts\\connexion.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -419,7 +411,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\sommaire.jpg"));
+        jLabel3.setIcon(new ImageIcon("Ressources\\Fonts\\sommaire.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -459,7 +451,7 @@ public class AffichageGraphique extends JFrame {
         sec.setBounds(0,0,550,725);
 
         JLabel jLabel3 = new JLabel();
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.png"));
+        jLabel3.setIcon(new ImageIcon("Ressources\\Fonts\\aventure.png"));
         princ.add(jLabel3);
         jLabel3.setBounds(0,0,550,725);
         main.add("AVENTURE",princ);
@@ -607,7 +599,7 @@ public class AffichageGraphique extends JFrame {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                initGame();
+                control.initGame(joueur,niveau);
             }
         });
         demarrer.setPreferredSize(new Dimension(100,50));
@@ -646,7 +638,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0,0,550,725);
 
-        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.png"));
+        JLabel icon = new JLabel(new ImageIcon("Ressources\\Fonts\\presentLevel.png"));
         princ.add(icon);
         icon.setBounds(0,0,550,725);
 
@@ -702,7 +694,7 @@ public class AffichageGraphique extends JFrame {
         pres.setBackground(new Color(225,225,225,120));
 
         gbc.insets = new Insets(10,0,10,0);
-        int compt = 1;
+        int compt = 0;
         for (var s : niveau.best_score.entrySet()){
             compt++;
             JLabel infoScore = new JLabel(compt +" : " + s.getValue() +" -> " + s.getKey() + " points");
@@ -759,85 +751,21 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0,0,550,725);
 
-        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.png"));
+        JLabel icon = new JLabel(new ImageIcon("Ressources\\presentLevel.png"));
         princ.add(icon);
         icon.setBounds(0,0,550,725);
 
         main.add("FIN_LEVEL",princ);
         cl.show(main,"FIN_LEVEL");
-
-
-        /*
-        JPanel level = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0,0,30,0);
-        gbc.gridx=0;
-        gbc.gridy=0;
-        JLabel numLevel = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
-        numLevel.setBorder(BorderFactory.createLineBorder(Color.black));
-        numLevel.setPreferredSize(new Dimension(150,80));
-        numLevel.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(numLevel,gbc);
-
-
-         */
-
-        /*
-
-        gbc.insets = new Insets(0,0,5,0);
-        gbc.gridx=0;
-        gbc.gridy=1;
-        int compt = 1;
-        for (var s : niveau.best_score.entrySet()){
-            compt++;
-            JLabel infoScore = new JLabel(compt +" : " + s.getValue() +" -> " + s.getKey() + " points");
-            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
-            infoScore.setPreferredSize(new Dimension(200,20));
-            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
-            gbc.gridy=compt+1;
-            level.add(infoScore,gbc);
-        }
-        while (compt <6){
-
-            JLabel infoScore = new JLabel(compt + " : Pas encore de meilleur score");
-            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
-            infoScore.setPreferredSize(new Dimension(200,20));
-            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
-            gbc.gridy=compt+1;
-            level.add(infoScore,gbc);
-            compt++;
-        }
-
-
-         */
-
-        /*
-        gbc.insets = new Insets(20,0,0,0);
-        gbc.gridx=0;
-        gbc.gridy=compt+1;
-        JButton next= new JButton("Suivant");
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                control.modeAventure();
-            }
-        });
-        next.setBorder(BorderFactory.createLineBorder(Color.black));
-        next.setPreferredSize(new Dimension(100,40));
-        next.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(next,gbc);
-
-        main.add("END",level);
-        cl.show(main,"END");
-        */
     }
 
-    public void updateGrille(){
+    public void updateGrille(Grille grid){
         jeu.remove(infoJeu);
-        Grille grid = niveau.getGrid();
+        //Grille grid = niveau.getGrid();
         String color;
         Icon icon;
         JButton butt;
+        Random rand = new Random();
         buttons = new JButton[haut][longu];
         infoJeu = new JPanel(new GridLayout(haut,longu));
         GridBagConstraints gridC = new GridBagConstraints();
@@ -846,7 +774,7 @@ public class AffichageGraphique extends JFrame {
                 butt = new JButton();
                 switch (grid.gril[i][j].getIs()) {
                     case 'a':
-                        color = "bear";
+                        color = "dragon"+rand.nextInt(5);
                         butt.setContentAreaFilled(false);
                         butt.setOpaque(false);
                         butt.setBorder(null);
@@ -860,9 +788,12 @@ public class AffichageGraphique extends JFrame {
                         break;
                     default:
                         color = String.valueOf(grid.gril[i][j].getIs());
+                        butt.setContentAreaFilled(false);
+                        butt.setOpaque(false);
+                        butt.setBorder(null);
                         break;
                 }
-                icon = new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+color+".png");
+                icon = new ImageIcon("Ressources\\Blocs\\"+color+".png");
                 butt.setIcon(icon);
                 butt.setPreferredSize(new Dimension(50,50));
                 buttons[i][j] = butt;
@@ -880,8 +811,7 @@ public class AffichageGraphique extends JFrame {
         cl.show(main,"game");
     }
 
-    public void initGame(){
-        control.setPartie(new Partie(joueur,niveau));
+    public void initGame(Grille grid){
         haut = niveau.getGrid().getHaut();
         longu = niveau.getGrid().getLongu();
         infoJeu = new JPanel(new GridLayout(haut, longu,10,10));
@@ -896,10 +826,10 @@ public class AffichageGraphique extends JFrame {
 
         jeu.add(etatJeu(0, 1,5), gbc);
 
-        Grille grid = niveau.getGrid();
         String color = "";
         Icon icon;
         JButton butt;
+        Random rand = new Random();
         buttons = new JButton[haut][longu];
         infoJeu = new JPanel(new GridLayout(haut,longu));
         for(int i = 0; i<haut; i++){
@@ -907,7 +837,7 @@ public class AffichageGraphique extends JFrame {
                 butt = new JButton();
                 switch (grid.gril[i][j].getIs()) {
                     case 'a':
-                        color = "bear";
+                        color = "dragon"+rand.nextInt(5);
                         butt.setContentAreaFilled(false);
                         butt.setOpaque(false);
                         butt.setBorder(null);
@@ -921,9 +851,12 @@ public class AffichageGraphique extends JFrame {
                         break;
                     default:
                         color = String.valueOf(grid.gril[i][j].getIs());
+                        butt.setContentAreaFilled(false);
+                        butt.setOpaque(false);
+                        butt.setBorder(null);
                         break;
                 }
-                icon = new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+color+".png");
+                icon = new ImageIcon("Ressources\\Blocs\\"+color+".png");
                 butt.setIcon(icon);
                 butt.setPreferredSize(new Dimension(50,50));
                 buttons[i][j] = butt;
@@ -948,6 +881,7 @@ public class AffichageGraphique extends JFrame {
     }
 
     public JPanel infoObjets(){
+        JPanel princ = new JPanel(null);
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setForeground(new Color(52, 5, 99, 255));
         panel.setVisible(true);
@@ -973,7 +907,7 @@ public class AffichageGraphique extends JFrame {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     Toolkit toolkit = Toolkit.getDefaultToolkit();
-                    Image image = toolkit.getImage("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+list.get(x)+".png");
+                    Image image = toolkit.getImage("Ressources/Objets/"+list.get(x)+".png");
                     Cursor c = toolkit.createCustomCursor(image , new Point(main.getX(), main.getY()), "img");
                     main.setCursor (c);
                 }
@@ -981,8 +915,6 @@ public class AffichageGraphique extends JFrame {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     main.setCursor(Cursor.getDefaultCursor());
-                    System.out.println(e.getXOnScreen()-getX());
-                    System.out.println(e.getYOnScreen()-getY()-getInsets().top);
                     control.objetUsed(e.getXOnScreen()-getX()+20, e.getYOnScreen()-getY()+20, list.get(x));
                 }
 
@@ -1002,9 +934,10 @@ public class AffichageGraphique extends JFrame {
             }else{
                 str = list.get(i) + "Locked";
             }
-            button.setIcon(new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+ str + ".png"));
+            button.setIcon(new ImageIcon("Ressources\\Objets\\"+ str + ".png"));
             gbc1.gridx = i;
             panel.add(button,gbc1);
+            panel.setBorder(new javax.swing.border.BevelBorder(BevelBorder.RAISED));
             setVisible(true);
         }
         return panel;
@@ -1134,8 +1067,6 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regle.png"));
         jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regles.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);

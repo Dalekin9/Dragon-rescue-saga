@@ -23,7 +23,7 @@ public class Launcher {
 
     public static void main(String[] args) throws IOException {
 
-
+/*
         ObjectOutputStream oos = null;
         //ObjectInputStream ois = null;
         Niveau[] levels = init();
@@ -37,6 +37,7 @@ public class Launcher {
             oos.flush();
             oos.close();
 
+ */
 
 
 
@@ -73,26 +74,30 @@ public class Launcher {
 
             */
 
-
+/*
         } catch (final IOException e) {
             e.printStackTrace();
         }
 
 
+ */
 
-        /*
+
+
 
         if (demandeJeu().equals("t")){
-            trouverJoueur();
+            Controleur.trouverJoueur();
         }else {
             //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
             Controleur.lancement();
         }
 
-*/
+
+
+
 
         //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-            Controleur.lancement();
+ //       Controleur.lancement();
 
 
     }
