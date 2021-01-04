@@ -1,6 +1,7 @@
 package Vue;
 
 import Controleur.Controleur;
+import Modele.Grille;
 import Modele.Joueur;
 import Modele.Niveau;
 import Modele.Partie;
@@ -9,6 +10,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.chrono.IsoChronology;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,14 +32,58 @@ public class AffichageGraphique extends JFrame {
     private JPanel main = new JPanel(cl);
     private Joueur joueur;
     private Niveau niveau;
+    private JPanel jeu;
+    private JPanel infoJeu;
+    private JButton[][] buttons;
+    private int haut;
+    private int longu;
 
     public AffichageGraphique(Controleur controleur){
         control = controleur;
         setTitle("Bear Rescue Saga");
-        setSize(550,750);
+        setSize(550,725);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         setAlwaysOnTop(true);
+        setAlwaysOnTop(true);
+    }
+
+    public class ButtObjet extends JButton implements MouseInputListener{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+        }
     }
 
 
@@ -62,6 +110,9 @@ public class AffichageGraphique extends JFrame {
 
     //affiche de l'ecran d'accueil
     public void ecranCo(){
+        setAlwaysOnTop(false);
+        //création d'un panneau pour l'ajouter à la Vue
+        JPanel pan = new JPanel(new GridBagLayout());
 
         JLabel jLabel1 = new JLabel();
 
@@ -562,7 +613,7 @@ public class AffichageGraphique extends JFrame {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                initGame();
             }
         });
         demarrer.setPreferredSize(new Dimension(100,50));
@@ -782,11 +833,223 @@ public class AffichageGraphique extends JFrame {
         next.setHorizontalAlignment(SwingConstants.CENTER);
         level.add(next,gbc);
 
-        main.add(level);
-        add(main);
-        setVisible(true);
+        main.add("END",level);
+        cl.show(main,"END");
+    }
 
-         */
+    public void updateGrille(){
+        jeu.remove(infoJeu);
+        Grille grid = niveau.getGrid();
+        String color = "";
+        Icon icon;
+        JButton butt;
+        buttons = new JButton[haut][longu];
+        infoJeu = new JPanel(new GridLayout(haut,longu));
+        GridBagConstraints gridC = new GridBagConstraints();
+        for(int i = 0; i<haut; i++){
+            for(int j = 0; j<longu; j ++ ){
+                butt = new JButton();
+                switch (grid.gril[i][j].getIs()) {
+                    case 'a':
+                        color = "bear";
+                        butt.setContentAreaFilled(false);
+                        butt.setOpaque(false);
+                        butt.setBorder(null);
+                        break;
+                    case ' ':
+                    case 's':
+                        color = "";
+                        butt.setContentAreaFilled(false);
+                        butt.setOpaque(false);
+                        butt.setBorder(null);
+                        break;
+                    default:
+                        color = String.valueOf(grid.gril[i][j].getIs());
+                        break;
+                }
+                icon = new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+color+".png");
+                butt.setIcon(icon);
+                butt.setPreferredSize(new Dimension(50,50));
+                buttons[i][j] = butt;
+                infoJeu.add(butt);
+            }
+        }
+        addAllListeners();
+        infoJeu.setMinimumSize(new Dimension(50*longu,50*haut));
+        gridC.gridx = 0;
+        gridC.gridy = 1;
+        gridC.weightx = 0;
+        gridC.weighty = 0.6;
+        jeu.add(infoJeu, gridC);
+        main.add("game",jeu);
+        cl.show(main,"game");
+    }
+
+    public void initGame(){
+        control.setPartie(new Partie(joueur,niveau));
+        haut = niveau.getGrid().getHaut();
+        longu = niveau.getGrid().getLongu();
+        infoJeu = new JPanel(new GridLayout(haut, longu,10,10));
+        jeu = new JPanel(new GridBagLayout());
+        buttons = new JButton[haut][longu];
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0.2;
+        gbc.weightx = 1;
+
+        jeu.add(etatJeu(0, 1,5), gbc);
+
+        Grille grid = niveau.getGrid();
+        String color = "";
+        Icon icon;
+        JButton butt;
+        buttons = new JButton[haut][longu];
+        infoJeu = new JPanel(new GridLayout(haut,longu));
+        for(int i = 0; i<haut; i++){
+            for(int j = 0; j<longu; j ++ ){
+                butt = new JButton();
+                switch (grid.gril[i][j].getIs()) {
+                    case 'a':
+                        color = "bear";
+                        butt.setContentAreaFilled(false);
+                        butt.setOpaque(false);
+                        butt.setBorder(null);
+                        break;
+                    case ' ':
+                    case 's':
+                        color = "";
+                        butt.setContentAreaFilled(false);
+                        butt.setOpaque(false);
+                        butt.setBorder(null);
+                        break;
+                    default:
+                        color = String.valueOf(grid.gril[i][j].getIs());
+                        break;
+                }
+                icon = new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+color+".png");
+                butt.setIcon(icon);
+                butt.setPreferredSize(new Dimension(50,50));
+                buttons[i][j] = butt;
+                infoJeu.add(butt);
+            }
+        }
+        addAllListeners();
+        infoJeu.setMinimumSize(new Dimension(50*longu,50*haut));
+        gbc.gridy = 1;
+        gbc.weightx = 0;
+        gbc.weighty = 0.6;
+        jeu.add(infoJeu,gbc);
+
+        gbc.gridy = 2;
+        gbc.weighty = 0.2;
+        gbc.anchor = GridBagConstraints.BELOW_BASELINE;
+        jeu.add(infoObjets(), gbc);
+        main.add("game",jeu);
+        cl.show(main,"game");
+    }
+
+    public JPanel infoObjets(){
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setForeground(new Color(52, 5, 99, 255));
+        panel.setVisible(true);
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        ButtObjet button;
+        String str;
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Fusee");
+        list.add("Bombe");
+        list.add("Pioche");
+
+        gbc1.gridy = 0;
+        gbc1.ipadx = 20;
+        for(int i = 0; i<3; i++){
+            int x = i;
+            button = new ButtObjet();
+            button.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    Toolkit toolkit = Toolkit.getDefaultToolkit();
+                    Image image = toolkit.getImage("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+list.get(x)+".png");
+                    Cursor c = toolkit.createCustomCursor(image , new Point(main.getX(), main.getY()), "img");
+                    main.setCursor (c);
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    main.setCursor(Cursor.getDefaultCursor());
+                    System.out.println(e.getXOnScreen()-getX());
+                    System.out.println(e.getYOnScreen()-getY()-getInsets().top);
+                    control.objetUsed(e.getXOnScreen()-getX()+20, e.getYOnScreen()-getY()+20, list.get(x));
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                }
+            });
+            button.setPreferredSize(new Dimension(70,70));
+            if(joueur.getObjAcces().contains(list.get(i))){
+                str = list.get(i);
+            }else{
+                str = list.get(i) + "Locked";
+            }
+            button.setIcon(new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+ str + ".png"));
+            gbc1.gridx = i;
+            panel.add(button,gbc1);
+            setVisible(true);
+        }
+        return panel;
+    }
+
+    public JPanel etatJeu(int score, int animRes, int coupRes){
+        JPanel etat = new JPanel(new GridBagLayout());
+        etat.setPreferredSize(new Dimension(550, 90));
+        GridBagConstraints gb = new GridBagConstraints();
+        JLabel scoreLabel = new JLabel();
+        if(score == 0){
+            scoreLabel.setText("000000");
+        }
+        String str = Integer.toString(score);
+        String tmp = "";
+        for(int i = 0; i < 6-str.length(); i++){
+            tmp = tmp + "0";
+        }
+        tmp += str;
+        scoreLabel.setText(tmp);
+        gb.gridx = 0;
+        gb.gridy = 3;
+        gb.weighty = 0.5;
+        gb.weightx = 1.;
+
+        etat.add(scoreLabel, gb);
+        return etat;
+    }
+
+    public void addAllListeners(){
+        for(int i = 0; i<haut; i++){
+            for(int j = 0; j<longu; j++){
+                int x = i;
+                int y = j;
+
+                buttons[i][j].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        control.blockClicked(x,y);
+                    }
+                });
+            }
+        }
     }
 
     //affiche du mode infini
