@@ -261,6 +261,10 @@ public class Controleur {
             int animAle = partie.getLvl().getGrid().aDAnimaux();
             vueTerm.afficheEtat(animAle<5);
         }while(partie.finJeu() == 0);
+        if (partie.finJeu() == 2) {
+            partie.getJoueur().miseAJour(partie.getJoueur(), partie.getLvl());
+            partie.getLvl().miseAJourScore(partie.getScore(),partie.getJoueur().getNom(),partie.getLvl() );
+        }
         vueTerm.affichageFinDePartie(partie.finJeu());
     }
 
@@ -447,9 +451,6 @@ public class Controleur {
     public void seConnecter(String ident, String pswd){
         if (connexionPossible(ident,pswd)){
             Joueur a = Joueur.getJoueur(ident);
-            for (int b: a.getNivAcess()){
-                System.out.println(b);
-            }
             vueGraph.setJoueur(a);
             vueGraph.sommaire();
         }
