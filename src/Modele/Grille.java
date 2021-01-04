@@ -11,6 +11,7 @@ public class Grille implements Serializable {
 
     public Case[][] gril;
     int longu,haut;
+    static final long serialVersionUID = 10203041;
 
     public Grille(Case[][] grid){
         gril = grid;

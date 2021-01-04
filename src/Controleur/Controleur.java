@@ -507,7 +507,7 @@ public class Controleur {
             }
             vueGraph.updateGrille();
             if (partie.finJeu() != 0) {
-                vueGraph.finLevel(partie.getLvl());
+                vueGraph.finLevel(partie.getLvl(), partie.finJeu());
             }
         }
     }
@@ -535,7 +535,7 @@ public class Controleur {
             }
             vueGraph.updateGrille();
             if (partie.finJeu() != 0) {
-                vueGraph.finLevel(partie.getLvl());
+                vueGraph.finLevel(partie.getLvl(), partie.finJeu());
             }
         }
     }
