@@ -43,6 +43,7 @@ public class AffichageGraphique extends JFrame {
         setTitle("Bear Rescue Saga");
         setSize(550,725);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //getContentPane().setLayout(null);
         setAlwaysOnTop(true);
     }
 
@@ -654,7 +655,7 @@ public class AffichageGraphique extends JFrame {
     }
 
     //affichage de l'ecran de fin de niveau
-    public void finLevel(Niveau niveau, int finJeu) {
+    public void finLevel(Niveau niveau, int finJeu){
 
         JPanel princ = new JPanel();
         princ.setOpaque(false);
@@ -667,7 +668,7 @@ public class AffichageGraphique extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(30, 0, 0, 0);
+        gbc.insets = new Insets(30,0,0,0);
         JLabel l = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
         l.setForeground(Color.BLACK);
         sec.add(l,gbc);
@@ -1132,7 +1133,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regle.png"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regles.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
