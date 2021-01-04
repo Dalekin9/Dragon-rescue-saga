@@ -77,15 +77,18 @@ public class Controleur {
 
     //regarde si un coup est Valide
     // -> si on ne clique pas sur un dragon, un bloc fixe ou un espace vide
-    public boolean coupValide(int i, int j){
-        return partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+    public static boolean coupValide(int i, int j){
+        if(partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
                 partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
-                partie.getLvl().getGrid().gril[i][j].getIs() != 'a';
+                partie.getLvl().getGrid().gril[i][j].getIs() != 'a') {
+            return isCoupPossible(i,j);
+        }
+        return false;
     }
 
     //regarde si le coup de la fusée est possible
     // -> si on ne lance pas la fusée sur une colonne vide ou rempli de bloc fixe
-    public boolean coupValideFus(int j){
+    public static boolean coupValideFus(int j){
         for (int i=0;i<partie.getLvl().getGrid().gril.length;i++){
             if (partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
                     partie.getLvl().getGrid().gril[i][j].getIs() != '-'){
@@ -93,6 +96,21 @@ public class Controleur {
             }
         }
         return false;
+    }
+
+    public boolean coupValideObj(String obj, int i, int j){
+        if (obj.equals("Fusee")){
+            return coupValideFus(j);
+        } else {
+            return coupValideBombPio(i,j);
+        }
+    }
+
+    //regarde si le coup de la bombe est possible
+    public static boolean coupValideBombPio(int i, int j){
+        return(partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+                partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
+                partie.getLvl().getGrid().gril[i][j].getIs() != 'a');
     }
 
     //met à jour le joueur dans joueur.ser
@@ -107,29 +125,25 @@ public class Controleur {
 
     //regarde si un coup est possible
     // -> si un bloc en haut, en bas, à droite ou à gauche est comme lui
-    public boolean isCoupPossible(int i, int j){
-        if (i>0){
-            if(j>0){
-                if (partie.getLvl().getGrid().gril[i-1][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
-            }
-            if (j<partie.getLvl().getGrid().gril[0].length-1){
-                if (partie.getLvl().getGrid().gril[i-1][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+    public static boolean isCoupPossible(int i, int j){
+        if (i>0) {
+            if (partie.getLvl().getGrid().gril[i - 1][j].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()) {
+                return true;
             }
         }
         if (i<partie.getLvl().getGrid().gril.length-1){
-            if(j>0){
-                if (partie.getLvl().getGrid().gril[i+1][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+            if (partie.getLvl().getGrid().gril[i + 1][j].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()) {
+                return true;
             }
-            if (j<partie.getLvl().getGrid().gril[0].length-1){
-                if (partie.getLvl().getGrid().gril[i+1][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+        }
+        if(j>0) {
+            if (partie.getLvl().getGrid().gril[i][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()) {
+                return true;
+            }
+        }
+        if (j<partie.getLvl().getGrid().gril[0].length-1){
+            if (partie.getLvl().getGrid().gril[i][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                return true;
             }
         }
         return false;
@@ -261,7 +275,10 @@ public class Controleur {
         do{
             int animAle = partie.getLvl().getGrid().aDAnimaux();
             vueTerm.afficheEtat(animAle<5);
+            //vueTerm.afficherGrille();
+            //demandeAction(animAle<5);
         }while(partie.finJeu() == 0);
+
         if (partie.finJeu() == 2) {
             partie.getJoueur().miseAJour(partie.getJoueur(), partie.getLvl());
             partie.getLvl().miseAJourScore(partie.getScore(),partie.getJoueur().getNom(),partie.getLvl() );
@@ -281,7 +298,7 @@ public class Controleur {
 
     //demande au joueur quelle action il veut faire
     // -> casser des blocs ou utiliser un objet
-    public void demandeAction(boolean animAlea){
+    public static void demandeAction(boolean animAlea){
         System.out.println("Voulez-vous supprimer un bloc ou utiliser un objet? (B(loc)/O(bjet))");
         String[] coordsStr;
         int[] coords = new int[2];
@@ -301,6 +318,7 @@ public class Controleur {
                     }
                 }while(!flag);
                 partie.actionBloc(coords,animAlea);
+                System.out.println("ziz");
                 break;
             case "o":
             case "objet":
@@ -319,7 +337,7 @@ public class Controleur {
                                     coordsStr = recupCoords();
                                     if (coordsVerif(coordsStr)) {
                                         coords = coordsInt(coordsStr);
-                                        if (coupValide(coords[0], coords[1])) {
+                                        if (coupValideBombPio(coords[0], coords[1])) {
                                             flag = true;
                                         }
                                     }
@@ -371,7 +389,7 @@ public class Controleur {
     }
 
     // Recupère les coordonnées de la case qui doit être affectée
-    public String[] recupCoords(){
+    public static String[] recupCoords(){
         String coords ;
         String[] coordStr = new String[2];
         do{
@@ -384,7 +402,7 @@ public class Controleur {
     }
 
     //Convertis les coordonnées données pour qu'elles soient utilisées
-    public int[] coordsInt(String[] coords){
+    public static int[] coordsInt(String[] coords){
         int[] intab = new int[2];
         intab[0] = Integer.parseInt(coords[0]);
         intab[1] = Integer.parseInt(coords[1]);
@@ -396,7 +414,7 @@ public class Controleur {
     //vérifie si les coordonnées sont dans le tableau :
     // si E15 -> regarde si E est ok
     //        -> regarde si 15 est ok
-    public boolean coordsVerif(String[] coords) {
+    public static boolean coordsVerif(String[] coords) {
         if (coords.length >2){
             return false;
         } else {
@@ -488,26 +506,26 @@ public class Controleur {
         int longu = partie.getLvl().getGrid().getLongu();
         int ecartX = (panelLongu-50*longu)/2;
         int ecartY = (panelHaut-50*haut)/2;
-        int i;
-        int j;
-        if((x > ecartX && x < panelLongu-ecartX ) && (y > ecartY && y < panelHaut-ecartY)){
-            i = (y - ecartY)/50;
-            j = (x - ecartX)/50;
-            System.out.println(ecartX);
-            System.out.println(ecartY);
-            System.out.println(i);
-            System.out.println(j);
-            int[] coords = new int[2];
-            coords[0] = i;
-            coords[1] = j;
-            if (!partie.getLvl().isDecale()) {
-                partie.actionObj(grid.aDAnimaux() < 5,obj.toLowerCase(),coords);
-            } else {
-                partie.actionObj(false, obj.toLowerCase(), coords);
-            }
-            vueGraph.updateGrille();
-            if (partie.finJeu() != 0) {
-                vueGraph.finLevel(partie.getLvl(), partie.finJeu());
+        int i = (y - ecartY) / 50;
+        int j = (x - ecartX) / 50;
+        int[] coords = new int[2];
+        coords[0] = i;
+        coords[1] = j;
+        if (coordsVerif(coords)) {
+            if (coupValideObj(obj, i, j)) {
+                if ((x > ecartX && x < panelLongu - ecartX) && (y > ecartY && y < panelHaut - ecartY)) {
+                    if (!partie.getLvl().isDecale()) {
+                        partie.actionObj(grid.aDAnimaux() < 5, obj.toLowerCase(), coords);
+                    } else {
+                        partie.actionObj(false, obj.toLowerCase(), coords);
+                    }
+                    vueGraph.updateGrille(partie.getLvl().getGrid());
+                    if (partie.finJeu() != 0) {
+                        partie.getJoueur().miseAJour(partie.getJoueur(), partie.getLvl());
+                        partie.getLvl().miseAJourScore(partie.getScore(), partie.getJoueur().getNom(), partie.getLvl());
+                        vueGraph.finLevel(partie.getLvl(), partie.finJeu());
+                    }
+                }
             }
         }
     }
@@ -533,16 +551,46 @@ public class Controleur {
             } else {
                 partie.actionBloc(coords, false);
             }
-            vueGraph.updateGrille();
+            vueGraph.updateGrille(partie.getLvl().getGrid());
             if (partie.finJeu() != 0) {
+                partie.getJoueur().miseAJour(partie.getJoueur(),partie.getLvl());
+                partie.getLvl().miseAJourScore(partie.getScore(), partie.getJoueur().getNom(),partie.getLvl());
                 vueGraph.finLevel(partie.getLvl(), partie.finJeu());
             }
         }
+    }
+
+    public void initGame(Joueur joueur, Niveau niveau){
+        Partie a = new Partie(joueur,niveau);
+        setPartie(a);
+        vueGraph.initGame(a.getLvl().getGrid());
     }
 
     //affiche le sommaire
      public void goSommaire(){
          vueGraph.sommaire();
      }
+
+    //vérifie si les coordonnées sont dans le tableau :
+    // si E15 -> regarde si E est ok
+    //        -> regarde si 15 est ok
+    public static boolean coordsVerif(int[] coords) {
+        if (coords.length >2){
+            return false;
+        } else {
+            int longueur = partie.getLvl().getGrid().getLongu();
+            int hauteur = partie.getLvl().getGrid().getHaut();
+            ArrayList nmbrs = new ArrayList();
+            ArrayList letters = new ArrayList();
+            for (int i = 0; i < hauteur; i++) nmbrs.add(String.valueOf(i));
+            for (int j = 0; j < longueur; j++) letters.add(String.valueOf((char) ('a' + j)));
+            if (nmbrs.contains(coords[1]) && letters.contains(coords[0])) {
+                return true;
+            } else {
+                System.out.println("Les coordonées ne sont pas valides !");
+                return false;
+            }
+        }
+    }
 
 }

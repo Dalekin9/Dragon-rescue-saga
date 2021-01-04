@@ -88,7 +88,7 @@ public class AffichageTerminal {
             System.out.println("Il vous reste " + partie.getCoupRes() + " coups");
         }
         afficherGrille();
-        controleur.demandeAction(animAlea);
+        Controleur.demandeAction(animAlea);
     }
 
     //affiche la grille du niveau
