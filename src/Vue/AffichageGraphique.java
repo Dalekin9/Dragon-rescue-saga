@@ -34,7 +34,7 @@ public class AffichageGraphique extends JFrame {
         setTitle("Bear Rescue Saga");
         setSize(550,750);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        //getContentPane().setLayout(null);
         setAlwaysOnTop(true);
     }
 
@@ -108,7 +108,7 @@ public class AffichageGraphique extends JFrame {
         jButton4.setPreferredSize(new Dimension(150,55));
         jButton4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                control.connexion();
+                control.inscription();
             }
         });
         butt.add(jButton4, gbc);
@@ -120,7 +120,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\principal.png"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\principal.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -206,7 +206,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -297,7 +297,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -374,7 +374,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\sommaire.png"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\sommaire.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -414,7 +414,7 @@ public class AffichageGraphique extends JFrame {
         sec.setBounds(0,0,550,725);
 
         JLabel jLabel3 = new JLabel();
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.png"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0,0,550,725);
         main.add("AVENTURE",princ);
@@ -601,7 +601,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0,0,550,725);
 
-        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
+        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.png"));
         princ.add(icon);
         icon.setBounds(0,0,550,725);
 
@@ -714,7 +714,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0,0,550,725);
 
-        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
+        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.png"));
         princ.add(icon);
         icon.setBounds(0,0,550,725);
 
@@ -873,7 +873,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\rules.jpg"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regle.png"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
