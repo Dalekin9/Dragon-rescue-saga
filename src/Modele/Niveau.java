@@ -13,6 +13,7 @@ public class Niveau implements Serializable {
     protected ArrayList<Character> listColor;
     protected ArrayList<String> objDispo;
     protected boolean decale;
+    static final long serialVersionUID = 10203042;
 
     public Niveau(Grille grille, int numero, int animaux, int coup, boolean decale){
         grid = grille;

@@ -414,7 +414,7 @@ public class AffichageGraphique extends JFrame {
         sec.setBounds(0,0,550,725);
 
         JLabel jLabel3 = new JLabel();
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.jpg"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.png"));
         princ.add(jLabel3);
         jLabel3.setBounds(0,0,550,725);
         main.add("AVENTURE",princ);
@@ -720,73 +720,6 @@ public class AffichageGraphique extends JFrame {
 
         main.add("FIN_LEVEL",princ);
         cl.show(main,"FIN_LEVEL");
-
-
-        /*
-        JPanel level = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0,0,30,0);
-        gbc.gridx=0;
-        gbc.gridy=0;
-        JLabel numLevel = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
-        numLevel.setBorder(BorderFactory.createLineBorder(Color.black));
-        numLevel.setPreferredSize(new Dimension(150,80));
-        numLevel.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(numLevel,gbc);
-
-
-         */
-
-        /*
-
-        gbc.insets = new Insets(0,0,5,0);
-        gbc.gridx=0;
-        gbc.gridy=1;
-        int compt = 1;
-        for (var s : niveau.best_score.entrySet()){
-            compt++;
-            JLabel infoScore = new JLabel(compt +" : " + s.getValue() +" -> " + s.getKey() + " points");
-            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
-            infoScore.setPreferredSize(new Dimension(200,20));
-            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
-            gbc.gridy=compt+1;
-            level.add(infoScore,gbc);
-        }
-        while (compt <6){
-
-            JLabel infoScore = new JLabel(compt + " : Pas encore de meilleur score");
-            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
-            infoScore.setPreferredSize(new Dimension(200,20));
-            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
-            gbc.gridy=compt+1;
-            level.add(infoScore,gbc);
-            compt++;
-        }
-
-
-         */
-
-        /*
-        gbc.insets = new Insets(20,0,0,0);
-        gbc.gridx=0;
-        gbc.gridy=compt+1;
-        JButton next= new JButton("Suivant");
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                control.modeAventure();
-            }
-        });
-        next.setBorder(BorderFactory.createLineBorder(Color.black));
-        next.setPreferredSize(new Dimension(100,40));
-        next.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(next,gbc);
-
-        main.add(level);
-        add(main);
-        setVisible(true);
-
-         */
     }
 
     //affiche du mode infini
@@ -873,7 +806,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regle.png"));
+        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\regles.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
