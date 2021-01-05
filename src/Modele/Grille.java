@@ -265,27 +265,23 @@ public class Grille implements Serializable {
         for (int i=0;i< gril.length;i++){
             for (int j=0;j<gril[0].length;j++){
                 if (i>0){
-                    if(j>0){
-                        if (gril[i-1][j-1].getIs() == gril[i][j].getIs()){
-                            return true;
-                        }
-                    }
-                    if (j<gril[0].length-1){
-                        if (gril[i-1][j+1].getIs() == gril[i][j].getIs()){
-                            return true;
-                        }
+                    if (gril[i-1][j].getIs() == gril[i][j].getIs()){
+                        return true;
                     }
                 }
                 if (i<gril.length-1){
-                    if(j>0){
-                        if (gril[i+1][j-1].getIs() == gril[i][j].getIs()){
-                            return true;
-                        }
+                    if (gril[i+1][j].getIs() == gril[i][j].getIs()){
+                        return true;
                     }
-                    if (j<gril[0].length-1){
-                        if (gril[i+1][j+1].getIs() == gril[i][j].getIs()){
-                            return true;
-                        }
+                }
+                if(j>0){
+                    if (gril[i][j-1].getIs() == gril[i][j].getIs()){
+                        return true;
+                    }
+                }
+                if (j<gril[0].length-1){
+                    if (gril[i][j+1].getIs() == gril[i][j].getIs()){
+                        return true;
                     }
                 }
             }

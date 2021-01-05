@@ -78,9 +78,12 @@ public class Controleur {
     //regarde si un coup est Valide
     // -> si on ne clique pas sur un dragon, un bloc fixe ou un espace vide
     public boolean coupValide(int i, int j){
-        return partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+        if(partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
                 partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
-                partie.getLvl().getGrid().gril[i][j].getIs() != 'a';
+                partie.getLvl().getGrid().gril[i][j].getIs() != 'a'){
+            return isCoupPossible(i, j);
+        }
+        return false;
     }
 
     //regarde si le coup de la fusée est possible
@@ -109,27 +112,23 @@ public class Controleur {
     // -> si un bloc en haut, en bas, à droite ou à gauche est comme lui
     public boolean isCoupPossible(int i, int j){
         if (i>0){
-            if(j>0){
-                if (partie.getLvl().getGrid().gril[i-1][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
-            }
-            if (j<partie.getLvl().getGrid().gril[0].length-1){
-                if (partie.getLvl().getGrid().gril[i-1][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+            if (partie.getLvl().getGrid().gril[i-1][j].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                return true;
             }
         }
         if (i<partie.getLvl().getGrid().gril.length-1){
-            if(j>0){
-                if (partie.getLvl().getGrid().gril[i+1][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+            if (partie.getLvl().getGrid().gril[i+1][j].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                return true;
             }
-            if (j<partie.getLvl().getGrid().gril[0].length-1){
-                if (partie.getLvl().getGrid().gril[i+1][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+        }
+        if(j>0){
+            if (partie.getLvl().getGrid().gril[i][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                return true;
+            }
+        }
+        if (j<partie.getLvl().getGrid().gril[0].length-1){
+            if (partie.getLvl().getGrid().gril[i][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                return true;
             }
         }
         return false;
@@ -493,10 +492,6 @@ public class Controleur {
         if((x > ecartX && x < panelLongu-ecartX ) && (y > ecartY && y < panelHaut-ecartY)){
             i = (y - ecartY)/50;
             j = (x - ecartX)/50;
-            System.out.println(ecartX);
-            System.out.println(ecartY);
-            System.out.println(i);
-            System.out.println(j);
             int[] coords = new int[2];
             coords[0] = i;
             coords[1] = j;
@@ -524,9 +519,26 @@ public class Controleur {
 
     public void blockClicked(int x, int y){
         Modele.Grille grid = partie.getLvl().getGrid();
+        ArrayList<Integer> list = new ArrayList();
+        ArrayList<String> listObj = new ArrayList();
         int[] coords = new int[2];
         coords[0] = x;
         coords[1] = y;
+        list.add(1);
+        list.add(2);
+        listObj.add("fusee");
+        listObj.add("bombe");
+        if(list.contains(Character.getNumericValue(grid.gril[x][y].getIs()))){
+            int obj = Character.getNumericValue(grid.gril[x][y].getIs()) - 1;
+            grid.supprimer(x,y);
+            if (!partie.getLvl().isDecale()) {
+                partie.actionObj(grid.aDAnimaux() < 5, listObj.get(obj), coords);
+            } else {
+                partie.actionObj(false, listObj.get(obj), coords);
+            }
+            vueGraph.updateGrille();
+            return;
+        }
         if(coupValide(x,y)){
             if (!partie.getLvl().isDecale()) {
                 partie.actionBloc(coords, grid.aDAnimaux() < 5);

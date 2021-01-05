@@ -93,21 +93,20 @@ public class Partie {
     //action quand decide d'utiliser un objet
     public void actionObj(boolean animAlea,String obj, int[] coords){
         if (obj.equals("bombe")){
+            System.out.println("1");
             Bombe bom = new Bombe(this.lvl.getGrid(), coords[0], coords[1]);
             bom.execute();
-            remplacement(animAlea);
-            coupRes--;
         } else if(obj.equals("fusee")){
+            System.out.println("2");
             Fusee fus = new Fusee(this.lvl.getGrid(), coords[1]);
             fus.execute();
-            remplacement(animAlea);
-            coupRes--;
         } else {
+            System.out.println("3");
             Pioche pio = new Pioche(this.lvl.getGrid(), coords[0], coords[1]);
             pio.execute();
-            remplacement(animAlea);
-            coupRes--;
         }
+        remplacement(animAlea);
+        coupRes--;
     }
 
     //remplacement du tableau après une action

@@ -24,6 +24,7 @@ import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class AffichageGraphique extends JFrame {
 
@@ -841,6 +842,7 @@ public class AffichageGraphique extends JFrame {
         String color;
         Icon icon;
         JButton butt;
+        Random rand = new Random();
         buttons = new JButton[haut][longu];
         infoJeu = new JPanel(new GridLayout(haut,longu));
         GridBagConstraints gridC = new GridBagConstraints();
@@ -849,7 +851,7 @@ public class AffichageGraphique extends JFrame {
                 butt = new JButton();
                 switch (grid.gril[i][j].getIs()) {
                     case 'a':
-                        color = "bear";
+                        color = "dragon" + rand.nextInt(5);
                         butt.setContentAreaFilled(false);
                         butt.setOpaque(false);
                         butt.setBorder(null);
@@ -863,9 +865,12 @@ public class AffichageGraphique extends JFrame {
                         break;
                     default:
                         color = String.valueOf(grid.gril[i][j].getIs());
+                        butt.setContentAreaFilled(false);
+                        butt.setOpaque(false);
+                        butt.setBorder(null);
                         break;
                 }
-                icon = new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+color+".png");
+                icon = new ImageIcon("Ressources/Blocs/"+color+".png");
                 butt.setIcon(icon);
                 butt.setPreferredSize(new Dimension(50,50));
                 buttons[i][j] = butt;
@@ -890,7 +895,6 @@ public class AffichageGraphique extends JFrame {
         infoJeu = new JPanel(new GridLayout(haut, longu,10,10));
         jeu = new JPanel(new GridBagLayout());
         buttons = new JButton[haut][longu];
-        //JPanel dd = new JPanel(null);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -903,6 +907,7 @@ public class AffichageGraphique extends JFrame {
         String color = "";
         Icon icon;
         JButton butt;
+        Random rand = new Random();
         buttons = new JButton[haut][longu];
         infoJeu = new JPanel(new GridLayout(haut,longu));
         for(int i = 0; i<haut; i++){
@@ -910,7 +915,7 @@ public class AffichageGraphique extends JFrame {
                 butt = new JButton();
                 switch (grid.gril[i][j].getIs()) {
                     case 'a':
-                        color = "bear";
+                        color = "dragon" + rand.nextInt(5);
                         butt.setContentAreaFilled(false);
                         butt.setOpaque(false);
                         butt.setBorder(null);
@@ -924,9 +929,12 @@ public class AffichageGraphique extends JFrame {
                         break;
                     default:
                         color = String.valueOf(grid.gril[i][j].getIs());
+                        butt.setContentAreaFilled(false);
+                        butt.setOpaque(false);
+                        butt.setBorder(null);
                         break;
                 }
-                icon = new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+color+".png");
+                icon = new ImageIcon("Ressources/Blocs/"+color+".png");
                 butt.setIcon(icon);
                 butt.setPreferredSize(new Dimension(50,50));
                 buttons[i][j] = butt;
@@ -952,7 +960,6 @@ public class AffichageGraphique extends JFrame {
 
     public JPanel infoObjets(){
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setForeground(new Color(52, 5, 99, 255));
         panel.setVisible(true);
         GridBagConstraints gbc1 = new GridBagConstraints();
         ButtObjet button;
@@ -976,7 +983,7 @@ public class AffichageGraphique extends JFrame {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     Toolkit toolkit = Toolkit.getDefaultToolkit();
-                    Image image = toolkit.getImage("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+list.get(x)+".png");
+                    Image image = toolkit.getImage("Ressources/Objets/"+list.get(x)+".png");
                     Cursor c = toolkit.createCustomCursor(image , new Point(main.getX(), main.getY()), "img");
                     main.setCursor (c);
                 }
@@ -984,8 +991,6 @@ public class AffichageGraphique extends JFrame {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     main.setCursor(Cursor.getDefaultCursor());
-                    System.out.println(e.getXOnScreen()-getX());
-                    System.out.println(e.getYOnScreen()-getY()-getInsets().top);
                     control.objetUsed(e.getXOnScreen()-getX()+20, e.getYOnScreen()-getY()+20, list.get(x));
                 }
 
@@ -1005,7 +1010,7 @@ public class AffichageGraphique extends JFrame {
             }else{
                 str = list.get(i) + "Locked";
             }
-            button.setIcon(new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+ str + ".png"));
+            button.setIcon(new ImageIcon("Ressources/Objets/"+ str + ".png"));
             gbc1.gridx = i;
             panel.add(button,gbc1);
             setVisible(true);
