@@ -20,6 +20,7 @@ import java.util.Random;
 public class AffichageGraphique extends JFrame {
 
     private Controleur control;
+    private Partie partie;
     private CardLayout cl = new CardLayout();
     private JPanel main = new JPanel(cl);
     private Joueur joueur;
@@ -92,6 +93,7 @@ public class AffichageGraphique extends JFrame {
         this.niveau = niveau;
     }
 
+    public void setPartie(Partie partie){this.partie = partie;}
 
     //---------------------------------------------------------
     //                   --- PARTIE 2 ---                     -
@@ -102,30 +104,21 @@ public class AffichageGraphique extends JFrame {
     //affiche de l'ecran d'accueil
     public void ecranCo(){
         setAlwaysOnTop(false);
+        JLabel txt = new JLabel();
+        JButton conn = new JButton();
+        JButton ins = new JButton();
 
-        JLabel jLabel1 = new JLabel();
+        JPanel princ = new ImagePanel("Ressources/Fonts/principal.jpg");
+        princ.setLayout(new GridBagLayout());
 
-        JButton jButton3 = new JButton();
-        JButton jButton4 = new JButton();
-        JLabel jLabel3 = new JLabel();
-
-        JPanel princ = new JPanel();
-        princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new java.awt.GridBagLayout());
-
-
-        jLabel1.setText("<html><h1><strong>Rescue All Dragons</strong></h1><hr></html>");
-        jLabel1.setForeground(Color.BLACK);
+        txt.setText("<html><h1><strong>Rescue All Dragons</strong></h1><hr></html>");
+        txt.setForeground(Color.BLACK);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30,0,0,0);
-        sec.add(jLabel1, gbc);
+        princ.add(txt, gbc);
 
         JPanel butt= new JPanel();
         butt.setOpaque(false);
@@ -134,38 +127,26 @@ public class AffichageGraphique extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 0, 5, 0);
-
-        jButton3.setText("Connexion");
-        jButton3.setPreferredSize(new Dimension(150,55));
-        jButton3.addActionListener(new ActionListener() {
+        conn.setText("Connexion");
+        conn.setPreferredSize(new Dimension(150,55));
+        conn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.connexion();
             }
         });
-        butt.add(jButton3, gbc);
+        butt.add(conn, gbc);
 
-        jButton4.setText("Incription");
-        jButton4.setPreferredSize(new Dimension(150,55));
-        jButton4.addActionListener(new ActionListener() {
+        ins.setText("Incription");
+        ins.setPreferredSize(new Dimension(150,55));
+        ins.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.inscription();
             }
         });
-        butt.add(jButton4, gbc);
-
+        butt.add(ins, gbc);
         gbc.weighty = 1;
-
-        sec.add(butt,gbc);
-
-        princ.add(sec);
-        sec.setBounds(0, 0, 550, 725);
-
-        jLabel3.setIcon(new ImageIcon("Ressources\\Fonts\\principal.jpg"));
-        princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 725);
-
+        princ.add(butt,gbc);
         main.add(princ, "accueil");
-
         getContentPane().add(main);
         main.setBounds(0, 0, 550, 725);
         setVisible(true);
@@ -180,36 +161,29 @@ public class AffichageGraphique extends JFrame {
         JButton jButton4 = new JButton();
         JLabel jLabel3 = new JLabel();
 
-        JPanel princ = new JPanel();
-        princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new java.awt.GridBagLayout());
+        JPanel princ = new ImagePanel("Ressources/Fonts/connexion.jpg");
+        princ.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("<html><h1><strong>Connexion</strong></h1><hr></html>");
         jLabel1.setForeground(Color.BLACK);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.gridy = 1;
-        gbc.gridx=1;
-        sec.add(jLabel1, gbc);
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(30,0,0,0);
+        gbc.gridx = 0;
+        princ.add(jLabel1, gbc);
 
         JPanel butt= new JPanel();
         butt.setOpaque(false);
         butt.setLayout(new GridBagLayout());
 
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 0, 5, 0);
 
         JTextField ident = new JTextField("identifiant");
         ident.setPreferredSize(new Dimension(150,30));
         ident.setHorizontalAlignment(JTextField.CENTER);
-        gbc.gridx = 3;
-        gbc.gridx++;
         gbc.gridy++;
         butt.add(ident,gbc);
 
@@ -228,6 +202,7 @@ public class AffichageGraphique extends JFrame {
         });
         gbc.insets = new Insets(10,0,0,0);
         gbc.gridy++;
+
         butt.add(jButton3, gbc);
 
         jButton4.setText("Incription");
@@ -240,15 +215,8 @@ public class AffichageGraphique extends JFrame {
         gbc.gridy++;
         butt.add(jButton4, gbc);
 
-        gbc.anchor = GridBagConstraints.LINE_END;
-        sec.add(butt,gbc);
-
-        princ.add(sec);
-        sec.setBounds(0, 0, 550, 725);
-
-        jLabel3.setIcon(new ImageIcon("Ressources\\Fonts\\connexion.jpg"));
-        princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 725);
+        gbc.weighty = 1;
+        princ.add(butt,gbc);
 
         main.add(princ, "connexion");
         cl.show(main,"connexion");
@@ -760,15 +728,25 @@ public class AffichageGraphique extends JFrame {
     }
 
     public void updateGrille(Grille grid){
-        jeu.remove(infoJeu);
+        //remove(jeu);
+        jeu.removeAll();
+        //jeu.remove(big);
         //Grille grid = niveau.getGrid();
         String color;
         Icon icon;
         JButton butt;
         Random rand = new Random();
         buttons = new JButton[haut][longu];
+        JPanel big = new JPanel();
+        big.setOpaque(false);
+        big.setMinimumSize(new Dimension(550,490));
+        big.setLayout(new GridBagLayout());
         infoJeu = new JPanel(new GridLayout(haut,longu));
+        infoJeu.setOpaque(false);
         GridBagConstraints gridC = new GridBagConstraints();
+        gridC.fill = GridBagConstraints.HORIZONTAL;
+        gridC.gridx = 0;
+        jeu.add(etatJeu(0, 1,5), gridC);
         for(int i = 0; i<haut; i++){
             for(int j = 0; j<longu; j ++ ){
                 butt = new JButton();
@@ -802,11 +780,14 @@ public class AffichageGraphique extends JFrame {
         }
         addAllListeners();
         infoJeu.setMinimumSize(new Dimension(50*longu,50*haut));
-        gridC.gridx = 0;
-        gridC.gridy = 1;
-        gridC.weightx = 0;
-        gridC.weighty = 0.6;
-        jeu.add(infoJeu, gridC);
+        //gridC.gridy = 1;
+        //gridC.weightx = 0;
+        //gridC.weighty = 0.6;
+        big.setOpaque(false);
+        big.add(infoJeu,new GridBagConstraints());
+        jeu.add(big, gridC);
+        gridC.anchor = GridBagConstraints.SOUTH;
+        jeu.add(infoObjets(), gridC);
         main.add("game",jeu);
         cl.show(main,"game");
     }
@@ -815,14 +796,16 @@ public class AffichageGraphique extends JFrame {
         haut = niveau.getGrid().getHaut();
         longu = niveau.getGrid().getLongu();
         infoJeu = new JPanel(new GridLayout(haut, longu,10,10));
-        jeu = new JPanel(new GridBagLayout());
+        //jeu = new JPanel(new GridBagLayout());
+        jeu = new ImagePanel("Ressources/Fonts/trax.png");
+        jeu.setLayout(new GridBagLayout());
         buttons = new JButton[haut][longu];
-        //JPanel dd = new JPanel(null);
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weighty = 0.2;
-        gbc.weightx = 1;
+        //gbc.gridy = 0;
+        //gbc.weighty = 0.2;
+        //gbc.weightx = 1;
 
         jeu.add(etatJeu(0, 1,5), gbc);
 
@@ -831,6 +814,11 @@ public class AffichageGraphique extends JFrame {
         JButton butt;
         Random rand = new Random();
         buttons = new JButton[haut][longu];
+
+        JPanel big = new JPanel();
+        //JPanel big = new ImagePanel("Ressources/Fonts/trux.png");
+        big.setMinimumSize(new Dimension(550,490));
+        big.setLayout(new GridBagLayout());
         infoJeu = new JPanel(new GridLayout(haut,longu));
         for(int i = 0; i<haut; i++){
             for(int j = 0; j<longu; j ++ ){
@@ -865,14 +853,18 @@ public class AffichageGraphique extends JFrame {
         }
         addAllListeners();
         infoJeu.setMinimumSize(new Dimension(50*longu,50*haut));
-        gbc.gridy = 1;
-        gbc.weightx = 0;
-        gbc.weighty = 0.6;
-        jeu.add(infoJeu,gbc);
-
-        gbc.gridy = 2;
-        gbc.weighty = 0.2;
-        gbc.anchor = GridBagConstraints.BELOW_BASELINE;
+        //infoJeu.setBorder(new javax.swing.border.BevelBorder(BevelBorder.RAISED));
+        infoJeu.setOpaque(false);
+        big.setOpaque(false);
+        big.add(infoJeu,new GridBagConstraints());
+        //gbc.gridy = 1;
+        //gbc.weightx = 0;
+        //gbc.weighty = 0.6;
+        jeu.add(big,gbc);
+        //jeu.add(infoJeu,gbc);
+        //gbc.gridy = 2;
+        //gbc.weighty = 0.2;
+        //gbc.anchor = GridBagConstraints.SOUTH;
         jeu.add(infoObjets(), gbc);
         //dd.add(jeu);
         //jeu.setBounds(0,0, 550, 725);
@@ -881,20 +873,61 @@ public class AffichageGraphique extends JFrame {
     }
 
     public JPanel infoObjets(){
-        JPanel princ = new JPanel(null);
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setForeground(new Color(52, 5, 99, 255));
+        JPanel panel = new ImagePanel("Ressources/Fonts/bag.jpg");
+        panel.setLayout(new GridBagLayout());
+        //panel.setForeground(new Color(52, 5, 99, 255));
         panel.setVisible(true);
         GridBagConstraints gbc1 = new GridBagConstraints();
         ButtObjet button;
         String str;
+        /*
         ArrayList<String> list = new ArrayList<>();
         list.add("Fusee");
         list.add("Bombe");
         list.add("Pioche");
+         */
 
-        gbc1.gridy = 0;
-        gbc1.ipadx = 20;
+        JButton rob = new JButton("Robot");
+        rob.setPreferredSize(new Dimension(70,70));
+        rob.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.actRobot(partie);
+            }
+        });
+        button = new ButtObjet();
+        button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                Image image = toolkit.getImage("Ressources/Objets/Fusee.png");
+                Cursor c = toolkit.createCustomCursor(image , new Point(main.getX(), main.getY()), "img");
+                main.setCursor (c);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                main.setCursor(Cursor.getDefaultCursor());
+                control.objetUsed(e.getXOnScreen()-getX()+20, e.getYOnScreen()-getY()+20, "Fusee");
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        button.setPreferredSize(new Dimension(70,70));
+        /*
         for(int i = 0; i<3; i++){
             int x = i;
             button = new ButtObjet();
@@ -907,7 +940,7 @@ public class AffichageGraphique extends JFrame {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     Toolkit toolkit = Toolkit.getDefaultToolkit();
-                    Image image = toolkit.getImage("Ressources/Objets/"+list.get(x)+".png");
+                    Image image = toolkit.getImage("Ressources/Objets/Fusee.png");
                     Cursor c = toolkit.createCustomCursor(image , new Point(main.getX(), main.getY()), "img");
                     main.setCursor (c);
                 }
@@ -915,7 +948,7 @@ public class AffichageGraphique extends JFrame {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     main.setCursor(Cursor.getDefaultCursor());
-                    control.objetUsed(e.getXOnScreen()-getX()+20, e.getYOnScreen()-getY()+20, list.get(x));
+                    control.objetUsed(e.getXOnScreen()-getX()+20, e.getYOnScreen()-getY()+20, "Fusee");
                 }
 
                 @Override
@@ -929,23 +962,34 @@ public class AffichageGraphique extends JFrame {
                 }
             });
             button.setPreferredSize(new Dimension(70,70));
-            if(joueur.getObjAcces().contains(list.get(i))){
+
+            if(joueur.getObjAcces().contains("Fusee"){
                 str = list.get(i);
             }else{
                 str = list.get(i) + "Locked";
             }
-            button.setIcon(new ImageIcon("Ressources\\Objets\\"+ str + ".png"));
-            gbc1.gridx = i;
+
+             */
+            button.setIcon(new ImageIcon("Ressources\\Objets\\Fusee.png"));
+            gbc1.anchor = GridBagConstraints.CENTER;
+            gbc1.insets = new Insets(0,0,0,60);
             panel.add(button,gbc1);
+            gbc1.insets = new Insets(0,80,0,0);
+            panel.add(rob,gbc1);
             panel.setBorder(new javax.swing.border.BevelBorder(BevelBorder.RAISED));
             setVisible(true);
-        }
+
         return panel;
     }
 
     public JPanel etatJeu(int score, int animRes, int coupRes){
-        JPanel etat = new JPanel(new GridBagLayout());
-        etat.setPreferredSize(new Dimension(550, 90));
+        //JPanel etat = new ImagePanel("Ressources/Fonts/nuage.png");
+        JPanel etat = new JPanel();
+        //etat.setOpaque(false);
+        etat.setLayout(new GridBagLayout());
+        etat.setMinimumSize(new Dimension(550, 90));
+        etat.setBackground(new Color(0, true));
+        etat.setBorder(new javax.swing.border.BevelBorder(BevelBorder.RAISED));
         GridBagConstraints gb = new GridBagConstraints();
         JLabel scoreLabel = new JLabel();
         if(score == 0){

@@ -8,7 +8,7 @@ public class Ballon extends Objet {
     public char color;
     int j;
 
-    Ballon(char c, Grille grille, int i, int y){
+    public Ballon(char c, Grille grille, int i, int y){
         color = c;
         this.i = i;
         this.j = y;

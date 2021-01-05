@@ -1,16 +1,12 @@
 package Controleur;
 
-import Modele.*;
-import Vue.AffichageGraphique;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Launcher {
 
+    /*
     public static Niveau[] init(){
         Niveau[] tab = new Niveau[5];
         tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,-1,true);
@@ -20,6 +16,8 @@ public class Launcher {
         tab[4] = new Niveau(new Grille(new Case[8][9]),5,5,50,false);
         return tab;
     }
+
+     */
 
     public static void main(String[] args) throws IOException {
 
@@ -84,7 +82,7 @@ public class Launcher {
 
 
 
-
+/*
         if (demandeJeu().equals("t")){
             Controleur.trouverJoueur();
         }else {
@@ -93,11 +91,15 @@ public class Launcher {
         }
 
 
+ */
+
+
+
 
 
 
         //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
- //       Controleur.lancement();
+        Controleur.lancement();
 
 
     }
@@ -105,7 +107,8 @@ public class Launcher {
     //demande au joueur de quelle manière il souhaite jouer
     // -> Interface Graphique ou via le terminal
     public static String demandeJeu(){
-        System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
+        System.out.println("De quelle façcon voulez-vous jouer ?");
+        System.out.println("T(exte) ou I(nterface) ?");
         String rep ;
         boolean ok;
         do{
@@ -114,12 +117,12 @@ public class Launcher {
                 case "t","texte","i","interface" -> ok = true;
                 default -> {
                     System.out.println("Vous n'avez pas répondu correctement !");
-                    System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
+                    System.out.println("De quelle façcon voulez-vous jouer ?");
+                    System.out.println("T(exte) ou I(nterface) ?");
                     ok = false;
                 }
             }
         }while(!ok);
-
         return String.valueOf(rep.toLowerCase().charAt(0));
     }
 }

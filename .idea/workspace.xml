@@ -1,16 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="update">
+    <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="maj">
+      <change afterPath="$PROJECT_DIR$/Ressources.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controleur/Controleur.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controleur/Launcher.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Case.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Grille.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Joueur.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Niveau.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Ballon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Bombe.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Fusee.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Objet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Pioche.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Partie.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/-.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/B00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/J00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/O00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/R00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/V00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/bag.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/connax.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/connexion.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/trax.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/tree.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/trux.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$12.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$13.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$14.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$15.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$16.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$17.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$18.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$19.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$20.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$21.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$22.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$ButtObjet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageTerminal.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/ImagePanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/ImagePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/level.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/joueur.ser" beforeDir="false" afterPath="$PROJECT_DIR$/joueur.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level.ser" beforeDir="false" afterPath="$PROJECT_DIR$/level.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/B.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/B.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/J.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/J.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/O.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/O.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/R.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/R.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/V.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/V.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon0.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon3.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/aventure.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/aventure.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/conn.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/conn.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/connexion.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/infini.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/infini.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/infoux.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/infoux.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/k7mHob0X050.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/k7mHob0X050.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/presentLevel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/presentLevel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/principal.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/principal.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/regles.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/regles.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/sommaire.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/sommaire.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/Bombe.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/Bombe.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/BombeLocked.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/BombeLocked.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/Fusee.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/Fusee.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/FuseeLocked.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/FuseeLocked.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/Pioche.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/Pioche.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/PiocheLocked.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/PiocheLocked.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/joueur.ser" beforeDir="false" afterPath="$PROJECT_DIR$/src/joueur.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level.ser" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Controleur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controleur/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modele/Grille.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Grille.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modele/Joueur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Joueur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modele/Niveau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Niveau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modele/Objet/Ballon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Objet/Ballon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modele/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Partie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageTerminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageTerminal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +138,19 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pauli\bear-rescuse-saga" />
+      <recent name="C:\Users\pauli\bear-rescuse-saga\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pauli\bear-rescuse-saga\src" />
+      <recent name="C:\Users\pauli\bear-rescuse-saga\Ressources\Fonts" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Launcher">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -170,8 +262,27 @@
       <option name="project" value="LOCAL" />
       <updated>1609732077328</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="maj">
+      <created>1609791010241</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1609791010241</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -179,6 +290,7 @@
     <MESSAGE value="Implémentation d'un systeme de point lors de la suppression, et d'un systeme de vérification d'un coup valide (plus d'un bloc à supprimer)" />
     <MESSAGE value="update" />
     <MESSAGE value="UI almost done" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI almost done" />
+    <MESSAGE value="maj" />
+    <option name="LAST_COMMIT_MESSAGE" value="maj" />
   </component>
 </project>
