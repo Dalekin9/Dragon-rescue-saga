@@ -1,29 +1,16 @@
 package Vue;
 
 import Controleur.Controleur;
-import Modele.Grille;
-import Modele.Joueur;
-import Modele.Niveau;
-import Modele.Partie;
+import Modele.*;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class AffichageGraphique extends JFrame {
@@ -38,6 +25,7 @@ public class AffichageGraphique extends JFrame {
     private JButton[][] buttons;
     private int haut;
     private int longu;
+    private int[][] drgs = new int[haut][longu];
 
     public AffichageGraphique(Controleur controleur){
         control = controleur;
@@ -170,7 +158,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\principal.png"));
+        jLabel3.setIcon(new ImageIcon("Ressources/Fonds/principal.png"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -256,7 +244,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
+        jLabel3.setIcon(new ImageIcon("Ressources/Fonds/connexion.png"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -347,7 +335,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
+        jLabel3.setIcon(new ImageIcon("Ressources/Fonds/connexion.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -424,7 +412,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\sommaire.png"));
+        jLabel3.setIcon(new ImageIcon("Ressources/Fonds/sommaire.jpg"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 
@@ -464,7 +452,7 @@ public class AffichageGraphique extends JFrame {
         sec.setBounds(0,0,550,725);
 
         JLabel jLabel3 = new JLabel();
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.png"));
+        jLabel3.setIcon(new ImageIcon("Ressources/Fonds/aventure.png"));
         princ.add(jLabel3);
         jLabel3.setBounds(0,0,550,725);
         main.add("AVENTURE",princ);
@@ -651,7 +639,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0,0,550,725);
 
-        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
+        JLabel icon = new JLabel(new ImageIcon("Ressources/Fonds/presentLevel.png"));
         princ.add(icon);
         icon.setBounds(0,0,550,725);
 
@@ -764,7 +752,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
+        JLabel icon = new JLabel(new ImageIcon("Ressources/Fonds/presentevel.png"));
         princ.add(icon);
         icon.setBounds(0, 0, 550, 725);
 
@@ -842,34 +830,30 @@ public class AffichageGraphique extends JFrame {
         String color;
         Icon icon;
         JButton butt;
-        Random rand = new Random();
         buttons = new JButton[haut][longu];
         infoJeu = new JPanel(new GridLayout(haut,longu));
         GridBagConstraints gridC = new GridBagConstraints();
         for(int i = 0; i<haut; i++){
-            for(int j = 0; j<longu; j ++ ){
+            for(int j = 0; j<longu; j++){
                 butt = new JButton();
                 switch (grid.gril[i][j].getIs()) {
                     case 'a':
-                        color = "dragon" + rand.nextInt(5);
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
+                        color = "dragon" + ((Dragon)grid.gril[i][j]).getWhich();
+                        break;
+                    case '2':
+                        color = grid.gril[i][j].getColor() + "00";
                         break;
                     case ' ':
                     case 's':
                         color = "";
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
                         break;
                     default:
                         color = String.valueOf(grid.gril[i][j].getIs());
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
                         break;
                 }
+                butt.setContentAreaFilled(false);
+                butt.setOpaque(false);
+                butt.setBorder(null);
                 icon = new ImageIcon("Ressources/Blocs/"+color+".png");
                 butt.setIcon(icon);
                 butt.setPreferredSize(new Dimension(50,50));
@@ -904,6 +888,7 @@ public class AffichageGraphique extends JFrame {
         jeu.add(etatJeu(0, 1,5), gbc);
 
         Grille grid = niveau.getGrid();
+
         String color = "";
         Icon icon;
         JButton butt;
@@ -911,30 +896,24 @@ public class AffichageGraphique extends JFrame {
         buttons = new JButton[haut][longu];
         infoJeu = new JPanel(new GridLayout(haut,longu));
         for(int i = 0; i<haut; i++){
-            for(int j = 0; j<longu; j ++ ){
+            for(int j = 0; j< longu; j++){
                 butt = new JButton();
                 switch (grid.gril[i][j].getIs()) {
                     case 'a':
-                        color = "dragon" + rand.nextInt(5);
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
+                        color = "dragon" + ((Dragon)grid.gril[i][j]).getWhich();
                         break;
                     case ' ':
                     case 's':
                         color = "";
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
                         break;
                     default:
                         color = String.valueOf(grid.gril[i][j].getIs());
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
                         break;
                 }
-                icon = new ImageIcon("Ressources/Blocs/"+color+".png");
+                icon = new ImageIcon("Ressources/Blocs/" +color+".png");
+                butt.setContentAreaFilled(false);
+                butt.setOpaque(false);
+                butt.setBorder(null);
                 butt.setIcon(icon);
                 butt.setPreferredSize(new Dimension(50,50));
                 buttons[i][j] = butt;
@@ -952,8 +931,6 @@ public class AffichageGraphique extends JFrame {
         gbc.weighty = 0.2;
         gbc.anchor = GridBagConstraints.BELOW_BASELINE;
         jeu.add(infoObjets(), gbc);
-        //dd.add(jeu);
-        //jeu.setBounds(0,0, 550, 725);
         main.add("game",jeu);
         cl.show(main,"game");
     }
@@ -983,7 +960,7 @@ public class AffichageGraphique extends JFrame {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     Toolkit toolkit = Toolkit.getDefaultToolkit();
-                    Image image = toolkit.getImage("Ressources/Objets/"+list.get(x)+".png");
+                    Image image = toolkit.getImage("Ressources/Objets/" +list.get(x)+".png");
                     Cursor c = toolkit.createCustomCursor(image , new Point(main.getX(), main.getY()), "img");
                     main.setCursor (c);
                 }
@@ -1005,12 +982,11 @@ public class AffichageGraphique extends JFrame {
                 }
             });
             button.setPreferredSize(new Dimension(70,70));
-            if(joueur.getObjAcces().contains(list.get(i))){
-                str = list.get(i);
-            }else{
-                str = list.get(i) + "Locked";
+            str = list.get(i);
+            if(!joueur.getObjAcces().contains(str)){
+                str += "Locked";
             }
-            button.setIcon(new ImageIcon("Ressources/Objets/"+ str + ".png"));
+            button.setIcon(new ImageIcon("Ressources/Objets/" + str + ".png"));
             gbc1.gridx = i;
             panel.add(button,gbc1);
             setVisible(true);
@@ -1142,7 +1118,7 @@ public class AffichageGraphique extends JFrame {
         princ.add(sec);
         sec.setBounds(0, 0, 550, 725);
 
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\rules.jpg"));
+        jLabel3.setIcon(new ImageIcon("Ressources/Fonds/rules.png"));
         princ.add(jLabel3);
         jLabel3.setBounds(0, 0, 550, 725);
 

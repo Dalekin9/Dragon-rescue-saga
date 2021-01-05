@@ -77,11 +77,15 @@ public class Controleur {
 
     //regarde si un coup est Valide
     // -> si on ne clique pas sur un dragon, un bloc fixe ou un espace vide
-    public boolean coupValide(int i, int j){
+    public static boolean coupValide(int i, int j){
+        if (partie.getLvl().getGrid().gril[i][j].getIs() == '1' ||
+                partie.getLvl().getGrid().gril[i][j].getIs() == '2'){
+            return true;
+        }
         if(partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
                 partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
-                partie.getLvl().getGrid().gril[i][j].getIs() != 'a'){
-            return isCoupPossible(i, j);
+                partie.getLvl().getGrid().gril[i][j].getIs() != 'a') {
+            return isCoupPossible(i,j);
         }
         return false;
     }
@@ -110,7 +114,7 @@ public class Controleur {
 
     //regarde si un coup est possible
     // -> si un bloc en haut, en bas, à droite ou à gauche est comme lui
-    public boolean isCoupPossible(int i, int j){
+    public static boolean isCoupPossible(int i, int j){
         if (i>0){
             if (partie.getLvl().getGrid().gril[i-1][j].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
                 return true;
@@ -335,7 +339,6 @@ public class Controleur {
                                         coords = coordsInt(coordsStr);
                                         if (coupValideFus(coords[1])) {
                                             flag = true;
-                                            System.out.println("rgbnh,j;,hngbfvds");
                                         }
                                     }
                                 } while (!flag);
@@ -524,21 +527,6 @@ public class Controleur {
         int[] coords = new int[2];
         coords[0] = x;
         coords[1] = y;
-        list.add(1);
-        list.add(2);
-        listObj.add("fusee");
-        listObj.add("bombe");
-        if(list.contains(Character.getNumericValue(grid.gril[x][y].getIs()))){
-            int obj = Character.getNumericValue(grid.gril[x][y].getIs()) - 1;
-            grid.supprimer(x,y);
-            if (!partie.getLvl().isDecale()) {
-                partie.actionObj(grid.aDAnimaux() < 5, listObj.get(obj), coords);
-            } else {
-                partie.actionObj(false, listObj.get(obj), coords);
-            }
-            vueGraph.updateGrille();
-            return;
-        }
         if(coupValide(x,y)){
             if (!partie.getLvl().isDecale()) {
                 partie.actionBloc(coords, grid.aDAnimaux() < 5);

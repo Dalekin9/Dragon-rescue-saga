@@ -4,6 +4,7 @@ import Controleur.Controleur;
 import Modele.Objet.Bombe;
 import Modele.Objet.Fusee;
 import Modele.Objet.Pioche;
+import Modele.Objet.Ballon;
 import Vue.AffichageTerminal;
 
 import java.io.*;
@@ -63,45 +64,54 @@ public class Partie {
         int posLignne = -1;
         boolean bloc = false;
         int[] posBloc = new int[]{-1,-1};
-        lvl.getGrid().supprimer(coords[0],coords[1]);
-        //recherche si des coups spéciaux ont été réalisés
-        if (lvl.id >= 3) {
-            if (lvl.getGrid().coupSpecialLigne()) {
-                ligne = true;
-                posLignne = lvl.getGrid().coupSpecialLignePos();
+        char color = ' ';
+        if (getLvl().getGrid().gril[coords[0]][coords[1]].getIs() == '1'){ ;
+            Fusee a = new Fusee(getLvl().getGrid(),coords[1]);
+            a.execute();
+            remplacement(animAlea);
+        }else if (getLvl().getGrid().gril[coords[0]][coords[1]].getIs() == '2'){
+            Ballon a = new Ballon(getLvl().getGrid().gril[coords[0]][coords[1]].getColor(),getLvl().getGrid(),coords[0],coords[1]);
+            a.execute();
+            remplacement(animAlea);
+        } else {
+            lvl.getGrid().supprimer(coords[0], coords[1]);
+            //recherche si des coups spéciaux ont été réalisés
+            if (lvl.id >= 3) {
+                if (lvl.getGrid().coupSpecialLigne()) {
+                    ligne = true;
+                    posLignne = lvl.getGrid().coupSpecialLignePos();
+                }
             }
-        }
-        if (lvl.id >= 4) {
-            if (lvl.getGrid().coupSpecialBlocs()) {
-                bloc = true;
-                posBloc = lvl.getGrid().coupSpecialBlocsPos();
+            if (lvl.id >= 4) {
+                if (lvl.getGrid().coupSpecialBlocs()) {
+                    bloc = true;
+                    posBloc = lvl.getGrid().coupSpecialBlocsPos();
+                    color = lvl.getGrid().coupSpecialBlocsChar();
+                }
             }
+            score += lvl.getGrid().points();
+            //remplacer après suppression de bloc
+            remplacement(animAlea);
+            //s'occupe de poser les objets quand il y a des coups spéciaux
+            if (ligne) {
+                lvl.getGrid().poserFusee(posLignne, coords[1]);
+            }
+            if (bloc) {
+                lvl.getGrid().poserBallon(posBloc, color);
+            }
+            coupRes--;
         }
-        score += lvl.getGrid().points();
-        //remplacer après suppression de bloc
-        remplacement(animAlea);
-        //s'occupe de poser les objets quand il y a des coups spéciaux
-        if (ligne){
-            lvl.getGrid().poserFusee(posLignne,coords[1]);
-        }
-        if (bloc){
-            lvl.getGrid().poserBallon(posBloc);
-        }
-        coupRes--;
     }
 
     //action quand decide d'utiliser un objet
     public void actionObj(boolean animAlea,String obj, int[] coords){
         if (obj.equals("bombe")){
-            System.out.println("1");
             Bombe bom = new Bombe(this.lvl.getGrid(), coords[0], coords[1]);
             bom.execute();
         } else if(obj.equals("fusee")){
-            System.out.println("2");
             Fusee fus = new Fusee(this.lvl.getGrid(), coords[1]);
             fus.execute();
         } else {
-            System.out.println("3");
             Pioche pio = new Pioche(this.lvl.getGrid(), coords[0], coords[1]);
             pio.execute();
         }

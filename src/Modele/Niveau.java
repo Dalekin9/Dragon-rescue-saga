@@ -129,7 +129,7 @@ public class Niveau implements Serializable {
         ObjectInputStream ois = null;
         try {
 
-            FileInputStream fis = new FileInputStream("level.ser");
+            FileInputStream fis = new FileInputStream("../level.ser");
             if (fis.available() != 0) {
                 ois = new ObjectInputStream(fis);
                 while (fis.available() != 0) {
@@ -186,7 +186,7 @@ public class Niveau implements Serializable {
         ObjectInputStream ois;
         ObjectOutputStream oos;
         try {
-            FileInputStream fis = new FileInputStream("level.ser");
+            FileInputStream fis = new FileInputStream("../level.ser");
             if (fis.available() != 0) {
                 ois = new ObjectInputStream(fis);
                 while (fis.available() != 0) {
@@ -198,7 +198,7 @@ public class Niveau implements Serializable {
                     }
                 }
             }
-            FileOutputStream fos = new FileOutputStream("level.ser");
+            FileOutputStream fos = new FileOutputStream("../level.ser");
             oos = new ObjectOutputStream(fos);
             for (Niveau level : levels) {
                 oos.writeObject(level);

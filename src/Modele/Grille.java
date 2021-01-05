@@ -45,7 +45,7 @@ public class Grille implements Serializable {
     //recursion sur elles pour les supprimer et faire de même
     public void supprimer(int x, int y){
             char res = gril[x][y].getIs();
-            gril[x][y] = new Case('s');
+            gril[x][y].setIs('s');
             if (x > 0) {
                 if (gril[x-1][y].getIs() == res) {
                     supprimer(x - 1, y);
@@ -136,9 +136,14 @@ public class Grille implements Serializable {
                     } else if (gril[i][pos + 1].getIs() == '-') {
                         gril[i][pos].setIs('s');
                     } else {
-                        char sub = gril[i][pos + 1].getIs();
-                        gril[i][pos] = new Case(sub);
-                        gril[i][pos + 1] = new Case(' ');
+                        if(gril[i][pos + 1].getIs() == 'a'){
+                            gril[i][pos] = new Dragon(((Dragon)gril[i][pos + 1]).getWhich());
+                            gril[i][pos + 1] = new Case(' ');
+                        }else {
+                            char sub = gril[i][pos + 1].getIs();
+                            gril[i][pos] = new Case(sub);
+                            gril[i][pos + 1] = new Case(' ');
+                        }
                     }
                 }
             }
@@ -155,8 +160,13 @@ public class Grille implements Serializable {
                             gril[i][j] = new Case(' ');
                         } else {
                             if (gril[i - 1][j].getIs() != ' ' && gril[i-1][j].getIs() != '-') {
-                                gril[i][j] = new Case(gril[i - 1][j].getIs());
-                                gril[i - 1][j] = new Case('s');
+                                if(gril[i - 1][j].getIs() == 'a'){
+                                    gril[i][j] = new Dragon(((Dragon)gril[i - 1][j]).getWhich());
+                                    gril[i - 1][j] = new Case('s');
+                                }else {
+                                    gril[i][j] = new Case(gril[i - 1][j].getIs());
+                                    gril[i - 1][j] = new Case('s');
+                                }
                             } else {
                                 gril[i][j] = new Case(' ');
                             }
@@ -227,20 +237,33 @@ public class Grille implements Serializable {
             }
             for (int i=0;i<gril.length;i++){
                 for (int j=0;j<gril[i].length;j++){
-                    if (gril[i][j].getIs() == 's' ){
+                    if (gril[i][j].getIs() == 's'){
                         if (i-1 < 0){
                             int pos = (int) (Math.random()*liste.size());
-                            gril[i][j] = new Case(liste.get(pos));
+                            if(liste.get(pos) == 'a'){
+                                gril[i][j] = new Dragon();
+                            }else {
+                                gril[i][j] = new Case(liste.get(pos));
+                            }
                             if (this.aDAnimaux()==5){
                                 animAlea = false;
                             }
                         } else {
                             if ( gril[i-1][j].getIs() != ' ' && gril[i-1][j].getIs() != '-') {
-                                gril[i][j] = new Case(gril[i - 1][j].getIs());
-                                gril[i-1][j] = new Case('s');
+                                if(gril[i - 1][j].getIs() == 'a'){
+                                    gril[i][j] = new Dragon(((Dragon)gril[i - 1][j]).getWhich());
+                                    gril[i - 1][j] = new Case('s');
+                                }else {
+                                    gril[i][j] = new Case(gril[i - 1][j].getIs());
+                                    gril[i - 1][j] = new Case('s');
+                                }
                             } else {
                                 int pos = (int) (Math.random()*liste.size());
-                                gril[i][j] = new Case(liste.get(pos));
+                                if(liste.get(pos) == 'a'){
+                                    gril[i][j] = new Dragon();
+                                }else {
+                                    gril[i][j] = new Case(liste.get(pos));
+                                }
                             }
                             if (this.aDAnimaux()==5){
                                 animAlea = false;
@@ -361,13 +384,13 @@ public class Grille implements Serializable {
     //  - si c'est le cas on repete le processus pour les 4 lignes suivantes en partant de la meme colonne
     // si tout est bon alors c'est qu'un coup special a ete realisé
     public boolean coupSpecialBlocs(){
-        for (int i = 0;i<gril.length-5;i++){
-            for (int j=0;j<gril[0].length-5;j++){
+        for (int i = 0;i<gril.length-3;i++){
+            for (int j=0;j<gril[0].length-3;j++){
                 if (testCinq(i,j)){
-                    if (testCinq(i+1,j)){
-                        if (testCinq(i+2,j)){
-                            if (testCinq(i+3,j)){
-                                if (testCinq(i+4,j)){
+                    if (gril[i][j].getColor() == gril[i+1][j].getColor()) {
+                        if (testCinq(i + 1, j)) {
+                            if (gril[i][j].getColor() == gril[i+2][j].getColor()) {
+                                if (testCinq(i + 2, j)) {
                                     return true;
                                 }
                             }
@@ -381,14 +404,14 @@ public class Grille implements Serializable {
 
     //renvoie la position du premier carré d'un bloc qui a ete supprimé
     public int[] coupSpecialBlocsPos(){
-        for (int i = 0;i<gril.length-5;i++){
-            for (int j=0;j<gril[0].length-5;j++){
+        for (int i = 0;i<gril.length-3;i++){
+            for (int j=0;j<gril[0].length-3;j++){
                 if (testCinq(i,j)){
-                    if (testCinq(i+1,j)){
-                        if (testCinq(i+2,j)){
-                            if (testCinq(i+3,j)){
-                                if (testCinq(i+4,j)){
-                                    return new int[]{i,j};
+                    if (gril[i][j].getColor() == gril[i+1][j].getColor()) {
+                        if (testCinq(i + 1, j)) {
+                            if (gril[i][j].getColor() == gril[i+2][j].getColor()) {
+                                if (testCinq(i + 2, j)) {
+                                    return new int[]{i, j};
                                 }
                             }
                         }
@@ -399,18 +422,36 @@ public class Grille implements Serializable {
         return new int[]{-1,-1};
     }
 
+    public char coupSpecialBlocsChar(){
+        for (int i = 0;i<gril.length-3;i++){
+            for (int j=0;j<gril[0].length-3;j++){
+                if (testCinq(i,j)){
+                    if (gril[i][j].getColor() == gril[i+1][j].getColor()) {
+                        if (testCinq(i + 1, j)) {
+                            if (gril[i][j].getColor() == gril[i+2][j].getColor()) {
+                                if (testCinq(i + 2, j)) {
+                                    return gril[i][j].getColor();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ' ';
+    }
+
     //regarde si pour une position i j
     //  - les 4 blocs a sa droite sont de la meme couleur
     public boolean testCinq(int ligneDepart, int colonneDepart){
         return gril[ligneDepart][colonneDepart].getColor() == gril[ligneDepart][colonneDepart + 1].getColor() &&
-                gril[ligneDepart][colonneDepart + 1].getColor() == gril[ligneDepart][colonneDepart + 2].getColor() &&
-                gril[ligneDepart][colonneDepart + 2].getColor() == gril[ligneDepart][colonneDepart + 3].getColor() &&
-                gril[ligneDepart][colonneDepart + 3].getColor() == gril[ligneDepart][colonneDepart + 4].getColor();
+                gril[ligneDepart][colonneDepart + 1].getColor() == gril[ligneDepart][colonneDepart + 2].getColor();
     }
 
     //pose le ballon ou le coup spécial a été réalisé
-    public void poserBallon(int[] pos){
-        gril[pos[0]][pos[1]] = new Case('2',gril[pos[0]][pos[1]].getColor());
+    public void poserBallon(int[] pos, char color){
+        char col = color;
+        gril[pos[0]][pos[1]] = new Case('2',col);
     }
 
 
@@ -448,7 +489,7 @@ public class Grille implements Serializable {
                 gril[4][5] = new Case(liste.get(0)); gril[4][6] = new Case(liste.get(0));
             }
             //pose les animaux
-            gril[0][1] = new Case('a'); gril[0][5] = new Case('a');
+            gril[0][1] = new Dragon(); gril[0][5] = new Dragon();
             //pose les blocs vide du depart
             gril[0][0] = gril[0][2] = gril[0][3] = gril[0][4] = gril[0][6] = new Case(' ');
         }
@@ -475,9 +516,9 @@ public class Grille implements Serializable {
                 gril[6][3] = new Case(liste.get(0)); gril[7][1] = new Case(liste.get(0)); gril[7][3] = new Case(liste.get(0));
             }
             //pose les animaux
-            gril[0][2] = new Case('a'); gril[1][2] = new Case('a');
-            gril[2][2] = new Case('a'); gril[1][0] = new Case('a');
-            gril[1][4] = new Case('a');
+            gril[0][2] = new Dragon(); gril[1][2] = new Dragon();
+            gril[2][2] = new Dragon(); gril[1][0] = new Dragon();
+            gril[1][4] = new Dragon();
             //pose les blocs vides
             gril[0][0] = gril[0][4] = new Case (' ');
         }
@@ -504,7 +545,7 @@ public class Grille implements Serializable {
                 gril[6][6] = new Case(liste.get(0)); gril[7][3] = new Case(liste.get(0)); gril[8][3] = new Case(liste.get(0));
             }
             //pose les animaux
-            gril[0][2] = new Case('a'); gril[0][4] = new Case('a'); gril[0][6] = new Case('a');
+            gril[0][2] = new Dragon(); gril[0][4] = new Dragon(); gril[0][6] = new Dragon();
             //pose les blocs vides
             gril[0][0] =  new Case(' '); gril[0][1] =  new Case(' '); gril[1][0] =  new Case(' ');
             gril[1][1] =   new Case(' ');gril[2][0] =   new Case(' ');gril[2][1] =   new Case(' ');
@@ -522,8 +563,8 @@ public class Grille implements Serializable {
             }
         }
         //pose les animaux
-        gril[3][1] = new Case('a'); gril[3][3] = new Case('a');
-        gril[3][5] = new Case('a'); gril[3][7] = new Case('a');
+        gril[3][1] = new Dragon(); gril[3][3] = new Dragon();
+        gril[3][5] = new Dragon(); gril[3][7] = new Dragon();
     }
 
     public void remplir_Niveau_5(ArrayList<Character> liste){
@@ -539,8 +580,8 @@ public class Grille implements Serializable {
         gril[7][2] = new Case(liste.get(1)); gril[6][3] = new Case(liste.get(1));
         gril[7][4] = new Case(liste.get(1)); gril[6][5] = new Case(liste.get(1)); gril[7][6] = new Case(liste.get(1));
         //pose les animaux
-        gril[5][2] = new Case('a'); gril[5][3] = new Case('a');
-        gril[5][4] = new Case('a'); gril[5][5] = new Case('a'); gril[5][6] = new Case('a');
+        gril[5][2] = new Dragon(); gril[5][3] = new Dragon();
+        gril[5][4] = new Dragon(); gril[5][5] = new Dragon(); gril[5][6] = new Dragon();
         //pose les blocs fixes
         gril[3][0] = new Case('-'); gril[3][8] = new Case('-'); gril[5][1] = new Case('-');
         gril[5][7] = new Case('-'); gril[6][1] = new Case('-'); gril[6][7] = new Case('-');

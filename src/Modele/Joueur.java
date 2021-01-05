@@ -58,7 +58,7 @@ public class Joueur implements java.io.Serializable {
         ObjectInputStream ois;
         try {
 
-            FileInputStream fis = new FileInputStream("joueur.ser");
+            FileInputStream fis = new FileInputStream("../joueur.ser");
             if (fis.available() != 0) {
                 ois = new ObjectInputStream(fis);
                 while (fis.available() != 0) {
@@ -81,7 +81,7 @@ public class Joueur implements java.io.Serializable {
         ObjectInputStream ois = null;
         try {
 
-            FileInputStream fis = new FileInputStream("joueur.ser");
+            FileInputStream fis = new FileInputStream("../joueur.ser");
             if (fis.available() != 0) {
                 ois = new ObjectInputStream(fis);
                 while (fis.available() != 0) {
@@ -116,7 +116,7 @@ public class Joueur implements java.io.Serializable {
         ObjectInputStream ois = null;
         try {
 
-            FileInputStream fis = new FileInputStream("joueur.ser");
+            FileInputStream fis = new FileInputStream("../joueur.ser");
             if (fis.available() != 0) {
                 ois = new ObjectInputStream(fis);
                 while (fis.available() != 0) {
@@ -147,7 +147,7 @@ public class Joueur implements java.io.Serializable {
             ObjectInputStream ois;
             ObjectOutputStream oos;
             try {
-                FileInputStream fis = new FileInputStream("joueur.ser");
+                FileInputStream fis = new FileInputStream("../joueur.ser");
                 if (fis.available() != 0) {
                     ois = new ObjectInputStream(fis);
                     while (fis.available() != 0) {
@@ -157,7 +157,7 @@ public class Joueur implements java.io.Serializable {
                 }
                 Joueur nouveau = new Joueur(id, mdp);
                 liste.add(nouveau);
-                FileOutputStream fos = new FileOutputStream("joueur.ser");
+                FileOutputStream fos = new FileOutputStream("../joueur.ser");
                 oos = new ObjectOutputStream(fos);
                 for (Joueur a : liste) {
                     oos.writeObject(a);
@@ -200,7 +200,7 @@ public class Joueur implements java.io.Serializable {
         ObjectInputStream ois;
         ObjectOutputStream oos;
         try {
-            FileInputStream fis = new FileInputStream("joueur.ser");
+            FileInputStream fis = new FileInputStream("../joueur.ser");
             if (fis.available() != 0) {
                 ois = new ObjectInputStream(fis);
                 while (fis.available() != 0) {
@@ -212,7 +212,7 @@ public class Joueur implements java.io.Serializable {
                     }
                 }
             }
-            FileOutputStream fos = new FileOutputStream("joueur.ser");
+            FileOutputStream fos = new FileOutputStream("../joueur.ser");
             oos = new ObjectOutputStream(fos);
             for (Joueur a : liste) {
                 oos.writeObject(a);

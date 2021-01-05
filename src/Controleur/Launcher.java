@@ -28,7 +28,7 @@ public class Launcher {
         //ObjectInputStream ois = null;
         Niveau[] levels = init();
         try {
-            FileOutputStream fos = new FileOutputStream("level.ser");
+            FileOutputStream fos = new FileOutputStream("../level.ser");
             oos = new ObjectOutputStream(fos);
             //écriture des niveaux sur le fichier level.ser
             for (Niveau level : levels) {
@@ -40,7 +40,7 @@ public class Launcher {
 
 
 
-        /*ObjectOutputStream oos = null;
+            oos = null;
             Joueur test = new Joueur("admin","azerty");
             ArrayList<Integer> a = new ArrayList<Integer>();
             a.add(1);
@@ -54,8 +54,8 @@ public class Launcher {
             b.add("Bombe");
             b.add("Pioche");
             test.setObjAcces(b);
-            oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
-            oos.writeObject(test);*/
+            oos = new ObjectOutputStream(new FileOutputStream("../joueur.ser"));
+            oos.writeObject(test);
 
 
 
