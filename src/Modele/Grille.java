@@ -369,9 +369,13 @@ public class Grille implements Serializable {
         for (int i = 0;i<gril.length-3;i++){
             for (int j=0;j<gril[0].length-3;j++){
                 if (testCinq(i,j)){
-                    if (testCinq(i+1,j)){
-                        if (testCinq(i+2,j)){
-                            return true;
+                    if (gril[i][j].getColor() == gril[i+1][j].getColor()) {
+                        if (testCinq(i + 1, j)) {
+                            if (gril[i][j].getColor() == gril[i+2][j].getColor()) {
+                                if (testCinq(i + 2, j)) {
+                                    return true;
+                                }
+                            }
                         }
                     }
                 }
@@ -387,9 +391,10 @@ public class Grille implements Serializable {
                 if (testCinq(i,j)){
                     if (gril[i][j].getColor() == gril[i+1][j].getColor()) {
                         if (testCinq(i + 1, j)) {
-                            if (gril[i][j].getColor() == gril[i+2][j].getColor())
-                            if (testCinq(i + 2, j)) {
-                                return new int[]{i, j};
+                            if (gril[i][j].getColor() == gril[i+2][j].getColor()) {
+                                if (testCinq(i + 2, j)) {
+                                    return new int[]{i, j};
+                                }
                             }
                         }
                     }

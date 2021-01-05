@@ -536,7 +536,7 @@ public class Controleur {
                     } else {
                         partie.actionObj(false, obj.toLowerCase(), coords);
                     }
-                    vueGraph.updateGrille(partie.getLvl().getGrid());
+                    vueGraph.updateGrille(partie.getLvl().getGrid(),partie.getScore(),partie.getAnimRes(),partie.getCoupRes());
                     if (partie.finJeu() != 0) {
                         partie.getLvl().miseAJourScore(partie.getScore(), partie.getJoueur().getNom(), partie.getLvl());
                         vueGraph.finLevel(partie.getLvl(), partie.finJeu());
@@ -569,7 +569,7 @@ public class Controleur {
             } else {
                 partie.actionBloc(coords, false);
             }
-            vueGraph.updateGrille(partie.getLvl().getGrid());
+            vueGraph.updateGrille(partie.getLvl().getGrid(),partie.getScore(),partie.getAnimRes(),partie.getCoupRes());
             if (partie.finJeu() != 0) {
                 partie.getLvl().miseAJourScore(partie.getScore(), partie.getJoueur().getNom(),partie.getLvl());
                 vueGraph.finLevel(partie.getLvl(), partie.finJeu());
@@ -580,7 +580,7 @@ public class Controleur {
     public void initGame(Joueur joueur, Niveau niveau){
         Partie a = new Partie(joueur,niveau);
         setPartie(a);
-        vueGraph.initGame(a.getLvl().getGrid());
+        vueGraph.initGame(a.getLvl().getGrid(),partie.getScore(),partie.getAnimRes(),partie.getCoupRes());
     }
 
     //affiche le sommaire
@@ -614,7 +614,7 @@ public class Controleur {
     public void actRobot(Partie partie){
         robot(partie);
         if (partie.finJeu() == 0) {
-            vueGraph.updateGrille(partie.getLvl().getGrid());
+            vueGraph.updateGrille(partie.getLvl().getGrid(),partie.getScore(),partie.getAnimRes(),partie.getCoupRes());
         } else {
             vueGraph.finLevel(partie.getLvl(),partie.finJeu());
         }
