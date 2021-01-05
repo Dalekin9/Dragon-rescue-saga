@@ -1,78 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="cmd + 2 interface debut ok">
-      <change afterPath="$PROJECT_DIR$/src/.~lock.Diagramme_classe.odg#" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/aventure.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/bag.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/conn.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/connax.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/connexion.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/infini.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/infoux.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/k7mHob0X050.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/presentLevel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/principal.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/regles.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/somm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/sommaire.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/teta.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/tete.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/teteDrag.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/tetus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/trax.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/tree.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonds/trux.png" afterDir="false" />
+    <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="all is ok">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controleur/Controleur.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Controleur.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Controleur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controleur/Launcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Launcher.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controleur/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modele/Grille.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Grille.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modele/Grille.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Grille.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/aventure.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/connexion.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/infini.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/presentLevel.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/principal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/rules.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/sommaire.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/flamme.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/hibou.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/levels.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/lune.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/nuitos.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/personnage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/portuxlevelux.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/yewon-lim-008.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/sacus.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modele/Niveau.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Niveau.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modele/Niveau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Niveau.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/aventure.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/bag.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/conn.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/connax.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/connexion.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/infini.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/infoux.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/k7mHob0X050.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/presentLevel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/principal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/regles.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/sommaire.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/trax.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/tree.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ressources/Fonts/trux.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$18.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$19.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$20.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$20.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$21.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$21.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$22.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$22.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique$ButtObjet.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$ButtObjet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/joueur.ser" beforeDir="false" afterPath="$PROJECT_DIR$/src/joueur.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageTerminal.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageTerminal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageTerminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageTerminal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/level.ser" beforeDir="false" afterPath="$PROJECT_DIR$/src/level.ser" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,6 +46,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -263,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609822500282</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="all is ok">
+      <created>1609861784135</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1609861784135</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -286,6 +251,7 @@
     <MESSAGE value="UI almost done" />
     <MESSAGE value="maj" />
     <MESSAGE value="cmd + 2 interface debut ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="cmd + 2 interface debut ok" />
+    <MESSAGE value="all is ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="all is ok" />
   </component>
 </project>

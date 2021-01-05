@@ -26,7 +26,7 @@ public class Launcher {
 
 
     public static void main(String[] args) throws IOException {
-
+/*
         ObjectOutputStream oos = null;
         //ObjectInputStream ois = null;
         Niveau[] levels = init();
@@ -56,17 +56,19 @@ public class Launcher {
         }
 
 
+*/
 
-/*
         if (demandeJeu().equals("t")){
             Controleur.trouverJoueur();
         }else {
             //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
             Controleur.lancement();
         }
- */
+
+
+
         //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-        Controleur.lancement();
+       // Controleur.lancement();
 
 
     }
@@ -74,7 +76,7 @@ public class Launcher {
     //demande au joueur de quelle manière il souhaite jouer
     // -> Interface Graphique ou via le terminal
     public static String demandeJeu(){
-        System.out.println("De quelle façcon voulez-vous jouer ?");
+        System.out.println("De quelle facon voulez-vous jouer ?");
         System.out.println("T(exte) ou I(nterface) ?");
         String rep ;
         boolean ok;
@@ -83,7 +85,7 @@ public class Launcher {
             switch (rep.toLowerCase()){
                 case "t","texte","i","interface" -> ok = true;
                 default -> {
-                    System.out.println("Vous n'avez pas répondu correctement !");
+                    System.out.println("Vous n'avez pas repondu correctement !");
                     System.out.println("De quelle façcon voulez-vous jouer ?");
                     System.out.println("T(exte) ou I(nterface) ?");
                     ok = false;

@@ -87,7 +87,7 @@ public class AffichageTerminal {
     //affiche l'etat de la partie en cours
     public void afficheEtat(boolean animAlea){
         System.out.println("Score : " + partie.getScore() + " points");
-        System.out.println((niveau.getNb_animaux()-partie.getAnimRes()) + "/" + niveau.getNb_animaux() + " dragons sauvés");
+        System.out.println((niveau.getNb_animaux()-partie.getAnimRes()) + "/" + niveau.getNb_animaux() + " dragons sauves");
         if (niveau.getNb_coup_max() != -1){
             System.out.println("Coups restants : " + partie.getCoupRes());
         }
@@ -121,19 +121,19 @@ public class AffichageTerminal {
     public void affichageFinDePartie(int finJeu){
         if (finJeu != 2 ){
             if (finJeu == 1) {
-                System.out.println("Vous avez épuisé le nombre de coups disponible.");
+                System.out.println("Vous avez epuise le nombre de coups disponible.");
             } else if (finJeu == 3){
                 System.out.println("Plus aucun coup n'est possible.");
             }
-            System.out.println("Vous n'avez pas réussi à sauver tous les dragons !");
+            System.out.println("Vous n'avez pas reussi à sauver tous les dragons !");
             System.out.println(":(");
 
         } else {
-            System.out.println("Bravo, vous avez sauvé tous les dragons!");
+            System.out.println("Bravo, vous avez sauve tous les dragons!");
             System.out.println(":)");
             System.out.println("Vous avez obtenu un score de " + this.partie.getScore() + " points");
             if (this.partie.getScore() > niveau.recupDernierScore(niveau.best_score)){
-                System.out.println("Vous êtes désormais dans le top 5 des meilleurs joueurs !");
+                System.out.println("Vous etes desormais dans le top 5 des meilleurs joueurs !");
                 controleur.miseAJourScore(this.partie.getScore(),this.joueur.getNom(),this.niveau);
             }
         }
@@ -141,21 +141,16 @@ public class AffichageTerminal {
     }
 
     //affiche les objets possible à utiliser
-    public void afficherObjetPossible(ArrayList<String> liste){
+    public void afficherObjetPossible(String liste){
         System.out.println("Vous pouvez utiliser : ");
-        String a = "";
-        String b = "";
-        String c = "";
-        for (String s: liste){
-            String a1 = " " + "-".repeat(s.length() + 2) + "   ";
-            a+= a1;
-            c+= a1;
-            b+="| "+ s +" |  ";
-        }
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(c);
-        System.out.println("Que voulez-vous utiliser ? (0 pour retour)");
+
+            String a1 = " " + "-".repeat(liste.length() + 2) + "   ";
+            String b = " " + "-".repeat(liste.length() + 2) + "   ";;
+                String c =  "| " + liste + " |  ";
+            System.out.println(a1);
+            System.out.println(c);
+            System.out.println(b);
+            System.out.println("Voulez vous l'utiliser ? O ou N");
     }
 
 

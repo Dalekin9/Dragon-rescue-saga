@@ -127,7 +127,6 @@ public class Niveau implements Serializable {
     public static Niveau recupNiveau(int level){
         ObjectInputStream ois = null;
         try {
-
             FileInputStream fis = new FileInputStream("level.ser");
             if (fis.available() != 0) {
                 ois = new ObjectInputStream(fis);

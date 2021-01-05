@@ -297,8 +297,13 @@ public class Controleur {
         System.out.println("Niveaux possibles :");
         vueTerm.afficheNiveauPossible();
         System.out.println("Choisissez votre niveau :");
-        level = Integer.parseInt(new Scanner(System.in).next());
-        return level;
+        try {
+            level = (new Scanner(System.in).nextInt());
+            return level;
+        }catch (InputMismatchException e){
+            System.out.println("Entrez un chiffre !");
+            return choixLevel();
+        }
     }
 
     //demande au joueur quelle action il veut faire
@@ -332,78 +337,71 @@ public class Controleur {
                 break;
             case "o":
             case "objet":
-                /*
-                //ArrayList<String> liste = partie.voirObjPossible(partie.getJoueur().getObjAcces(),partie.getLvl().getObjDispo());
-                if (!liste.isEmpty()) {
+                String liste = partie.getLvl().getObjDispo();
+                if (!liste.equals("")) {
                     boolean repOk = false;
                     do {
                         flag = false;
                         vueTerm.afficherObjetPossible(liste);
                         String rep = new Scanner(System.in).next();
-                        switch (rep.toLowerCase(Locale.ROOT)) {
-                            case "0" -> repOk = true;
-                            case "bombe" -> {
-                                do {
-                                    System.out.println("Ou voulez utiliser la Bombe ? (ex: B4)");
-                                    coordsStr = recupCoords();
-                                    if (coordsVerif(coordsStr)) {
-                                        coords = coordsInt(coordsStr);
-                                        if (coupValideBombPio(coords[0], coords[1])) {
-                                            flag = true;
+                        if (rep.equals("o")) {
+                            switch (liste) {
+                                case "Bombe" -> {
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Bombe ? (ex: B4)");
+                                        coordsStr = recupCoords();
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValideBombPio(coords[0], coords[1])) {
+                                                flag = true;
+                                            }
                                         }
-                                    }
-                                } while (!flag);
-                                partie.actionObj(animAlea,"bombe",coords);
-                                repOk=true;
-                            }
-                            case "fusee", "fusée" -> {
-                                do {
-                                    System.out.println("Ou voulez utiliser la Fusée ? (ex: B)");
-                                    String coordFus = new Scanner(System.in).next();
-                                    coordsStr = new String[]{coordFus, "0"};
-                                    if (coordsVerif(coordsStr)) {
-                                        coords = coordsInt(coordsStr);
-                                        if (coupValideFus(coords[1])) {
-                                            flag = true;
-                                            System.out.println("rgbnh,j;,hngbfvds");
+                                    } while (!flag);
+                                    partie.actionObj(animAlea, "bombe", coords);
+                                }
+                                case "Fusee" -> {
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Fusee ? (ex: B)");
+                                        String coordFus = new Scanner(System.in).next();
+                                        coordsStr = new String[]{coordFus, "0"};
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValideFus(coords[1])) {
+                                                flag = true;
+                                            }
                                         }
-                                    }
-                                } while (!flag);
-                                partie.actionObj(animAlea,"fusee",coords);
-                                repOk=true;
-                            }
-                            case "pioche" -> {
-                                do {
-                                    System.out.println("Ou voulez utiliser la Pioche ? (ex: B4)");
-                                    coordsStr = recupCoords();
-                                    if (coordsVerif(coordsStr)) {
-                                        coords = coordsInt(coordsStr);
-                                        if (coupValide(coords[0], coords[1])) {
-                                            flag = true;
+                                    } while (!flag);
+                                    partie.actionObj(animAlea, "fusee", coords);
+
+                                }
+                                case "Pioche" -> {
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Pioche ? (ex: B4)");
+                                        coordsStr = recupCoords();
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValideBombPio(coords[0], coords[1])) {
+                                                flag = true;
+                                            }
                                         }
-                                    }
-                                } while (!flag);
-                                partie.actionObj(animAlea,"pioche",coords);
-                                repOk=true;
+                                    } while (!flag);
+                                    partie.actionObj(animAlea, "pioche", coords);
+                                }
                             }
-                            default -> {
-                                System.out.println("Réponse non reconnue !");
-                                System.out.println("Choisissez un objet (ou 0 pour revenir en arrière");
-                            }
+                            repOk = true;
                         }
-                    }while (! repOk);
-
-
-
-                } else {
-                    System.out.println("Pas d'obejt disponible :(");
+                        else if (rep.equals("n")) {
+                            repOk = true;
+                            demandeAction(animAlea);
+                        }
+                        else {
+                            System.out.println("Reponse incorrecte");
+                        }
+                    } while (!repOk);
+                }else {
+                    System.out.println("Pas d'objet disponible :(");
+                    demandeAction(animAlea);
                 }
-
-                 */
-                break;
-            default:
-                System.out.println("Entrée incorrecte !");
-                demandeAction(animAlea);
         }
     }
 
