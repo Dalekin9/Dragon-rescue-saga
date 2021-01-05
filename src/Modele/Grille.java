@@ -322,7 +322,8 @@ public class Grille implements Serializable {
             for (int j=0;j<gril[i].length;j++){
                 test.add(gril[i][j].getIs());
             }
-            if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B')) {
+            if (!test.contains('V') && !test.contains('J') && !test.contains('O') && !test.contains('R') && !test.contains('B')
+                && !test.contains(' ')) {
                 if (test.contains('s')){
                     return true;
                 }
@@ -359,22 +360,18 @@ public class Grille implements Serializable {
     //----------------------------------------------------------
 
     //regarde si un coup special de bloc a ete realisé
-    //cad si un carré de 5*5 bloc de meme couleur a ete supprimé
+    //cad si un carré de 3*3 bloc de meme couleur a ete supprimé
     //regarde si pour une position i j
-    //  - les 4 blocs a sa droite sont de la meme couleur
-    //  - si c'est le cas on repete le processus pour les 4 lignes suivantes en partant de la meme colonne
+    //  - les 2 blocs a sa droite sont de la meme couleur
+    //  - si c'est le cas on repete le processus pour les 2 lignes suivantes en partant de la meme colonne
     // si tout est bon alors c'est qu'un coup special a ete realisé
     public boolean coupSpecialBlocs(){
-        for (int i = 0;i<gril.length-5;i++){
-            for (int j=0;j<gril[0].length-5;j++){
+        for (int i = 0;i<gril.length-3;i++){
+            for (int j=0;j<gril[0].length-3;j++){
                 if (testCinq(i,j)){
                     if (testCinq(i+1,j)){
                         if (testCinq(i+2,j)){
-                            if (testCinq(i+3,j)){
-                                if (testCinq(i+4,j)){
-                                    return true;
-                                }
-                            }
+                            return true;
                         }
                     }
                 }
@@ -385,15 +382,14 @@ public class Grille implements Serializable {
 
     //renvoie la position du premier carré d'un bloc qui a ete supprimé
     public int[] coupSpecialBlocsPos(){
-        for (int i = 0;i<gril.length-5;i++){
-            for (int j=0;j<gril[0].length-5;j++){
+        for (int i = 0;i<gril.length-3;i++){
+            for (int j=0;j<gril[0].length-3;j++){
                 if (testCinq(i,j)){
-                    if (testCinq(i+1,j)){
-                        if (testCinq(i+2,j)){
-                            if (testCinq(i+3,j)){
-                                if (testCinq(i+4,j)){
-                                    return new int[]{i,j};
-                                }
+                    if (gril[i][j].getColor() == gril[i+1][j].getColor()) {
+                        if (testCinq(i + 1, j)) {
+                            if (gril[i][j].getColor() == gril[i+2][j].getColor())
+                            if (testCinq(i + 2, j)) {
+                                return new int[]{i, j};
                             }
                         }
                     }
@@ -407,9 +403,7 @@ public class Grille implements Serializable {
     //  - les 4 blocs a sa droite sont de la meme couleur
     public boolean testCinq(int ligneDepart, int colonneDepart){
         return gril[ligneDepart][colonneDepart].getColor() == gril[ligneDepart][colonneDepart + 1].getColor() &&
-                gril[ligneDepart][colonneDepart + 1].getColor() == gril[ligneDepart][colonneDepart + 2].getColor() &&
-                gril[ligneDepart][colonneDepart + 2].getColor() == gril[ligneDepart][colonneDepart + 3].getColor() &&
-                gril[ligneDepart][colonneDepart + 3].getColor() == gril[ligneDepart][colonneDepart + 4].getColor();
+                gril[ligneDepart][colonneDepart + 1].getColor() == gril[ligneDepart][colonneDepart + 2].getColor();
     }
 
     //pose le ballon ou le coup spécial a été réalisé

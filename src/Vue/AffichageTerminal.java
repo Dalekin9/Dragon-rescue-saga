@@ -43,25 +43,30 @@ public class AffichageTerminal {
     //affiche les niveaux possibles
     public void afficheNiveauPossible(){
         int parcours = 0;
+        String a  = "";
+        String b = "";
+        String c = "";
         ArrayList<Integer> copie = joueur.getNivAcess();
         for (Integer parcrs: copie){
-            if (parcours/3 == 0 && parcours != 0){
-                System.out.println();
-            }
-            System.out.print(" ----- \n | "+  + copie.get(parcours) + " | \n ----- ");
+            a+="-----  ";
+            c+="-----  ";
+            b+="| "+  copie.get(parcours) + " |  ";
             parcours++;
         }
-        System.out.println();
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
     }
 
     //affichage des propriétés du niveau en mode texte
     public void afficherPresentNiveau(){
         System.out.println("Niveau "+niveau.id);
         System.out.println("Objectifs :");
-        System.out.println("Sauver "+niveau.getNb_animaux()+" ours");
+        System.out.println("Sauver "+niveau.getNb_animaux()+" dragons");
         if (niveau.getNb_coup_max() != -1){
             System.out.println(niveau.getNb_coup_max()+" coups maximum");
         }
+        System.out.println();
         afficher_score();
     }
 
@@ -73,9 +78,8 @@ public class AffichageTerminal {
             System.out.println(compt + " : " + item.getKey() +" -> " + item.getValue());
             compt++;
         }
-        while (compt <= 5){
-            System.out.println(compt + " : Pas encore de score");
-            compt++;
+        if (compt == 0){
+            System.out.println("Pas encore de scores");
         }
         System.out.println();
     }
@@ -83,10 +87,11 @@ public class AffichageTerminal {
     //affiche l'etat de la partie en cours
     public void afficheEtat(boolean animAlea){
         System.out.println("Score : " + partie.getScore() + " points");
-        System.out.println("Vous avez sauvé " + (niveau.getNb_animaux()-partie.getAnimRes()) + "/" + niveau.getNb_animaux() + " animaux");
+        System.out.println((niveau.getNb_animaux()-partie.getAnimRes()) + "/" + niveau.getNb_animaux() + " dragons sauvés");
         if (niveau.getNb_coup_max() != -1){
-            System.out.println("Il vous reste " + partie.getCoupRes() + " coups");
+            System.out.println("Coups restants : " + partie.getCoupRes());
         }
+        System.out.println();
         afficherGrille();
         Controleur.demandeAction(animAlea);
     }
@@ -120,18 +125,15 @@ public class AffichageTerminal {
             } else if (finJeu == 3){
                 System.out.println("Plus aucun coup n'est possible.");
             }
-            System.out.println("Vous n'avez pas réussi à sauver tous les ours !");
+            System.out.println("Vous n'avez pas réussi à sauver tous les dragons !");
             System.out.println(":(");
-            System.out.println("Ce n'est pas grave, vous réussirez une prochaine fois !");
 
         } else {
-            System.out.println("Bravo, vous avez sauvé tous les ours !");
+            System.out.println("Bravo, vous avez sauvé tous les dragons!");
             System.out.println(":)");
             System.out.println("Vous avez obtenu un score de " + this.partie.getScore() + " points");
-            joueur.setObjAcces(joueur.remplirListeObj(niveau.getObjDispo()));
-            controleur.miseAJour(joueur, niveau);
             if (this.partie.getScore() > niveau.recupDernierScore(niveau.best_score)){
-                System.out.println("Vous êtes désormais dans le top 5 des meilleurs joueurs de ce niveau !");
+                System.out.println("Vous êtes désormais dans le top 5 des meilleurs joueurs !");
                 controleur.miseAJourScore(this.partie.getScore(),this.joueur.getNom(),this.niveau);
             }
         }
@@ -140,12 +142,20 @@ public class AffichageTerminal {
 
     //affiche les objets possible à utiliser
     public void afficherObjetPossible(ArrayList<String> liste){
-        System.out.print("Vous pouvez utiliser : ");
+        System.out.println("Vous pouvez utiliser : ");
+        String a = "";
+        String b = "";
+        String c = "";
         for (String s: liste){
-            System.out.print(s+", ");
+            String a1 = " " + "-".repeat(s.length() + 2) + "   ";
+            a+= a1;
+            c+= a1;
+            b+="| "+ s +" |  ";
         }
-        System.out.println();
-        System.out.println("Que voulez-vous utiliser ? (0 pour revenir en arrière)");
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+        System.out.println("Que voulez-vous utiliser ? (0 pour retour)");
     }
 
 

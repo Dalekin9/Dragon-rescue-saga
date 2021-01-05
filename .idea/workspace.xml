@@ -1,23 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="oublie seria good">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="maj">
+      <change afterPath="$PROJECT_DIR$/Ressources.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controleur/Controleur.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controleur/Launcher.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Case.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Grille.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Joueur.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Niveau.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Ballon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Bombe.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Fusee.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Objet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Objet/Pioche.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modele/Partie.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/-.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/B00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/J00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/O00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/R00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Blocs/V00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/bag.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/connax.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/connexion.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/trax.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/tree.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ressources/Fonts/trux.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$12.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$13.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$14.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$15.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$16.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$17.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$18.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$19.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$20.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$21.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$22.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique$ButtObjet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/AffichageTerminal.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/ImagePanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Vue/ImagePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/level.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level.ser" beforeDir="false" afterPath="$PROJECT_DIR$/level.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/B.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/B.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/J.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/J.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/O.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/O.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/R.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/R.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/V.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/V.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon0.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon3.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Blocs/dragon4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Blocs/dragon4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/aventure.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/aventure.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/conn.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/conn.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/connexion.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/infini.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/infini.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/infoux.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/infoux.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/k7mHob0X050.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/k7mHob0X050.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/presentLevel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/presentLevel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/principal.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/principal.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/regles.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/regles.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Fonts/sommaire.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Fonts/sommaire.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/Bombe.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/Bombe.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/BombeLocked.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/BombeLocked.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/Fusee.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/Fusee.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/FuseeLocked.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/FuseeLocked.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/Pioche.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/Pioche.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ressources/Objets/PiocheLocked.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ressources/Objets/PiocheLocked.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/joueur.ser" beforeDir="false" afterPath="$PROJECT_DIR$/src/joueur.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Controleur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controleur/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modele/Grille.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Grille.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modele/Niveau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Niveau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modele/Joueur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Joueur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modele/Objet/Ballon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Objet/Ballon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modele/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Partie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageTerminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageTerminal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ChangesViewManager">
-    <option name="groupingKeys">
-      <option value="directory" />
-      <option value="module" />
-    </option>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -25,12 +104,6 @@
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/master" />
-  </component>
-  <component name="Git.Rebase.Settings">
-    <option name="NEW_BASE" value="master" />
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -45,6 +118,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1k7IyjHWHQnY0u94PZu0AQmo7oZ" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -56,36 +137,35 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Downloads/pizza-rescue-main/pizza-rescue-main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pauli\bear-rescuse-saga" />
+      <recent name="C:\Users\pauli\bear-rescuse-saga\src" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\pauli\bear-rescuse-saga\src" />
-      <recent name="C:\Users\pauli\bear-rescuse-saga" />
-      <recent name="C:\Users\pauli\bear-rescuse-saga\src\Modele" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="Controleur" />
-      <recent name="" />
+      <recent name="C:\Users\pauli\bear-rescuse-saga\Ressources\Fonts" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Launcher">
+    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Game" />
+      <module name="bear-rescuse-saga" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Controleur.Launcher" />
       <module name="bear-rescuse-saga" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MainPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="java.example.MainPanel" />
-      <module name="bear-rescuse-saga" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="java.example.*" />
+          <option name="PATTERN" value="Controleur.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -93,15 +173,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RoundButton" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Vue.RoundButton" />
+    <configuration name="Partie" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Partie" />
       <module name="bear-rescuse-saga" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Vue.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -123,10 +197,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
-        <item itemvalue="Application.MainPanel" />
-        <item itemvalue="Application.RoundButton" />
         <item itemvalue="Application.TestSeria" />
         <item itemvalue="Application.TestDeSeria" />
+        <item itemvalue="Application.Game" />
+        <item itemvalue="Application.TestSeria" />
       </list>
     </recent_temporary>
   </component>
@@ -181,217 +255,21 @@
       <option name="project" value="LOCAL" />
       <updated>1605376480863</updated>
     </task>
-    <task id="LOCAL-00007" summary="Coup special bloc fonctionnel">
-      <created>1608748715014</created>
+    <task id="LOCAL-00007" summary="UI almost done">
+      <created>1609732077328</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1608748715014</updated>
+      <updated>1609732077328</updated>
     </task>
-    <task id="LOCAL-00008" summary="Ajout d'objets fonctionnels">
-      <created>1608760141904</created>
+    <task id="LOCAL-00008" summary="maj">
+      <created>1609791010241</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1608760141904</updated>
+      <updated>1609791010241</updated>
     </task>
-    <task id="LOCAL-00009" summary="update todo list">
-      <created>1608760305068</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1608760305068</updated>
-    </task>
-    <task id="LOCAL-00010" summary="update">
-      <created>1608842311292</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1608842311292</updated>
-    </task>
-    <task id="LOCAL-00011" summary="correction faireDescendre">
-      <created>1608894812404</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1608894812404</updated>
-    </task>
-    <task id="LOCAL-00012" summary="debut interface + finalisation du jeu en texte">
-      <created>1608921699122</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1608921699122</updated>
-    </task>
-    <task id="LOCAL-00013" summary="maj">
-      <created>1608936230061</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1608936230061</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Grosse maj : &#10;partie de connexion/inscription OK&#10;partie de creation du joueur ok&#10;partie du choix du level ok&#10;(tout le debut jusqu'à un debut de partie est fonctionnel)">
-      <created>1609181448155</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1609181448155</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Jeu en mode texte fonctionnel (qlq truc a revoir vite fait mais sinon good)">
-      <created>1609187822277</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1609187822278</updated>
-    </task>
-    <task id="LOCAL-00016" summary="mode texte ok !">
-      <created>1609266860705</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1609266860705</updated>
-    </task>
-    <task id="LOCAL-00017" summary="update">
-      <created>1609278657001</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1609278657001</updated>
-    </task>
-    <task id="LOCAL-00018" summary="mode texte fini">
-      <created>1609337107324</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1609337107324</updated>
-    </task>
-    <task id="LOCAL-00019" summary="update">
-      <created>1609377700683</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1609377700683</updated>
-    </task>
-    <task id="LOCAL-00020" summary="panneau du debut ok">
-      <created>1609441708720</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1609441708720</updated>
-    </task>
-    <task id="LOCAL-00021" summary="panneaux ok">
-      <created>1609454372374</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1609454372374</updated>
-    </task>
-    <task id="LOCAL-00022" summary="panneaux ok">
-      <created>1609455591709</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1609455591709</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Packages add">
-      <created>1609457925966</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1609457925966</updated>
-    </task>
-    <task id="LOCAL-00024" summary="repartition packages">
-      <created>1609465040510</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1609465040510</updated>
-    </task>
-    <task id="LOCAL-00025" summary="repartition packages">
-      <created>1609514514335</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1609514514335</updated>
-    </task>
-    <task id="LOCAL-00026" summary="packages et mvc ok">
-      <created>1609541164054</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1609541164054</updated>
-    </task>
-    <task id="LOCAL-00027" summary="packages et mvc ok">
-      <created>1609544811504</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1609544811504</updated>
-    </task>
-    <task id="LOCAL-00028" summary="interface debut oke">
-      <created>1609612452088</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1609612452088</updated>
-    </task>
-    <task id="LOCAL-00029" summary="interface sommaire ok">
-      <created>1609616997034</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1609616997034</updated>
-    </task>
-    <task id="LOCAL-00030" summary="plusieurs interfaces oke">
-      <created>1609683662353</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1609683662353</updated>
-    </task>
-    <task id="LOCAL-00031" summary="interface regles ok">
-      <created>1609689880672</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1609689880672</updated>
-    </task>
-    <task id="LOCAL-00032" summary="interface regles ok">
-      <created>1609699058111</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1609699058111</updated>
-    </task>
-    <task id="LOCAL-00033" summary="fin jeu ok">
-      <created>1609705416296</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1609705416296</updated>
-    </task>
-    <task id="LOCAL-00034" summary="commentaire et code ok">
-      <created>1609728406327</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1609728406327</updated>
-    </task>
-    <task id="LOCAL-00035" summary="oublie seria good">
-      <created>1609728752819</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1609728752819</updated>
-    </task>
-    <task id="LOCAL-00036" summary="oublie seria good">
-      <created>1609741094282</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1609741094283</updated>
-    </task>
-    <option name="localTasksCounter" value="37" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -410,29 +288,9 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Reparation de betises" />
     <MESSAGE value="Implémentation d'un systeme de point lors de la suppression, et d'un systeme de vérification d'un coup valide (plus d'un bloc à supprimer)" />
-    <MESSAGE value="Coup special bloc fonctionnel" />
-    <MESSAGE value="Ajout d'objets fonctionnels" />
-    <MESSAGE value="update todo list" />
-    <MESSAGE value="correction faireDescendre" />
-    <MESSAGE value="debut interface + finalisation du jeu en texte" />
-    <MESSAGE value="maj" />
-    <MESSAGE value="Grosse maj : &#10;partie de connexion/inscription OK&#10;partie de creation du joueur ok&#10;partie du choix du level ok&#10;(tout le debut jusqu'à un debut de partie est fonctionnel)" />
-    <MESSAGE value="Jeu en mode texte fonctionnel (qlq truc a revoir vite fait mais sinon good)" />
-    <MESSAGE value="mode texte ok !" />
-    <MESSAGE value="mode texte fini" />
     <MESSAGE value="update" />
-    <MESSAGE value="panneau du debut ok" />
-    <MESSAGE value="panneaux ok" />
-    <MESSAGE value="Packages add" />
-    <MESSAGE value="repartition packages" />
-    <MESSAGE value="packages et mvc ok" />
-    <MESSAGE value="interface debut oke" />
-    <MESSAGE value="interface sommaire ok" />
-    <MESSAGE value="plusieurs interfaces oke" />
-    <MESSAGE value="interface regles ok" />
-    <MESSAGE value="fin jeu ok" />
-    <MESSAGE value="commentaire et code ok" />
-    <MESSAGE value="oublie seria good" />
-    <option name="LAST_COMMIT_MESSAGE" value="oublie seria good" />
+    <MESSAGE value="UI almost done" />
+    <MESSAGE value="maj" />
+    <option name="LAST_COMMIT_MESSAGE" value="maj" />
   </component>
 </project>

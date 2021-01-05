@@ -7,10 +7,7 @@ import Modele.Partie;
 import Vue.*;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Controleur {
     private static AffichageTerminal vueTerm = new AffichageTerminal();
@@ -78,6 +75,10 @@ public class Controleur {
     //regarde si un coup est Valide
     // -> si on ne clique pas sur un dragon, un bloc fixe ou un espace vide
     public static boolean coupValide(int i, int j){
+        if (partie.getLvl().getGrid().gril[i][j].getIs() == '1' ||
+                partie.getLvl().getGrid().gril[i][j].getIs() == '2'){
+            return true;
+        }
         if(partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
                 partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
                 partie.getLvl().getGrid().gril[i][j].getIs() != 'a') {
@@ -113,10 +114,6 @@ public class Controleur {
                 partie.getLvl().getGrid().gril[i][j].getIs() != 'a');
     }
 
-    //met à jour le joueur dans joueur.ser
-    public void miseAJour(Joueur joueur,Niveau lvl){
-        joueur.miseAJour(joueur,lvl);
-    }
 
     //met à jour les score du niveau (best_score)
     public void miseAJourScore(int score,String name,Niveau lvl){
@@ -149,6 +146,17 @@ public class Controleur {
         return false;
     }
 
+    public static void robot(Partie partie){
+        int i;
+        int j;
+        do {
+            Random rand = new Random();
+            i = rand.nextInt(partie.getLvl().getGrid().gril.length);
+            j = rand.nextInt(partie.getLvl().getGrid().gril[0].length);
+        }while (!coupValide(i,j));
+        int[] coor = new int[]{i,j};
+        partie.actionBloc(coor, partie.getLvl().getGrid().aDAnimaux() <5);
+    }
 
     //---------------------------------------------------------
     //                   --- PARTIE 3 ---                     -
@@ -170,17 +178,17 @@ public class Controleur {
 
     //demande au joueur s'il préfère se connecter ou s'incrire
     public static String demandeJoueur(){
-        System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+        System.out.println("Co(nnexion) ou I(nscription) ?");
         String rep;
         boolean ok;
         do{
             rep = new Scanner(System.in).next();
             switch (rep.toLowerCase(Locale.ROOT)) {
-                case "co", "connecter", "i", "inscrire","connexion","inscription" -> ok = true;
+                case "co", "i", "connexion","inscription" -> ok = true;
                 default -> {
                     ok = false;
                     System.out.println("Vous n'avez pas répondu correctement !");
-                    System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+                    System.out.println("Co(nnexion) ou I(nscription) ?");
                 }
             }
         }while(!ok);
@@ -189,7 +197,7 @@ public class Controleur {
 
     //fonction de connexion
     public static Joueur connexionTxt(){
-        System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+        System.out.println("Entrez votre identifiant : (ou i pour l'inscription)");
         String rep ;
         Joueur joueur = null;
         boolean ok = false;
@@ -200,7 +208,7 @@ public class Controleur {
                 ok =true;
             } else if (!Joueur.rechercheId(rep)) { //regarder si present dans joueur.ser (ici cas negatif)
                 System.out.println("Identifiant introuvable.");
-                System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+                System.out.println("Entrez votre identifiant : (ou i pour l'inscription)");
                 ok = false;
             } else { // l'identifiant est présent dans joueur.ser, on demande le mot de passe
                 System.out.println("Entrez votre mot de passe :");
@@ -208,7 +216,7 @@ public class Controleur {
                 if (!Joueur.rechercheMdp(rep, repMdp)) { // mauvais mot de passe
                     ok = false;
                     System.out.println("Mot de passe incorrect !");
-                    System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+                    System.out.println("Entrez votre identifiant : (ou i pour l'inscription)");
                 } else { //mot de pass correct
                     joueur = Joueur.getJoueur(rep);
                     ok = true;
@@ -220,7 +228,7 @@ public class Controleur {
 
     //fonction d'inscription
     public static Joueur inscriptionTxt(){
-        System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+        System.out.println("Choisissez un identifiant : (ou c pour se connecter)");
         String rep ;
         Joueur joueur = null;
         boolean ok = false;
@@ -240,11 +248,11 @@ public class Controleur {
                 } else { //mot de pass incorrect
                     ok = false;
                     System.out.println("Vos mots de passes sont différents !");
-                    System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+                    System.out.println("Choisissez un identifiant : (ou c pour se connecter)");
                 }
             } else { // l'identifiant est présent dans joueur.ser, on ne peut pas l'utiliser
                 System.out.println("Identifiant déjà utilisé.");
-                System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+                System.out.println("Choisissez un identifiant : (ou c pour se connecter)");
                 ok = false;
             }
         } while (!ok);
@@ -275,12 +283,9 @@ public class Controleur {
         do{
             int animAle = partie.getLvl().getGrid().aDAnimaux();
             vueTerm.afficheEtat(animAle<5);
-            //vueTerm.afficherGrille();
-            //demandeAction(animAle<5);
         }while(partie.finJeu() == 0);
 
         if (partie.finJeu() == 2) {
-            partie.getJoueur().miseAJour(partie.getJoueur(), partie.getLvl());
             partie.getLvl().miseAJourScore(partie.getScore(),partie.getJoueur().getNom(),partie.getLvl() );
         }
         vueTerm.affichageFinDePartie(partie.finJeu());
@@ -289,9 +294,9 @@ public class Controleur {
     //retourne le niveau choisi
     public static int choixLevel(){
         int level;
-        System.out.println("Voici les niveaux auxquels vous avez accès :");
+        System.out.println("Niveaux possibles :");
         vueTerm.afficheNiveauPossible();
-        System.out.println("Choisissez le niveau auquel vous voulez jouer :");
+        System.out.println("Choisissez votre niveau :");
         level = Integer.parseInt(new Scanner(System.in).next());
         return level;
     }
@@ -299,11 +304,17 @@ public class Controleur {
     //demande au joueur quelle action il veut faire
     // -> casser des blocs ou utiliser un objet
     public static void demandeAction(boolean animAlea){
-        System.out.println("Voulez-vous supprimer un bloc ou utiliser un objet? (B(loc)/O(bjet))");
+        System.out.println("Que voulez-vous faire ?");
+        System.out.println("Supprimer un bloc ? Utiliser un objet ? Robot ?");
+        System.out.println("B(loc) / O(bjet) / R(obot)");
         String[] coordsStr;
         int[] coords = new int[2];
         String a = new Scanner(System.in).next();
         switch (a.toLowerCase()) {
+            case "r":
+            case "robot":
+                robot(partie);
+                break;
             case "b":
             case "bloc":
                 boolean flag=false;
@@ -318,11 +329,11 @@ public class Controleur {
                     }
                 }while(!flag);
                 partie.actionBloc(coords,animAlea);
-                System.out.println("ziz");
                 break;
             case "o":
             case "objet":
-                ArrayList<String> liste = partie.voirObjPossible(partie.getJoueur().getObjAcces(),partie.getLvl().getObjDispo());
+                /*
+                //ArrayList<String> liste = partie.voirObjPossible(partie.getJoueur().getObjAcces(),partie.getLvl().getObjDispo());
                 if (!liste.isEmpty()) {
                     boolean repOk = false;
                     do {
@@ -375,12 +386,20 @@ public class Controleur {
                                 partie.actionObj(animAlea,"pioche",coords);
                                 repOk=true;
                             }
-                            default -> System.out.println("Réponse non reconnue ! Choisissez un objet (ou 0 pour revenir en arrière)");
+                            default -> {
+                                System.out.println("Réponse non reconnue !");
+                                System.out.println("Choisissez un objet (ou 0 pour revenir en arrière");
+                            }
                         }
                     }while (! repOk);
+
+
+
                 } else {
                     System.out.println("Pas d'obejt disponible :(");
                 }
+
+                 */
                 break;
             default:
                 System.out.println("Entrée incorrecte !");
@@ -394,7 +413,7 @@ public class Controleur {
         String[] coordStr = new String[2];
         do{
             coords = new Scanner(System.in).next();
-            if(coords.length() != 2)System.out.println("L'entrée n'a pas la bonne taille. Réessayez !");
+            if(coords.length() != 2)System.out.println("L'entrée n'a pas la bonne taille.");
         }while(coords.length() != 2);
         coordStr[0] = coords.substring(0,1);
         coordStr[1] = coords.substring(1,2);
@@ -406,8 +425,6 @@ public class Controleur {
         int[] intab = new int[2];
         intab[0] = Integer.parseInt(coords[0]);
         intab[1] = Integer.parseInt(coords[1]);
-        System.out.println("i : " + intab[0]);
-        System.out.println("j : "+intab[1]);
         return intab;
     }
 
@@ -435,7 +452,7 @@ public class Controleur {
                 coords[0] = tmp;
                 return true;
             } else {
-                System.out.println("Les coordonées ne sont pas valides !");
+                System.out.println("Les coordonnées ne sont pas valides !");
                 return false;
             }
         }
@@ -521,7 +538,6 @@ public class Controleur {
                     }
                     vueGraph.updateGrille(partie.getLvl().getGrid());
                     if (partie.finJeu() != 0) {
-                        partie.getJoueur().miseAJour(partie.getJoueur(), partie.getLvl());
                         partie.getLvl().miseAJourScore(partie.getScore(), partie.getJoueur().getNom(), partie.getLvl());
                         vueGraph.finLevel(partie.getLvl(), partie.finJeu());
                     }
@@ -535,6 +551,8 @@ public class Controleur {
         if (joueur.levelEstPossible(id)) {
             Niveau level = Niveau.recupNiveau(id);
             level.remplir_Grille();
+            Partie partie = new Partie(joueur, level);
+            vueGraph.setPartie(partie);
             vueGraph.setNiveau(level);
             vueGraph.presentationLevel(level);
         }
@@ -553,7 +571,6 @@ public class Controleur {
             }
             vueGraph.updateGrille(partie.getLvl().getGrid());
             if (partie.finJeu() != 0) {
-                partie.getJoueur().miseAJour(partie.getJoueur(),partie.getLvl());
                 partie.getLvl().miseAJourScore(partie.getScore(), partie.getJoueur().getNom(),partie.getLvl());
                 vueGraph.finLevel(partie.getLvl(), partie.finJeu());
             }
@@ -590,6 +607,16 @@ public class Controleur {
                 System.out.println("Les coordonées ne sont pas valides !");
                 return false;
             }
+        }
+    }
+
+    //gere l'action faite par le robot
+    public void actRobot(Partie partie){
+        robot(partie);
+        if (partie.finJeu() == 0) {
+            vueGraph.updateGrille(partie.getLvl().getGrid());
+        } else {
+            vueGraph.finLevel(partie.getLvl(),partie.finJeu());
         }
     }
 
