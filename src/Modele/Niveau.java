@@ -11,7 +11,7 @@ public class Niveau implements Serializable {
     protected int nb_coup_max;
     public Map<Integer,String> best_score;
     protected ArrayList<Character> listColor;
-    protected ArrayList<String> objDispo;
+    protected String objDispo;
     protected boolean decale;
     static final long serialVersionUID = 10203042;
 
@@ -20,7 +20,7 @@ public class Niveau implements Serializable {
         id = numero;
         nb_animaux = animaux;
         nb_coup_max = coup;
-        best_score = new HashMap<>();
+        best_score = new TreeMap<Integer, String>(Collections.reverseOrder()); ;
         this.decale = decale;
         listColor = listeColor();
         objDispo = remplirObjetDispo(id);
@@ -49,18 +49,17 @@ public class Niveau implements Serializable {
     }
 
     //rempli la liste d'objet disponible du niveau
-    public ArrayList<String> remplirObjetDispo(int id){
-        ArrayList<String> liste = new ArrayList<>();
-        if (id >= 3){
-            liste.add("Fusee");
+    public String remplirObjetDispo(int id){
+        if (id == 3){
+            return "Fusee";
         }
-        if (id >= 4){
-            liste.add("Bombe");
+        if (id == 4){
+            return "Bombe";
         }
-        if (id >= 5){
-            liste.add("Pioche");
+        if (id == 5){
+            return "Pioche";
         }
-        return liste;
+        return "";
     }
     
     
@@ -121,7 +120,7 @@ public class Niveau implements Serializable {
         return decale;
     }
 
-    public ArrayList<String> getObjDispo(){
+    public String getObjDispo(){
         return objDispo;
     }
 
@@ -178,7 +177,6 @@ public class Niveau implements Serializable {
             best_score.remove(last);
         }
         best_score.put(score,joueur);
-        best_score = new TreeMap<Integer,String>(best_score);
         remplir_Grille();
         Niveau a = new Niveau(new Grille(new Case[lvl.getGrid().gril.length][lvl.getGrid().gril[0].length]),lvl.id,lvl.getNb_animaux(),lvl.getNb_coup_max(), lvl.isDecale());
         a.best_score = best_score;

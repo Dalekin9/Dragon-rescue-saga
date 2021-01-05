@@ -1,12 +1,18 @@
 package Controleur;
 
 
+import Modele.Case;
+import Modele.Grille;
+import Modele.Joueur;
+import Modele.Niveau;
+
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Launcher {
 
-    /*
+
     public static Niveau[] init(){
         Niveau[] tab = new Niveau[5];
         tab[0] = new Niveau(new Grille(new Case[7][7]),1,2,-1,true);
@@ -17,11 +23,10 @@ public class Launcher {
         return tab;
     }
 
-     */
+
 
     public static void main(String[] args) throws IOException {
 
-/*
         ObjectOutputStream oos = null;
         //ObjectInputStream ois = null;
         Niveau[] levels = init();
@@ -35,11 +40,7 @@ public class Launcher {
             oos.flush();
             oos.close();
 
- */
-
-
-
-        /*ObjectOutputStream oos = null;
+            oos = null;
             Joueur test = new Joueur("admin","azerty");
             ArrayList<Integer> a = new ArrayList<Integer>();
             a.add(1);
@@ -48,37 +49,11 @@ public class Launcher {
             a.add(4);
             a.add(5);
             test.setNivAcess(a);
-            ArrayList<String> b = new ArrayList<>();
-            b.add("Fusee");
-            b.add("Bombe");
-            b.add("Pioche");
-            test.setObjAcces(b);
             oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
-            oos.writeObject(test);*/
-
-
-
-
-
-
-
-  /*          //Demande au joueur s'il veut jouer en mode texte ou graphique
-            if (demandeJeu().equals("t")){
-                Game.trouverJoueur();
-            }else {
-                //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-                InterfaceJeu.lancement();
-            }
-
-            */
-
-/*
+            oos.writeObject(test);
         } catch (final IOException e) {
             e.printStackTrace();
         }
-
-
- */
 
 
 
@@ -89,15 +64,7 @@ public class Launcher {
             //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
             Controleur.lancement();
         }
-
-
  */
-
-
-
-
-
-
         //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
         Controleur.lancement();
 
