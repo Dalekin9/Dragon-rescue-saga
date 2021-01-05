@@ -7,10 +7,7 @@ import Modele.Partie;
 import Vue.*;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Controleur {
     private static AffichageTerminal vueTerm = new AffichageTerminal();
@@ -77,15 +74,22 @@ public class Controleur {
 
     //regarde si un coup est Valide
     // -> si on ne clique pas sur un dragon, un bloc fixe ou un espace vide
-    public boolean coupValide(int i, int j){
-        return partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+    public static boolean coupValide(int i, int j){
+        if (partie.getLvl().getGrid().gril[i][j].getIs() == '1' ||
+                partie.getLvl().getGrid().gril[i][j].getIs() == '2'){
+            return true;
+        }
+        if(partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
                 partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
-                partie.getLvl().getGrid().gril[i][j].getIs() != 'a';
+                partie.getLvl().getGrid().gril[i][j].getIs() != 'a') {
+            return isCoupPossible(i,j);
+        }
+        return false;
     }
 
     //regarde si le coup de la fusée est possible
     // -> si on ne lance pas la fusée sur une colonne vide ou rempli de bloc fixe
-    public boolean coupValideFus(int j){
+    public static boolean coupValideFus(int j){
         for (int i=0;i<partie.getLvl().getGrid().gril.length;i++){
             if (partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
                     partie.getLvl().getGrid().gril[i][j].getIs() != '-'){
@@ -95,10 +99,21 @@ public class Controleur {
         return false;
     }
 
-    //met à jour le joueur dans joueur.ser
-    public void miseAJour(Joueur joueur,Niveau lvl){
-        joueur.miseAJour(joueur,lvl);
+    public boolean coupValideObj(String obj, int i, int j){
+        if (obj.equals("Fusee")){
+            return coupValideFus(j);
+        } else {
+            return coupValideBombPio(i,j);
+        }
     }
+
+    //regarde si le coup de la bombe est possible
+    public static boolean coupValideBombPio(int i, int j){
+        return(partie.getLvl().getGrid().gril[i][j].getIs() != ' ' &&
+                partie.getLvl().getGrid().gril[i][j].getIs() != '-' &&
+                partie.getLvl().getGrid().gril[i][j].getIs() != 'a');
+    }
+
 
     //met à jour les score du niveau (best_score)
     public void miseAJourScore(int score,String name,Niveau lvl){
@@ -107,34 +122,41 @@ public class Controleur {
 
     //regarde si un coup est possible
     // -> si un bloc en haut, en bas, à droite ou à gauche est comme lui
-    public boolean isCoupPossible(int i, int j){
-        if (i>0){
-            if(j>0){
-                if (partie.getLvl().getGrid().gril[i-1][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
-            }
-            if (j<partie.getLvl().getGrid().gril[0].length-1){
-                if (partie.getLvl().getGrid().gril[i-1][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+    public static boolean isCoupPossible(int i, int j){
+        if (i>0) {
+            if (partie.getLvl().getGrid().gril[i - 1][j].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()) {
+                return true;
             }
         }
         if (i<partie.getLvl().getGrid().gril.length-1){
-            if(j>0){
-                if (partie.getLvl().getGrid().gril[i+1][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+            if (partie.getLvl().getGrid().gril[i + 1][j].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()) {
+                return true;
             }
-            if (j<partie.getLvl().getGrid().gril[0].length-1){
-                if (partie.getLvl().getGrid().gril[i+1][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
-                    return true;
-                }
+        }
+        if(j>0) {
+            if (partie.getLvl().getGrid().gril[i][j-1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()) {
+                return true;
+            }
+        }
+        if (j<partie.getLvl().getGrid().gril[0].length-1){
+            if (partie.getLvl().getGrid().gril[i][j+1].getIs() == partie.getLvl().getGrid().gril[i][j].getIs()){
+                return true;
             }
         }
         return false;
     }
 
+    public static void robot(Partie partie){
+        int i;
+        int j;
+        do {
+            Random rand = new Random();
+            i = rand.nextInt(partie.getLvl().getGrid().gril.length);
+            j = rand.nextInt(partie.getLvl().getGrid().gril[0].length);
+        }while (!coupValide(i,j));
+        int[] coor = new int[]{i,j};
+        partie.actionBloc(coor, partie.getLvl().getGrid().aDAnimaux() <5);
+    }
 
     //---------------------------------------------------------
     //                   --- PARTIE 3 ---                     -
@@ -156,17 +178,17 @@ public class Controleur {
 
     //demande au joueur s'il préfère se connecter ou s'incrire
     public static String demandeJoueur(){
-        System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+        System.out.println("Co(nnexion) ou I(nscription) ?");
         String rep;
         boolean ok;
         do{
             rep = new Scanner(System.in).next();
             switch (rep.toLowerCase(Locale.ROOT)) {
-                case "co", "connecter", "i", "inscrire","connexion","inscription" -> ok = true;
+                case "co", "i", "connexion","inscription" -> ok = true;
                 default -> {
                     ok = false;
                     System.out.println("Vous n'avez pas répondu correctement !");
-                    System.out.println("Souhaitez-vous vous Co(nnecter) ou vous I(nscrire) ?");
+                    System.out.println("Co(nnexion) ou I(nscription) ?");
                 }
             }
         }while(!ok);
@@ -175,7 +197,7 @@ public class Controleur {
 
     //fonction de connexion
     public static Joueur connexionTxt(){
-        System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+        System.out.println("Entrez votre identifiant : (ou i pour l'inscription)");
         String rep ;
         Joueur joueur = null;
         boolean ok = false;
@@ -186,7 +208,7 @@ public class Controleur {
                 ok =true;
             } else if (!Joueur.rechercheId(rep)) { //regarder si present dans joueur.ser (ici cas negatif)
                 System.out.println("Identifiant introuvable.");
-                System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+                System.out.println("Entrez votre identifiant : (ou i pour l'inscription)");
                 ok = false;
             } else { // l'identifiant est présent dans joueur.ser, on demande le mot de passe
                 System.out.println("Entrez votre mot de passe :");
@@ -194,7 +216,7 @@ public class Controleur {
                 if (!Joueur.rechercheMdp(rep, repMdp)) { // mauvais mot de passe
                     ok = false;
                     System.out.println("Mot de passe incorrect !");
-                    System.out.println("Entrez votre identifiant : (ou i si vous voulez vous inscrire)");
+                    System.out.println("Entrez votre identifiant : (ou i pour l'inscription)");
                 } else { //mot de pass correct
                     joueur = Joueur.getJoueur(rep);
                     ok = true;
@@ -206,7 +228,7 @@ public class Controleur {
 
     //fonction d'inscription
     public static Joueur inscriptionTxt(){
-        System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+        System.out.println("Choisissez un identifiant : (ou c pour se connecter)");
         String rep ;
         Joueur joueur = null;
         boolean ok = false;
@@ -226,11 +248,11 @@ public class Controleur {
                 } else { //mot de pass incorrect
                     ok = false;
                     System.out.println("Vos mots de passes sont différents !");
-                    System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+                    System.out.println("Choisissez un identifiant : (ou c pour se connecter)");
                 }
             } else { // l'identifiant est présent dans joueur.ser, on ne peut pas l'utiliser
                 System.out.println("Identifiant déjà utilisé.");
-                System.out.println("Choisissez un identifiant : (ou c si vous voulez vous connecter)");
+                System.out.println("Choisissez un identifiant : (ou c pour se connecter)");
                 ok = false;
             }
         } while (!ok);
@@ -262,8 +284,8 @@ public class Controleur {
             int animAle = partie.getLvl().getGrid().aDAnimaux();
             vueTerm.afficheEtat(animAle<5);
         }while(partie.finJeu() == 0);
+
         if (partie.finJeu() == 2) {
-            partie.getJoueur().miseAJour(partie.getJoueur(), partie.getLvl());
             partie.getLvl().miseAJourScore(partie.getScore(),partie.getJoueur().getNom(),partie.getLvl() );
         }
         vueTerm.affichageFinDePartie(partie.finJeu());
@@ -272,21 +294,32 @@ public class Controleur {
     //retourne le niveau choisi
     public static int choixLevel(){
         int level;
-        System.out.println("Voici les niveaux auxquels vous avez accès :");
+        System.out.println("Niveaux possibles :");
         vueTerm.afficheNiveauPossible();
-        System.out.println("Choisissez le niveau auquel vous voulez jouer :");
-        level = Integer.parseInt(new Scanner(System.in).next());
-        return level;
+        System.out.println("Choisissez votre niveau :");
+        try {
+            level = (new Scanner(System.in).nextInt());
+            return level;
+        }catch (InputMismatchException e){
+            System.out.println("Entrez un chiffre !");
+            return choixLevel();
+        }
     }
 
     //demande au joueur quelle action il veut faire
     // -> casser des blocs ou utiliser un objet
-    public void demandeAction(boolean animAlea){
-        System.out.println("Voulez-vous supprimer un bloc ou utiliser un objet? (B(loc)/O(bjet))");
+    public static void demandeAction(boolean animAlea){
+        System.out.println("Que voulez-vous faire ?");
+        System.out.println("Supprimer un bloc ? Utiliser un objet ? Robot ?");
+        System.out.println("B(loc) / O(bjet) / R(obot)");
         String[] coordsStr;
         int[] coords = new int[2];
         String a = new Scanner(System.in).next();
         switch (a.toLowerCase()) {
+            case "r":
+            case "robot":
+                robot(partie);
+                break;
             case "b":
             case "bloc":
                 boolean flag=false;
@@ -304,79 +337,81 @@ public class Controleur {
                 break;
             case "o":
             case "objet":
-                ArrayList<String> liste = partie.voirObjPossible(partie.getJoueur().getObjAcces(),partie.getLvl().getObjDispo());
-                if (!liste.isEmpty()) {
+                String liste = partie.getLvl().getObjDispo();
+                if (!liste.equals("")) {
                     boolean repOk = false;
                     do {
                         flag = false;
                         vueTerm.afficherObjetPossible(liste);
                         String rep = new Scanner(System.in).next();
-                        switch (rep.toLowerCase(Locale.ROOT)) {
-                            case "0" -> repOk = true;
-                            case "bombe" -> {
-                                do {
-                                    System.out.println("Ou voulez utiliser la Bombe ? (ex: B4)");
-                                    coordsStr = recupCoords();
-                                    if (coordsVerif(coordsStr)) {
-                                        coords = coordsInt(coordsStr);
-                                        if (coupValide(coords[0], coords[1])) {
-                                            flag = true;
+                        if (rep.equals("o")) {
+                            switch (liste) {
+                                case "Bombe" -> {
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Bombe ? (ex: B4)");
+                                        coordsStr = recupCoords();
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValideBombPio(coords[0], coords[1])) {
+                                                flag = true;
+                                            }
                                         }
-                                    }
-                                } while (!flag);
-                                partie.actionObj(animAlea,"bombe",coords);
-                                repOk=true;
-                            }
-                            case "fusee", "fusée" -> {
-                                do {
-                                    System.out.println("Ou voulez utiliser la Fusée ? (ex: B)");
-                                    String coordFus = new Scanner(System.in).next();
-                                    coordsStr = new String[]{coordFus, "0"};
-                                    if (coordsVerif(coordsStr)) {
-                                        coords = coordsInt(coordsStr);
-                                        if (coupValideFus(coords[1])) {
-                                            flag = true;
-                                            System.out.println("rgbnh,j;,hngbfvds");
+                                    } while (!flag);
+                                    partie.actionObj(animAlea, "bombe", coords);
+                                }
+                                case "Fusee" -> {
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Fusee ? (ex: B)");
+                                        String coordFus = new Scanner(System.in).next();
+                                        coordsStr = new String[]{coordFus, "0"};
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValideFus(coords[1])) {
+                                                flag = true;
+                                            }
                                         }
-                                    }
-                                } while (!flag);
-                                partie.actionObj(animAlea,"fusee",coords);
-                                repOk=true;
-                            }
-                            case "pioche" -> {
-                                do {
-                                    System.out.println("Ou voulez utiliser la Pioche ? (ex: B4)");
-                                    coordsStr = recupCoords();
-                                    if (coordsVerif(coordsStr)) {
-                                        coords = coordsInt(coordsStr);
-                                        if (coupValide(coords[0], coords[1])) {
-                                            flag = true;
+                                    } while (!flag);
+                                    partie.actionObj(animAlea, "fusee", coords);
+
+                                }
+                                case "Pioche" -> {
+                                    do {
+                                        System.out.println("Ou voulez utiliser la Pioche ? (ex: B4)");
+                                        coordsStr = recupCoords();
+                                        if (coordsVerif(coordsStr)) {
+                                            coords = coordsInt(coordsStr);
+                                            if (coupValideBombPio(coords[0], coords[1])) {
+                                                flag = true;
+                                            }
                                         }
-                                    }
-                                } while (!flag);
-                                partie.actionObj(animAlea,"pioche",coords);
-                                repOk=true;
+                                    } while (!flag);
+                                    partie.actionObj(animAlea, "pioche", coords);
+                                }
                             }
-                            default -> System.out.println("Réponse non reconnue ! Choisissez un objet (ou 0 pour revenir en arrière)");
+                            repOk = true;
                         }
-                    }while (! repOk);
-                } else {
-                    System.out.println("Pas d'obejt disponible :(");
+                        else if (rep.equals("n")) {
+                            repOk = true;
+                            demandeAction(animAlea);
+                        }
+                        else {
+                            System.out.println("Reponse incorrecte");
+                        }
+                    } while (!repOk);
+                }else {
+                    System.out.println("Pas d'objet disponible :(");
+                    demandeAction(animAlea);
                 }
-                break;
-            default:
-                System.out.println("Entrée incorrecte !");
-                demandeAction(animAlea);
         }
     }
 
     // Recupère les coordonnées de la case qui doit être affectée
-    public String[] recupCoords(){
+    public static String[] recupCoords(){
         String coords ;
         String[] coordStr = new String[2];
         do{
             coords = new Scanner(System.in).next();
-            if(coords.length() != 2)System.out.println("L'entrée n'a pas la bonne taille. Réessayez !");
+            if(coords.length() != 2)System.out.println("L'entrée n'a pas la bonne taille.");
         }while(coords.length() != 2);
         coordStr[0] = coords.substring(0,1);
         coordStr[1] = coords.substring(1,2);
@@ -384,19 +419,17 @@ public class Controleur {
     }
 
     //Convertis les coordonnées données pour qu'elles soient utilisées
-    public int[] coordsInt(String[] coords){
+    public static int[] coordsInt(String[] coords){
         int[] intab = new int[2];
         intab[0] = Integer.parseInt(coords[0]);
         intab[1] = Integer.parseInt(coords[1]);
-        System.out.println("i : " + intab[0]);
-        System.out.println("j : "+intab[1]);
         return intab;
     }
 
     //vérifie si les coordonnées sont dans le tableau :
     // si E15 -> regarde si E est ok
     //        -> regarde si 15 est ok
-    public boolean coordsVerif(String[] coords) {
+    public static boolean coordsVerif(String[] coords) {
         if (coords.length >2){
             return false;
         } else {
@@ -417,7 +450,7 @@ public class Controleur {
                 coords[0] = tmp;
                 return true;
             } else {
-                System.out.println("Les coordonées ne sont pas valides !");
+                System.out.println("Les coordonnées ne sont pas valides !");
                 return false;
             }
         }
@@ -488,26 +521,25 @@ public class Controleur {
         int longu = partie.getLvl().getGrid().getLongu();
         int ecartX = (panelLongu-50*longu)/2;
         int ecartY = (panelHaut-50*haut)/2;
-        int i;
-        int j;
-        if((x > ecartX && x < panelLongu-ecartX ) && (y > ecartY && y < panelHaut-ecartY)){
-            i = (y - ecartY)/50;
-            j = (x - ecartX)/50;
-            System.out.println(ecartX);
-            System.out.println(ecartY);
-            System.out.println(i);
-            System.out.println(j);
-            int[] coords = new int[2];
-            coords[0] = i;
-            coords[1] = j;
-            if (!partie.getLvl().isDecale()) {
-                partie.actionObj(grid.aDAnimaux() < 5,obj.toLowerCase(),coords);
-            } else {
-                partie.actionObj(false, obj.toLowerCase(), coords);
-            }
-            vueGraph.updateGrille();
-            if (partie.finJeu() != 0) {
-                vueGraph.finLevel(partie.getLvl(), partie.finJeu());
+        int i = (y - ecartY) / 50;
+        int j = (x - ecartX) / 50;
+        int[] coords = new int[2];
+        coords[0] = i;
+        coords[1] = j;
+        if (coordsVerif(coords)) {
+            if (coupValideObj(obj, i, j)) {
+                if ((x > ecartX && x < panelLongu - ecartX) && (y > ecartY && y < panelHaut - ecartY)) {
+                    if (!partie.getLvl().isDecale()) {
+                        partie.actionObj(grid.aDAnimaux() < 5, obj.toLowerCase(), coords);
+                    } else {
+                        partie.actionObj(false, obj.toLowerCase(), coords);
+                    }
+                    vueGraph.updateGrille(partie.getLvl().getGrid(),partie.getScore(),partie.getAnimRes(),partie.getCoupRes());
+                    if (partie.finJeu() != 0) {
+                        partie.getLvl().miseAJourScore(partie.getScore(), partie.getJoueur().getNom(), partie.getLvl());
+                        vueGraph.finLevel(partie.getLvl(), partie.finJeu());
+                    }
+                }
             }
         }
     }
@@ -517,6 +549,8 @@ public class Controleur {
         if (joueur.levelEstPossible(id)) {
             Niveau level = Niveau.recupNiveau(id);
             level.remplir_Grille();
+            Partie partie = new Partie(joueur, level);
+            vueGraph.setPartie(partie);
             vueGraph.setNiveau(level);
             vueGraph.presentationLevel(level);
         }
@@ -533,16 +567,55 @@ public class Controleur {
             } else {
                 partie.actionBloc(coords, false);
             }
-            vueGraph.updateGrille();
+            vueGraph.updateGrille(partie.getLvl().getGrid(),partie.getScore(),partie.getAnimRes(),partie.getCoupRes());
             if (partie.finJeu() != 0) {
+                partie.getLvl().miseAJourScore(partie.getScore(), partie.getJoueur().getNom(),partie.getLvl());
                 vueGraph.finLevel(partie.getLvl(), partie.finJeu());
             }
         }
+    }
+
+    public void initGame(Joueur joueur, Niveau niveau){
+        Partie a = new Partie(joueur,niveau);
+        setPartie(a);
+        vueGraph.initGame(a.getLvl().getGrid(),partie.getScore(),partie.getAnimRes(),partie.getCoupRes());
     }
 
     //affiche le sommaire
      public void goSommaire(){
          vueGraph.sommaire();
      }
+
+    //vérifie si les coordonnées sont dans le tableau :
+    // si E15 -> regarde si E est ok
+    //        -> regarde si 15 est ok
+    public static boolean coordsVerif(int[] coords) {
+        if (coords.length >2){
+            return false;
+        } else {
+            int longueur = partie.getLvl().getGrid().getLongu();
+            int hauteur = partie.getLvl().getGrid().getHaut();
+            ArrayList nmbrs = new ArrayList();
+            ArrayList letters = new ArrayList();
+            for (int i = 0; i < hauteur; i++) nmbrs.add(String.valueOf(i));
+            for (int j = 0; j < longueur; j++) letters.add(String.valueOf((char) ('a' + j)));
+            if (nmbrs.contains(coords[1]) && letters.contains(coords[0])) {
+                return true;
+            } else {
+                System.out.println("Les coordonées ne sont pas valides !");
+                return false;
+            }
+        }
+    }
+
+    //gere l'action faite par le robot
+    public void actRobot(Partie partie){
+        robot(partie);
+        if (partie.finJeu() == 0) {
+            vueGraph.updateGrille(partie.getLvl().getGrid(),partie.getScore(),partie.getAnimRes(),partie.getCoupRes());
+        } else {
+            vueGraph.finLevel(partie.getLvl(),partie.finJeu());
+        }
+    }
 
 }

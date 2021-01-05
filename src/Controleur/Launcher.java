@@ -1,15 +1,17 @@
 package Controleur;
 
-import Modele.*;
-import Vue.AffichageGraphique;
+
+import Modele.Case;
+import Modele.Grille;
+import Modele.Joueur;
+import Modele.Niveau;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Launcher {
+
 
     public static Niveau[] init(){
         Niveau[] tab = new Niveau[5];
@@ -21,9 +23,10 @@ public class Launcher {
         return tab;
     }
 
+
+
     public static void main(String[] args) throws IOException {
-
-
+/*
         ObjectOutputStream oos = null;
         //ObjectInputStream ois = null;
         Niveau[] levels = init();
@@ -37,10 +40,7 @@ public class Launcher {
             oos.flush();
             oos.close();
 
-
-
-
-        /*ObjectOutputStream oos = null;
+            oos = null;
             Joueur test = new Joueur("admin","azerty");
             ArrayList<Integer> a = new ArrayList<Integer>();
             a.add(1);
@@ -49,50 +49,26 @@ public class Launcher {
             a.add(4);
             a.add(5);
             test.setNivAcess(a);
-            ArrayList<String> b = new ArrayList<>();
-            b.add("Fusee");
-            b.add("Bombe");
-            b.add("Pioche");
-            test.setObjAcces(b);
             oos = new ObjectOutputStream(new FileOutputStream("joueur.ser"));
-            oos.writeObject(test);*/
-
-
-
-
-
-
-
-  /*          //Demande au joueur s'il veut jouer en mode texte ou graphique
-            if (demandeJeu().equals("t")){
-                Game.trouverJoueur();
-            }else {
-                //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-                InterfaceJeu.lancement();
-            }
-
-            */
-
-
+            oos.writeObject(test);
         } catch (final IOException e) {
             e.printStackTrace();
         }
 
 
-
-        /*
+*/
 
         if (demandeJeu().equals("t")){
-            trouverJoueur();
+            Controleur.trouverJoueur();
         }else {
             //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
             Controleur.lancement();
         }
 
-*/
+
 
         //a voir si comme game on modifie pour pouvir relancer simplement apres fin jeu
-            Controleur.lancement();
+       // Controleur.lancement();
 
 
     }
@@ -100,7 +76,8 @@ public class Launcher {
     //demande au joueur de quelle manière il souhaite jouer
     // -> Interface Graphique ou via le terminal
     public static String demandeJeu(){
-        System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
+        System.out.println("De quelle facon voulez-vous jouer ?");
+        System.out.println("T(exte) ou I(nterface) ?");
         String rep ;
         boolean ok;
         do{
@@ -108,13 +85,13 @@ public class Launcher {
             switch (rep.toLowerCase()){
                 case "t","texte","i","interface" -> ok = true;
                 default -> {
-                    System.out.println("Vous n'avez pas répondu correctement !");
-                    System.out.println("De quelle façcon voulez-vous jouer ? T(exte) ou I(nterface) ?");
+                    System.out.println("Vous n'avez pas repondu correctement !");
+                    System.out.println("De quelle façcon voulez-vous jouer ?");
+                    System.out.println("T(exte) ou I(nterface) ?");
                     ok = false;
                 }
             }
         }while(!ok);
-
         return String.valueOf(rep.toLowerCase().charAt(0));
     }
 }

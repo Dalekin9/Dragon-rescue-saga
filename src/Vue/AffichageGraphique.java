@@ -6,28 +6,20 @@ import Modele.Joueur;
 import Modele.Niveau;
 import Modele.Partie;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.time.chrono.IsoChronology;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
 public class AffichageGraphique extends JFrame {
 
     private Controleur control;
+    private Partie partie;
     private CardLayout cl = new CardLayout();
     private JPanel main = new JPanel(cl);
     private Joueur joueur;
@@ -43,6 +35,7 @@ public class AffichageGraphique extends JFrame {
         setTitle("Bear Rescue Saga");
         setSize(550,725);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         setAlwaysOnTop(true);
     }
 
@@ -99,6 +92,7 @@ public class AffichageGraphique extends JFrame {
         this.niveau = niveau;
     }
 
+    public void setPartie(Partie partie){this.partie = partie;}
 
     //---------------------------------------------------------
     //                   --- PARTIE 2 ---                     -
@@ -109,32 +103,21 @@ public class AffichageGraphique extends JFrame {
     //affiche de l'ecran d'accueil
     public void ecranCo(){
         setAlwaysOnTop(false);
-        //création d'un panneau pour l'ajouter à la Vue
-        JPanel pan = new JPanel(new GridBagLayout());
+        JLabel txt = new JLabel();
+        JButton conn = new JButton();
+        JButton ins = new JButton();
 
-        JLabel jLabel1 = new JLabel();
+        JPanel princ = new ImagePanel("Ressources/Fonds/principal.jpg");
+        princ.setLayout(new GridBagLayout());
 
-        JButton jButton3 = new JButton();
-        JButton jButton4 = new JButton();
-        JLabel jLabel3 = new JLabel();
-
-        JPanel princ = new JPanel();
-        princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new java.awt.GridBagLayout());
-
-
-        jLabel1.setText("<html><h1><strong>Rescue All Dragons</strong></h1><hr></html>");
-        jLabel1.setForeground(Color.BLACK);
+        txt.setText("<html><h1><strong>Rescue All Dragons</strong></h1><hr></html>");
+        txt.setForeground(Color.BLACK);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30,0,0,0);
-        sec.add(jLabel1, gbc);
+        princ.add(txt, gbc);
 
         JPanel butt= new JPanel();
         butt.setOpaque(false);
@@ -143,38 +126,26 @@ public class AffichageGraphique extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 0, 5, 0);
-
-        jButton3.setText("Connexion");
-        jButton3.setPreferredSize(new Dimension(150,55));
-        jButton3.addActionListener(new ActionListener() {
+        conn.setText("Connexion");
+        conn.setPreferredSize(new Dimension(150,55));
+        conn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.connexion();
             }
         });
-        butt.add(jButton3, gbc);
+        butt.add(conn, gbc);
 
-        jButton4.setText("Incription");
-        jButton4.setPreferredSize(new Dimension(150,55));
-        jButton4.addActionListener(new ActionListener() {
+        ins.setText("Incription");
+        ins.setPreferredSize(new Dimension(150,55));
+        ins.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.inscription();
             }
         });
-        butt.add(jButton4, gbc);
-
+        butt.add(ins, gbc);
         gbc.weighty = 1;
-
-        sec.add(butt,gbc);
-
-        princ.add(sec);
-        sec.setBounds(0, 0, 550, 725);
-
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\principal.png"));
-        princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 725);
-
+        princ.add(butt,gbc);
         main.add(princ, "accueil");
-
         getContentPane().add(main);
         main.setBounds(0, 0, 550, 725);
         setVisible(true);
@@ -182,114 +153,81 @@ public class AffichageGraphique extends JFrame {
 
     //affiche de l'ecran de connexion
     public void connexion() {
+        JPanel princ = new ImagePanel("Ressources/Fonds/connexion.jpg");
+        princ.setLayout(new java.awt.GridBagLayout());
 
-        JLabel jLabel1 = new JLabel();
-
-        JButton jButton3 = new JButton();
-        JButton jButton4 = new JButton();
-        JLabel jLabel3 = new JLabel();
-
-        JPanel princ = new JPanel();
-        princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setText("<html><h1><strong>Connexion</strong></h1><hr></html>");
-        jLabel1.setForeground(Color.BLACK);
-
+        JLabel txt = new JLabel("<html><h1><strong>Connexion</strong></h1><hr></html>");
+        txt.setForeground(Color.BLACK);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.gridy = 1;
-        gbc.gridx=1;
-        sec.add(jLabel1, gbc);
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(30,0,0,0);
+        gbc.gridx = 0;
+        princ.add(txt, gbc);
 
         JPanel butt= new JPanel();
         butt.setOpaque(false);
         butt.setLayout(new GridBagLayout());
 
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 0, 5, 0);
 
         JTextField ident = new JTextField("identifiant");
         ident.setPreferredSize(new Dimension(150,30));
         ident.setHorizontalAlignment(JTextField.CENTER);
-        gbc.gridx = 3;
-        gbc.gridx++;
+        ident.setBorder(null);
         gbc.gridy++;
         butt.add(ident,gbc);
 
         JTextField pswd = new JTextField("mot de passe");
         pswd.setPreferredSize(new Dimension(150,30));
         pswd.setHorizontalAlignment(JTextField.CENTER);
+        pswd.setBorder(null);
         gbc.gridy++;
         butt.add(pswd,gbc);
 
-        jButton3.setText("Confirmer");
-        jButton3.setPreferredSize(new Dimension(150,30));
-        jButton3.addActionListener(new ActionListener() {
+        JButton co = new JButton("Confirmer");
+        co.setPreferredSize(new Dimension(150,30));
+        co.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.seConnecter(ident.getText(),pswd.getText());
             }
         });
         gbc.insets = new Insets(10,0,0,0);
         gbc.gridy++;
-        butt.add(jButton3, gbc);
+        butt.add(co, gbc);
 
-        jButton4.setText("Incription");
-        jButton4.setPreferredSize(new Dimension(150,30));
-        jButton4.addActionListener(new ActionListener() {
+        JButton ins = new JButton("Incription");
+        ins.setPreferredSize(new Dimension(150,30));
+        ins.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.inscription();
             }
         });
         gbc.gridy++;
-        butt.add(jButton4, gbc);
-
-        gbc.anchor = GridBagConstraints.LINE_END;
-        sec.add(butt,gbc);
-
-        princ.add(sec);
-        sec.setBounds(0, 0, 550, 725);
-
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
-        princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 725);
+        butt.add(ins, gbc);
+        gbc.weighty = 1;
+        princ.add(butt,gbc);
 
         main.add(princ, "connexion");
         cl.show(main,"connexion");
-
     }
 
     //affichage de l'ecran d'inscription
     public void inscription(){
-
-        JLabel jLabel1 = new JLabel();
-
-        JButton jButton3 = new JButton();
-        JButton jButton4 = new JButton();
-        JLabel jLabel3 = new JLabel();
-
-        JPanel princ = new JPanel();
+        JPanel princ = new ImagePanel("Ressources/Fonds/connexion.jpg");
         princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new java.awt.GridBagLayout());
+        princ.setLayout(new java.awt.GridBagLayout());
 
 
-        jLabel1.setText("<html><h1><strong>Inscription</strong></h1><hr></html>");
-        jLabel1.setForeground(Color.BLACK);
-
+        JLabel txt = new JLabel("<html><h1><strong>Inscription</strong></h1><hr></html>");
+        txt.setForeground(Color.BLACK);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(30,0,0,0);
         gbc.gridx=1;
-        sec.add(jLabel1, gbc);
+        princ.add(txt, gbc);
 
         JPanel butt= new JPanel();
         butt.setOpaque(false);
@@ -300,55 +238,48 @@ public class AffichageGraphique extends JFrame {
         gbc.insets = new Insets(5, 0, 5, 0);
 
         JTextField ident = new JTextField("identifiant");
+        ident.setBorder(null);
         ident.setPreferredSize(new Dimension(150,30));
         ident.setHorizontalAlignment(JTextField.CENTER);
-        gbc.gridx = 3;
-        gbc.gridx++;
         gbc.gridy++;
         butt.add(ident,gbc);
 
         JTextField pswd = new JTextField("mot de passe");
+        pswd.setBorder(null);
         pswd.setPreferredSize(new Dimension(150,30));
         pswd.setHorizontalAlignment(JTextField.CENTER);
         gbc.gridy++;
         butt.add(pswd,gbc);
 
         JTextField pswd2 = new JTextField("mot de passe");
+        pswd2.setBorder(null);
         pswd2.setPreferredSize(new Dimension(150,30));
         pswd2.setHorizontalAlignment(JTextField.CENTER);
         gbc.gridy++;
         butt.add(pswd2,gbc);
 
-        jButton3.setText("Confirmer");
-        jButton3.setPreferredSize(new Dimension(150,30));
-        jButton3.addActionListener(new ActionListener() {
+        JButton conf = new JButton("Confirmer");
+        conf.setPreferredSize(new Dimension(150,30));
+        conf.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.sInscrire(ident.getText(),pswd.getText(),pswd2.getText());
             }
         });
         gbc.insets = new Insets(10,0,0,0);
         gbc.gridy++;
-        butt.add(jButton3, gbc);
+        butt.add(conf, gbc);
 
-        jButton4.setText("Connexion");
-        jButton4.setPreferredSize(new Dimension(150,30));
-        jButton4.addActionListener(new ActionListener() {
+        JButton ins = new JButton("Connexion");
+        ins.setPreferredSize(new Dimension(150,30));
+        ins.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.connexion();
             }
         });
         gbc.gridy++;
-        butt.add(jButton4, gbc);
-
-        gbc.anchor = GridBagConstraints.LINE_END;
-        sec.add(butt,gbc);
-
-        princ.add(sec);
-        sec.setBounds(0, 0, 550, 725);
-
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\connexion.png"));
-        princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 725);
+        butt.add(ins, gbc);
+        gbc.weighty = 1;
+        princ.add(butt,gbc);
 
         main.add(princ, "inscription");
         cl.show(main,"inscription");
@@ -356,29 +287,17 @@ public class AffichageGraphique extends JFrame {
 
     //affichage du sommaire
     public void sommaire(){
+        JPanel princ = new ImagePanel("Ressources/Fonds/somm.png");
+        princ.setLayout(new GridBagLayout());
 
-        JLabel jLabel1 = new JLabel();
-
-        JButton jButton3 = new JButton();
-        JButton jButton4 = new JButton();
-        JLabel jLabel3 = new JLabel();
-
-        JPanel princ = new JPanel();
-        princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new GridBagLayout());
-
-        jLabel1.setText("<html><h1><strong>Sommaire</strong></h1><hr></html>");
-        jLabel1.setForeground(Color.BLACK);
+        JLabel txt = new JLabel("<html><h1><strong>Sommaire</strong></h1><hr></html>");
+        txt.setForeground(Color.WHITE);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30,0,0,0);
-        sec.add(jLabel1, gbc);
+        princ.add(txt, gbc);
 
         JPanel butt= new JPanel();
         butt.setOpaque(false);
@@ -389,7 +308,7 @@ public class AffichageGraphique extends JFrame {
 
         //création des boutons et de leur évènement lié
         JButton av = new JButton("Mode Aventure");
-        av.setPreferredSize(new Dimension(150,40));
+        av.setPreferredSize(new Dimension(150,50));
         av.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.modeAventure();
@@ -397,75 +316,51 @@ public class AffichageGraphique extends JFrame {
         });
 
         JButton inf = new JButton("Mode Infini");
-        inf.setPreferredSize(new Dimension(150,40));
+        inf.setPreferredSize(new Dimension(150,50));
         inf.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.modeInfini();
             }
         });
 
-        JButton regles = new JButton("Règles du jeu");
-        regles.setPreferredSize(new Dimension(150,40));
+        JButton regles = new JButton("Regles du jeu");
+        regles.setPreferredSize(new Dimension(150,50));
         regles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 control.regles();
             }
         });
-        gbc.insets = new Insets(0,0,70,0);
+        gbc.insets = new Insets(0,0,30,0);
         butt.add(av, gbc);
-        gbc.insets = new Insets(10,0,70,0);
         butt.add(inf,gbc);
-        gbc.insets = new Insets(0,0,50,0);
         butt.add(regles,gbc);
         gbc.weighty=1;
-        sec.add(butt,gbc);
+        princ.add(butt,gbc);
 
-        princ.add(sec);
-        sec.setBounds(0, 0, 550, 725);
-
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\sommaire.png"));
-        princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 725);
 
         main.add(princ, "sommaire");
         cl.show(main,"sommaire");
-
-
     }
 
     //affichage du mode aventure
     // -> montre tous les levels
     public void modeAventure() {
-
-        JPanel princ = new JPanel();
-        princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new GridBagLayout());
+        JPanel princ = new ImagePanel("Ressources/Fonds/aventure.png");
+        princ.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = new Insets(30,0,0,0);
         JLabel l = new JLabel("<html><h1><strong>Choix du Niveau</strong></h1><hr></html>");
-        l.setForeground(Color.BLACK);
-        sec.add(l,gbc);
+        l.setForeground(Color.WHITE);
+        princ.add(l,gbc);
 
         gbc.anchor =GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weighty=1;
-        sec.add(choixDesLevels(),gbc);
+        princ.add(choixDesLevels(),gbc);
 
-
-        princ.add(sec);
-        sec.setBounds(0,0,550,725);
-
-        JLabel jLabel3 = new JLabel();
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\aventure.png"));
-        princ.add(jLabel3);
-        jLabel3.setBounds(0,0,550,725);
         main.add("AVENTURE",princ);
         cl.show(main,"AVENTURE");
     }
@@ -475,11 +370,11 @@ public class AffichageGraphique extends JFrame {
         JPanel levels = new JPanel(new GridBagLayout());
         levels.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15,15,15,15);
+        gbc.insets = new Insets(20,40,40,40);
         gbc.gridx=0;
         gbc.gridy=0;
         JButton lvl1 = new JButton("Niveau 1");
-        lvl1.setPreferredSize(new Dimension(150,70));
+        lvl1.setPreferredSize(new Dimension(120,60));
         lvl1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -489,8 +384,9 @@ public class AffichageGraphique extends JFrame {
         levels.add(lvl1,gbc);
         gbc.gridx=1;
         gbc.gridy=0;
+
         JButton lvl2 = new JButton("Niveau 2");
-        lvl2.setPreferredSize(new Dimension(150,70));
+        lvl2.setPreferredSize(new Dimension(120,60));
         lvl2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -500,8 +396,9 @@ public class AffichageGraphique extends JFrame {
         levels.add(lvl2,gbc);
         gbc.gridx=0;
         gbc.gridy=1;
+
         JButton lvl3 = new JButton("Niveau 3");
-        lvl3.setPreferredSize(new Dimension(150,70));
+        lvl3.setPreferredSize(new Dimension(120,60));
         lvl3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -511,8 +408,9 @@ public class AffichageGraphique extends JFrame {
         levels.add(lvl3,gbc);
         gbc.gridx=1;
         gbc.gridy=1;
+
         JButton lvl4 = new JButton("Niveau 4");
-        lvl4.setPreferredSize(new Dimension(150,70));
+        lvl4.setPreferredSize(new Dimension(120,60));
         lvl4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -524,8 +422,9 @@ public class AffichageGraphique extends JFrame {
         gbc.gridy=2;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0,0,40,0);
+
         JButton lvl5 = new JButton("Niveau 5");
-        lvl5.setPreferredSize(new Dimension(150,70));
+        lvl5.setPreferredSize(new Dimension(120,60));
         lvl5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -553,22 +452,16 @@ public class AffichageGraphique extends JFrame {
 
     //affiche de l'ecran de presentation du niveau choisi
     public void presentationLevel(Niveau niveau){
-
-        JPanel princ = new JPanel();
-        princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new GridBagLayout());
+        JPanel princ = new ImagePanel("Ressources/Fonds/presentLevel.png");
+        princ.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = new Insets(30,0,0,0);
         JLabel l = new JLabel("<html><h1><strong>Niveau " + niveau.id + " </strong></h1><hr></html>");
-        l.setForeground(Color.BLACK);
-        sec.add(l,gbc);
+        l.setForeground(Color.WHITE);
+        princ.add(l,gbc);
 
         JPanel third = new JPanel(new GridBagLayout());
         third.setOpaque(false);
@@ -588,7 +481,7 @@ public class AffichageGraphique extends JFrame {
         pres.add(objectif,gbc);
 
         gbc.insets = new Insets(0,0,10,0);
-        JLabel numAnimHelp= new JLabel("Dragons à sauver : " + niveau.getNb_animaux());
+        JLabel numAnimHelp= new JLabel("Dragons a sauver : " + niveau.getNb_animaux());
         //numAnimHelp.setBorder(BorderFactory.createLineBorder(Color.black));
         numAnimHelp.setPreferredSize(new Dimension(150,30));
         numAnimHelp.setHorizontalAlignment(SwingConstants.CENTER);
@@ -611,7 +504,7 @@ public class AffichageGraphique extends JFrame {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                initGame();
+                control.initGame(joueur,niveau);
             }
         });
         demarrer.setPreferredSize(new Dimension(100,50));
@@ -644,181 +537,74 @@ public class AffichageGraphique extends JFrame {
         third.add(ret,abc);
 
         gbc.weighty = 1;
-        sec.add(third,gbc);
-
-
-        princ.add(sec);
-        sec.setBounds(0,0,550,725);
-
-        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
-        princ.add(icon);
-        icon.setBounds(0,0,550,725);
+        princ.add(third,gbc);
 
         main.add("PRESENTATION",princ);
         cl.show(main,"PRESENTATION");
     }
 
     //affichage de l'ecran de fin de niveau
-    public void finLevel(Niveau niveau, int finJeu) {
-
-        JPanel princ = new JPanel();
-        princ.setOpaque(false);
-        princ.setLayout(null);
-
-        JPanel sec = new JPanel();
-        sec.setOpaque(false);
-        sec.setLayout(new GridBagLayout());
+    public void finLevel(Niveau niveau, int finJeu){
+        JPanel princ = new ImagePanel("Ressources/Fonds/presentLevel.png");
+        princ.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(30, 0, 0, 0);
+        gbc.insets = new Insets(30,0,0,0);
         JLabel l = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
-        l.setForeground(Color.BLACK);
-        sec.add(l, gbc);
+        l.setForeground(Color.WHITE);
+        princ.add(l,gbc);
 
         JPanel third = new JPanel(new GridBagLayout());
         third.setOpaque(false);
 
         JPanel mess = new JPanel(new GridBagLayout());
         mess.setOpaque(true);
-        //mess.setBackground(new Color(225,225,225,120));
 
-        gbc.insets = new Insets(20, 10, 20, 10);
+        gbc.insets = new Insets(20,10,20,10);
         gbc.anchor = GridBagConstraints.CENTER;
 
         JLabel info = new JLabel();
         info.setForeground(Color.BLACK);
         info.setHorizontalAlignment(SwingConstants.CENTER);
-        if (finJeu == 2) {
-            info.setText("Bravo, vous avez gagné !");
-            //info.setForeground(new Color(144, 232, 125));
-            mess.setBackground(new Color(144, 232, 125, 200));
+        if(finJeu == 2) {
+            info.setText("Bravo, vous avez gagne !");
+            mess.setBackground(new Color(144, 232, 125,200));
         } else {
-            info.setText("Dommage, vous avez echoué.");
-            //info.setForeground(new Color(229, 116, 116));
-            mess.setBackground(new Color(229, 116, 116, 200));
+            info.setText("Dommage, vous avez echoue.");
+            mess.setBackground(new Color(229, 116, 116,200));
         }
-        mess.add(info, gbc);
+        mess.add(info,gbc);
 
         JPanel pres = new JPanel(new GridBagLayout());
         pres.setOpaque(true);
-        pres.setBackground(new Color(225, 225, 225, 120));
+        pres.setBackground(new Color(225,225,225,120));
 
-        gbc.insets = new Insets(10, 0, 10, 0);
-        int compt = 1;
-        for (var s : niveau.best_score.entrySet()) {
-            compt++;
-            JLabel infoScore = new JLabel(compt + " : " + s.getValue() + " -> " + s.getKey() + " points");
-            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
-            infoScore.setPreferredSize(new Dimension(200, 20));
-            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
-            infoScore.setForeground(Color.BLACK);
-            gbc.gridy = compt + 1;
-            pres.add(infoScore, gbc);
-        }
-        while (compt < 6) {
-
-            JLabel infoScore = new JLabel(compt + " : Pas encore de meilleur score");
-            //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
-            infoScore.setPreferredSize(new Dimension(200, 20));
-            infoScore.setHorizontalAlignment(SwingConstants.CENTER);
-            infoScore.setForeground(Color.BLACK);
-            gbc.gridy = compt + 1;
-            pres.add(infoScore, gbc);
-            compt++;
-        }
-
-        //
-
-        JPanel play = new JPanel(new BorderLayout());
-        JButton next = new JButton("Suivant");
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                control.modeAventure();
-            }
-        });
-        next.setBorder(BorderFactory.createLineBorder(Color.black));
-        next.setPreferredSize(new Dimension(100, 40));
-        next.setHorizontalAlignment(SwingConstants.CENTER);
-        play.add(next);
-        play.setOpaque(false);
-
-
-        GridBagConstraints abc = new GridBagConstraints();
-        abc.insets = new Insets(0, 0, 60, 0);
-        abc.gridy = 1;
-        third.add(mess, abc);
-        abc.gridy = 2;
-        third.add(pres, abc);
-        abc.gridy = 3;
-        third.add(play, abc);
-        abc.insets = new Insets(0, 0, 40, 0);
-
-        gbc.weighty = 1;
-        sec.add(third, gbc);
-
-
-        princ.add(sec);
-        sec.setBounds(0, 0, 550, 725);
-
-        JLabel icon = new JLabel(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\presentLevel.jpg"));
-        princ.add(icon);
-        icon.setBounds(0, 0, 550, 725);
-
-        main.add("FIN_LEVEL", princ);
-        cl.show(main, "FIN_LEVEL");
-    }
-
-        /*
-        JPanel level = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0,0,30,0);
-        gbc.gridx=0;
-        gbc.gridy=0;
-        JLabel numLevel = new JLabel("<html><h1><strong>Niveau " + niveau.id + "</strong></h1><hr></html>");
-        numLevel.setBorder(BorderFactory.createLineBorder(Color.black));
-        numLevel.setPreferredSize(new Dimension(150,80));
-        numLevel.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(numLevel,gbc);
-
-
-         */
-
-        /*
-
-        gbc.insets = new Insets(0,0,5,0);
-        gbc.gridx=0;
-        gbc.gridy=1;
-        int compt = 1;
+        gbc.insets = new Insets(10,0,10,0);
+        int compt = 0;
         for (var s : niveau.best_score.entrySet()){
             compt++;
             JLabel infoScore = new JLabel(compt +" : " + s.getValue() +" -> " + s.getKey() + " points");
             //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
             infoScore.setPreferredSize(new Dimension(200,20));
             infoScore.setHorizontalAlignment(SwingConstants.CENTER);
+            infoScore.setForeground(Color.BLACK);
             gbc.gridy=compt+1;
-            level.add(infoScore,gbc);
+            pres.add(infoScore,gbc);
         }
         while (compt <6){
-
             JLabel infoScore = new JLabel(compt + " : Pas encore de meilleur score");
             //infoScore.setBorder(BorderFactory.createLineBorder(Color.black));
             infoScore.setPreferredSize(new Dimension(200,20));
             infoScore.setHorizontalAlignment(SwingConstants.CENTER);
+            infoScore.setForeground(Color.BLACK);
             gbc.gridy=compt+1;
-            level.add(infoScore,gbc);
+            pres.add(infoScore,gbc);
             compt++;
         }
 
-
-         */
-
-        /*
-        gbc.insets = new Insets(20,0,0,0);
-        gbc.gridx=0;
-        gbc.gridy=compt+1;
+        JPanel play = new JPanel(new BorderLayout());
         JButton next= new JButton("Suivant");
         next.addActionListener(new ActionListener() {
             @Override
@@ -829,44 +615,67 @@ public class AffichageGraphique extends JFrame {
         next.setBorder(BorderFactory.createLineBorder(Color.black));
         next.setPreferredSize(new Dimension(100,40));
         next.setHorizontalAlignment(SwingConstants.CENTER);
-        level.add(next,gbc);
+        play.add(next);
+        play.setOpaque(false);
 
-        main.add("END",level);
-        cl.show(main,"END");
-    }*/
 
-    public void updateGrille(){
-        jeu.remove(infoJeu);
-        Grille grid = niveau.getGrid();
+        GridBagConstraints abc = new GridBagConstraints();
+        abc.insets = new Insets(0,0,60,0);
+        abc.gridy = 1;
+        third.add(mess,abc);
+        abc.gridy = 2;
+        third.add(pres,abc);
+        abc.gridy = 3;
+        third.add(play,abc);
+        abc.insets = new Insets(0,0,40,0);
+
+        gbc.weighty = 1;
+        princ.add(third,gbc);
+
+        main.add("FIN_LEVEL",princ);
+        cl.show(main,"FIN_LEVEL");
+    }
+
+    public void updateGrille(Grille grid, int score, int animRes,int coupRes){
+        //remove(jeu);
+        jeu.removeAll();
+        //jeu.remove(big);
+        //Grille grid = niveau.getGrid();
         String color;
         Icon icon;
         JButton butt;
+        Random rand = new Random();
         buttons = new JButton[haut][longu];
+        JPanel big = new JPanel();
+        big.setOpaque(false);
+        big.setMinimumSize(new Dimension(550,490));
+        big.setLayout(new GridBagLayout());
         infoJeu = new JPanel(new GridLayout(haut,longu));
+        infoJeu.setOpaque(false);
         GridBagConstraints gridC = new GridBagConstraints();
+        gridC.fill = GridBagConstraints.HORIZONTAL;
+        gridC.gridx = 0;
+        jeu.add(etatJeu(score, animRes,coupRes), gridC);
         for(int i = 0; i<haut; i++){
             for(int j = 0; j<longu; j ++ ){
                 butt = new JButton();
                 switch (grid.gril[i][j].getIs()) {
                     case 'a':
-                        color = "bear";
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
+                        color = "dragon"+rand.nextInt(5);
                         break;
                     case ' ':
                     case 's':
                         color = "";
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
                         break;
                     default:
                         color = String.valueOf(grid.gril[i][j].getIs());
                         break;
                 }
-                icon = new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+color+".png");
+                icon = new ImageIcon("Ressources\\Blocs\\"+color+".png");
                 butt.setIcon(icon);
+                butt.setContentAreaFilled(false);
+                butt.setOpaque(false);
+                butt.setBorder(null);
                 butt.setPreferredSize(new Dimension(50,50));
                 buttons[i][j] = butt;
                 infoJeu.add(butt);
@@ -874,60 +683,60 @@ public class AffichageGraphique extends JFrame {
         }
         addAllListeners();
         infoJeu.setMinimumSize(new Dimension(50*longu,50*haut));
-        gridC.gridx = 0;
-        gridC.gridy = 1;
-        gridC.weightx = 0;
-        gridC.weighty = 0.6;
-        jeu.add(infoJeu, gridC);
+        //gridC.gridy = 1;
+        //gridC.weightx = 0;
+        //gridC.weighty = 0.6;
+        big.setOpaque(false);
+        big.add(infoJeu,new GridBagConstraints());
+        jeu.add(big, gridC);
+        gridC.anchor = GridBagConstraints.SOUTH;
+        jeu.add(infoObjets(), gridC);
         main.add("game",jeu);
         cl.show(main,"game");
     }
 
-    public void initGame(){
-        control.setPartie(new Partie(joueur,niveau));
+    public void initGame(Grille grid ,int score, int animRes,int coupRes){
         haut = niveau.getGrid().getHaut();
         longu = niveau.getGrid().getLongu();
         infoJeu = new JPanel(new GridLayout(haut, longu,10,10));
-        jeu = new JPanel(new GridBagLayout());
+        jeu = new ImagePanel("Ressources/Fonds/trax.png");
+        jeu.setLayout(new GridBagLayout());
         buttons = new JButton[haut][longu];
-        //JPanel dd = new JPanel(null);
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weighty = 0.2;
-        gbc.weightx = 1;
+        jeu.add(etatJeu(score, animRes,coupRes), gbc);
 
-        jeu.add(etatJeu(0, 1,5), gbc);
-
-        Grille grid = niveau.getGrid();
         String color = "";
         Icon icon;
         JButton butt;
+        Random rand = new Random();
         buttons = new JButton[haut][longu];
+
+        JPanel big = new JPanel();
+        big.setMinimumSize(new Dimension(550,490));
+        big.setLayout(new GridBagLayout());
         infoJeu = new JPanel(new GridLayout(haut,longu));
         for(int i = 0; i<haut; i++){
             for(int j = 0; j<longu; j ++ ){
                 butt = new JButton();
                 switch (grid.gril[i][j].getIs()) {
                     case 'a':
-                        color = "bear";
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
+                        color = "dragon"+rand.nextInt(5);
                         break;
                     case ' ':
                     case 's':
                         color = "";
-                        butt.setContentAreaFilled(false);
-                        butt.setOpaque(false);
-                        butt.setBorder(null);
                         break;
                     default:
                         color = String.valueOf(grid.gril[i][j].getIs());
                         break;
                 }
-                icon = new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+color+".png");
+                icon = new ImageIcon("Ressources\\Blocs\\"+color+".png");
                 butt.setIcon(icon);
+                butt.setContentAreaFilled(false);
+                butt.setOpaque(false);
+                butt.setBorder(null);
                 butt.setPreferredSize(new Dimension(50,50));
                 buttons[i][j] = butt;
                 infoJeu.add(butt);
@@ -935,38 +744,32 @@ public class AffichageGraphique extends JFrame {
         }
         addAllListeners();
         infoJeu.setMinimumSize(new Dimension(50*longu,50*haut));
-        gbc.gridy = 1;
-        gbc.weightx = 0;
-        gbc.weighty = 0.6;
-        jeu.add(infoJeu,gbc);
-
-        gbc.gridy = 2;
-        gbc.weighty = 0.2;
-        gbc.anchor = GridBagConstraints.BELOW_BASELINE;
+        infoJeu.setOpaque(false);
+        big.setOpaque(false);
+        big.add(infoJeu,new GridBagConstraints());
+        jeu.add(big,gbc);
         jeu.add(infoObjets(), gbc);
-        //dd.add(jeu);
-        //jeu.setBounds(0,0, 550, 725);
         main.add("game",jeu);
         cl.show(main,"game");
     }
 
     public JPanel infoObjets(){
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setForeground(new Color(52, 5, 99, 255));
+        JPanel panel = new ImagePanel("Ressources/Fonds/bag.jpg");
+        panel.setLayout(new GridBagLayout());
         panel.setVisible(true);
         GridBagConstraints gbc1 = new GridBagConstraints();
-        ButtObjet button;
-        String str;
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Fusee");
-        list.add("Bombe");
-        list.add("Pioche");
+        String str = niveau.getObjDispo();
 
-        gbc1.gridy = 0;
-        gbc1.ipadx = 20;
-        for(int i = 0; i<3; i++){
-            int x = i;
-            button = new ButtObjet();
+        JButton rob = new JButton("Robot");
+        rob.setPreferredSize(new Dimension(70,70));
+        rob.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.actRobot(partie);
+            }
+        });
+        if (!str.equals("")) {
+            ButtObjet button = new ButtObjet();
             button.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -976,17 +779,15 @@ public class AffichageGraphique extends JFrame {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     Toolkit toolkit = Toolkit.getDefaultToolkit();
-                    Image image = toolkit.getImage("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+list.get(x)+".png");
-                    Cursor c = toolkit.createCustomCursor(image , new Point(main.getX(), main.getY()), "img");
-                    main.setCursor (c);
+                    Image image = toolkit.getImage("Ressources/Objets/"+str+".png");
+                    Cursor c = toolkit.createCustomCursor(image, new Point(main.getX(), main.getY()), "img");
+                    main.setCursor(c);
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     main.setCursor(Cursor.getDefaultCursor());
-                    System.out.println(e.getXOnScreen()-getX());
-                    System.out.println(e.getYOnScreen()-getY()-getInsets().top);
-                    control.objetUsed(e.getXOnScreen()-getX()+20, e.getYOnScreen()-getY()+20, list.get(x));
+                    control.objetUsed(e.getXOnScreen() - getX() + 20, e.getYOnScreen() - getY() + 20, "Fusee");
                 }
 
                 @Override
@@ -999,41 +800,91 @@ public class AffichageGraphique extends JFrame {
 
                 }
             });
-            button.setPreferredSize(new Dimension(70,70));
-            if(joueur.getObjAcces().contains(list.get(i))){
-                str = list.get(i);
-            }else{
-                str = list.get(i) + "Locked";
-            }
-            button.setIcon(new ImageIcon("C:\\Users\\Dalekin\\Desktop\\Colors-Icons\\"+ str + ".png"));
-            gbc1.gridx = i;
-            panel.add(button,gbc1);
-            setVisible(true);
+            button.setPreferredSize(new Dimension(70, 70));
+            button.setIcon(new ImageIcon("Ressources/Objets/" + str + ".png"));
+            gbc1.anchor = GridBagConstraints.CENTER;
+            gbc1.insets = new Insets(0, 0, 0, 60);
+            panel.add(button, gbc1);
         }
+        else {
+            JLabel button = new JLabel("Pas d'Objet");
+            button.setPreferredSize(new Dimension(70, 70));
+            button.setIcon(new ImageIcon("Ressources/Objets/" + str + ".png"));
+            gbc1.anchor = GridBagConstraints.CENTER;
+            gbc1.insets = new Insets(0, 0, 0, 60);
+            panel.add(button, gbc1);
+        }
+
+        gbc1.gridx = 2;
+        gbc1.insets = new Insets(0, 80, 0, 0);
+        panel.add(rob, gbc1);
+        panel.setBorder(new javax.swing.border.BevelBorder(BevelBorder.RAISED));
+        setVisible(true);
         return panel;
     }
 
     public JPanel etatJeu(int score, int animRes, int coupRes){
-        JPanel etat = new JPanel(new GridBagLayout());
-        etat.setPreferredSize(new Dimension(550, 90));
+        JPanel etat = new JPanel();
+        etat.setLayout(new GridBagLayout());
+        etat.setMinimumSize(new Dimension(550, 100));
+        etat.setBackground(new Color(0, true));
+        etat.setBorder(new javax.swing.border.BevelBorder(BevelBorder.RAISED));
         GridBagConstraints gb = new GridBagConstraints();
         JLabel scoreLabel = new JLabel();
+        scoreLabel.setFont(new java.awt.Font("Arial", Font.BOLD, 18));
         if(score == 0){
             scoreLabel.setText("000000");
-        }
-        String str = Integer.toString(score);
-        String tmp = "";
-        for(int i = 0; i < 6-str.length(); i++){
-            tmp = tmp + "0";
-        }
-        tmp += str;
-        scoreLabel.setText(tmp);
-        gb.gridx = 0;
-        gb.gridy = 0;
-        gb.weighty = 0.5;
-        gb.weightx = 1.;
+        } else {
+            //scoreLabel.setText(String.valueOf(score));
 
-        etat.add(scoreLabel, gb);
+            String str = Integer.toString(score);
+            String tmp = "";
+            for (int i = 0; i < 6 - str.length(); i++) {
+                tmp = tmp + "0";
+            }
+            tmp += str;
+            scoreLabel.setText(tmp);
+        }
+        scoreLabel.setForeground(Color.WHITE);
+
+        JPanel scoree = new JPanel(new GridBagLayout());
+        scoree.setBackground(new Color(0x66000000, true));
+        scoree.setMinimumSize(new Dimension(100,60));
+        scoree.setPreferredSize(new Dimension(200,60));
+        scoree.add(scoreLabel,new GridBagConstraints());
+
+        JPanel animm = new JPanel(new GridBagLayout());
+        animm.setMinimumSize(new Dimension(100,60));
+        animm.setBackground(new Color(0x66000000, true));
+        JLabel tete = new JLabel(new ImageIcon("Ressources/Fonds/tetus.png"));
+        JLabel anim = new JLabel((niveau.getNb_animaux()) - animRes +" / " + niveau.getNb_animaux());
+        anim.setFont(new java.awt.Font("Arial", Font.BOLD, 18));
+        anim.setHorizontalAlignment(SwingConstants.CENTER);
+        animm.setPreferredSize(new Dimension(200,60));
+        anim.setForeground(Color.WHITE);
+        animm.add(tete,new GridBagConstraints());
+        animm.add(anim,new GridBagConstraints());
+
+        JPanel coupp = new JPanel(new GridBagLayout());
+        coupp.setMinimumSize(new Dimension(100,60));
+        coupp.setBackground(new Color(0x66000000, true));
+        JLabel coup = new JLabel();
+        coup.setMinimumSize(new Dimension(100,60));
+        coup.setBackground(new Color(0x66000000, true));
+        coup.setForeground(Color.WHITE);
+        coup.setFont(new java.awt.Font("Arial", Font.BOLD, 18));
+        if (coupRes<0){
+            coup.setText("-");
+        } else {
+            coup.setText(String.valueOf(coupRes));
+        }
+        coupp.add(coup,new GridBagConstraints());
+        gb.insets = new Insets(0,0,0,80);
+        etat.add(animm,gb);
+        gb.insets = new Insets(0,40,0,40);
+        etat.add(coupp,gb);
+        gb.insets = new Insets(0,40,0,0);
+        etat.add(scoree, gb);
         return etat;
     }
 
@@ -1065,26 +916,19 @@ public class AffichageGraphique extends JFrame {
 
     //affichage des règles
     public void regles(){
-
-        JLabel jLabel3 = new JLabel();
-
-        JPanel princ = new JPanel();
+        JPanel princ = new ImagePanel("Ressources/Fonds/regles.jpg");
         princ.setOpaque(false);
-        princ.setLayout(null);
+        princ.setLayout(new GridBagLayout());
 
-        //lancer les regles
-        //penser a faire ca aussi pour le mode texte au debut
-        JPanel sec = new JPanel(new GridBagLayout());
-        sec.setOpaque(false);
         GridBagConstraints gbc= new GridBagConstraints();
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0,0,30,0);
         gbc.gridy =0;
         JLabel l = new JLabel("<html><h1><strong>Regles</strong></h1><hr></html>");
-        l.setForeground(Color.BLACK);
-        sec.add(l,gbc);
+        l.setForeground(Color.WHITE);
+        princ.add(l,gbc);
         gbc.gridy = 1;
         JLabel regles = new JLabel("<html><pre>" +
-                "     Rescue All Dragons est un jeu de Réflexion    "+
+                "     Rescue All Dragons est un jeu de Reflexion    "+
                 "<br>" +
                 "<br>" +
                 "                 Votre Objectif :                  "+
@@ -1094,31 +938,32 @@ public class AffichageGraphique extends JFrame {
                 "<br>" +
                 "Pour y parvenir, vous devrez :                     " +
                 "<br>" +
-                "  - Détruire des blocs de même matériaux (min 2)   " +
+                "  - Detruire des blocs de meme materiaux (min 2)   " +
                 "<br>" +
                 "  - Amenez les dragons au sol pour les sauver      " +
                 "<br>" +
                 "  - Faire attention aux nombre de coups maximum    " +
                 "<br>" +
                 "<br>" +
-                "La partie est terminée lorsque :                   " +
+                "La partie est terminee lorsque :                   " +
                 "<br>" +
-                "  - Vous ne pouvez plus détruire de blocs          " +
+                "  - Vous ne pouvez plus detruire de blocs          " +
                 "<br>" +
-                "  - Vous avez effectué tous les coups disponibles  " +
+                "  - Vous avez effectue tous les coups disponibles  " +
                 "<br>" +
-                "  - Vous avez sauvé tous les dragons          " +
+                "  - Vous avez sauve tous les dragons          " +
                 "<br>" +
                 "</pre></html>");
         regles.setForeground(Color.BLACK);
         regles.setOpaque(true);
         regles.setFont(new java.awt.Font("Gill Sans MT", Font.BOLD, 14));
-        regles.setBackground(new Color(255,255,255,150));
+        regles.setBackground(new Color(255,255,255,100));
         regles.setHorizontalAlignment(JLabel.CENTER);
         regles.setPreferredSize(new Dimension(450,350));
         regles.setBorder(BorderFactory.createLineBorder(Color.black));
         gbc.anchor = GridBagConstraints.CENTER;
-        sec.add(regles,gbc);
+        gbc.insets = new Insets(0,0,0,0);
+        princ.add(regles,gbc);
         gbc.gridy = 2;
         gbc.insets = new Insets(20,0,0,0);
         JButton retour= new JButton("Retour");
@@ -1131,15 +976,7 @@ public class AffichageGraphique extends JFrame {
         retour.setBorder(BorderFactory.createLineBorder(Color.black));
         retour.setPreferredSize(new Dimension(100,40));
         retour.setHorizontalAlignment(SwingConstants.CENTER);
-        sec.add(retour,gbc);
-
-
-        princ.add(sec);
-        sec.setBounds(0, 0, 550, 725);
-
-        jLabel3.setIcon(new ImageIcon("C:\\Users\\pauli\\bear-rescuse-saga\\src\\Images\\rules.jpg"));
-        princ.add(jLabel3);
-        jLabel3.setBounds(0, 0, 550, 725);
+        princ.add(retour,gbc);
 
         main.add(princ, "REGLES");
         cl.show(main,"REGLES");

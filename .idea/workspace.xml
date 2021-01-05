@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="update">
+    <list default="true" id="7124b837-568f-4313-9586-d01fbcf0c2c7" name="Default Changelist" comment="all is ok">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/joueur.ser" beforeDir="false" afterPath="$PROJECT_DIR$/joueur.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level.ser" beforeDir="false" afterPath="$PROJECT_DIR$/level.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controleur/Controleur.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Controleur.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Controleur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controleur/Launcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Launcher.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controleur/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controleur/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modele/Grille.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Grille.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modele/Joueur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Joueur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/aventure.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/connexion.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/infini.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/presentLevel.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/principal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/rules.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/Sur/sommaire.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/flamme.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/hibou.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/levels.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/lune.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/nuitos.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/personnage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/portuxlevelux.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/autre/yewon-lim-008.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/sacus.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modele/Niveau.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Niveau.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modele/Niveau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modele/Niveau.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageGraphique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageGraphique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageTerminal.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageTerminal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vue/AffichageTerminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue/AffichageTerminal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/level.ser" beforeDir="false" afterPath="$PROJECT_DIR$/src/level.ser" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="module" />
+    </option>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -23,6 +46,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -57,8 +83,19 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pauli\bear-rescuse-saga" />
+      <recent name="C:\Users\pauli\bear-rescuse-saga\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pauli\bear-rescuse-saga\src" />
+      <recent name="C:\Users\pauli\bear-rescuse-saga\Ressources\Fonts" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Launcher">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -170,8 +207,41 @@
       <option name="project" value="LOCAL" />
       <updated>1609732077328</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="maj">
+      <created>1609791010241</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1609791010241</updated>
+    </task>
+    <task id="LOCAL-00009" summary="cmd + 2 interface debut ok">
+      <created>1609822500282</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1609822500282</updated>
+    </task>
+    <task id="LOCAL-00010" summary="all is ok">
+      <created>1609861784135</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1609861784135</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -179,6 +249,9 @@
     <MESSAGE value="Implémentation d'un systeme de point lors de la suppression, et d'un systeme de vérification d'un coup valide (plus d'un bloc à supprimer)" />
     <MESSAGE value="update" />
     <MESSAGE value="UI almost done" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI almost done" />
+    <MESSAGE value="maj" />
+    <MESSAGE value="cmd + 2 interface debut ok" />
+    <MESSAGE value="all is ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="all is ok" />
   </component>
 </project>
